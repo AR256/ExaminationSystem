@@ -4,6 +4,7 @@ using ITIExaminationSyustem.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ITIExaminationSyustem.Migrations
 {
     [DbContext(typeof(Exam_Context))]
-    partial class Exam_ContextModelSnapshot : ModelSnapshot
+    [Migration("20240305191938_m6")]
+    partial class m6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -191,27 +194,6 @@ namespace ITIExaminationSyustem.Migrations
                     b.HasIndex("StudId");
 
                     b.ToTable("Exam");
-                });
-
-            modelBuilder.Entity("ITIExaminationSyustem.Models.ExamQs", b =>
-                {
-                    b.Property<int?>("Exam_Id")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Q_Id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Result")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Student_Answer")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Exam_Id", "Q_Id");
-
-                    b.HasIndex("Q_Id");
-
-                    b.ToTable("ExamQs");
                 });
 
             modelBuilder.Entity("ITIExaminationSyustem.Models.Instructor", b =>
@@ -442,25 +424,6 @@ namespace ITIExaminationSyustem.Migrations
                     b.Navigation("Navigation_Student");
                 });
 
-            modelBuilder.Entity("ITIExaminationSyustem.Models.ExamQs", b =>
-                {
-                    b.HasOne("ITIExaminationSyustem.Models.Exam", "Navigation_Exam")
-                        .WithMany("Navigation_ExamQs")
-                        .HasForeignKey("Exam_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ITIExaminationSyustem.Models.Question", "Navigation_Question")
-                        .WithMany("Navigation_ExamQs")
-                        .HasForeignKey("Q_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Navigation_Exam");
-
-                    b.Navigation("Navigation_Question");
-                });
-
             modelBuilder.Entity("ITIExaminationSyustem.Models.Question", b =>
                 {
                     b.HasOne("ITIExaminationSyustem.Models.Course", "Navigation_Course")
@@ -525,11 +488,6 @@ namespace ITIExaminationSyustem.Migrations
                     b.Navigation("Navigation_Students");
                 });
 
-            modelBuilder.Entity("ITIExaminationSyustem.Models.Exam", b =>
-                {
-                    b.Navigation("Navigation_ExamQs");
-                });
-
             modelBuilder.Entity("ITIExaminationSyustem.Models.Instructor", b =>
                 {
                     b.Navigation("Departments");
@@ -540,11 +498,6 @@ namespace ITIExaminationSyustem.Migrations
             modelBuilder.Entity("ITIExaminationSyustem.Models.MainDepartment", b =>
                 {
                     b.Navigation("Navigation_Departments");
-                });
-
-            modelBuilder.Entity("ITIExaminationSyustem.Models.Question", b =>
-                {
-                    b.Navigation("Navigation_ExamQs");
                 });
 
             modelBuilder.Entity("ITIExaminationSyustem.Models.QuestionType", b =>
