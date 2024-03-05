@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Drawing;
 
 namespace ITIExaminationSyustem.Models
 {
@@ -17,10 +18,16 @@ namespace ITIExaminationSyustem.Models
 
         }
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<DepartmentInstructors>().HasKey(c => new { c.Dept_Id, c.Ins_Id });
             modelBuilder.Entity<StudentCourses>().HasKey(c => new { c.Crs_Id, c.Std_Id });
+            modelBuilder.Entity<ExamQs>().HasKey(c => new { c.Exam_Id, c.Q_Id });
+
+          
+
+
             base.OnModelCreating(modelBuilder);
         }
     }
