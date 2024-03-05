@@ -13,7 +13,7 @@ namespace ITIExaminationSyustem.Models
 
 
         [ForeignKey("Navigation_Department")]
-        public int Dept_Id { get; set; }
+        public int? Dept_Id { get; set; }
 
 
 
