@@ -20,6 +20,9 @@ namespace ITIExaminationSyustem.Models
         //-----------------------------------------------------------------------------
         public ICollection<Exam> Navigation_Exam { get; set; } = new HashSet<Exam>();
 
+        //-----------------------------------------------------------------------------
+        public ICollection<Question> Navigation_Question { get; set; } = new HashSet<Question>();
+
 
         #endregion
     }
