@@ -15,10 +15,13 @@ namespace ITIExaminationSyustem.Models
         
         public ICollection<Department> Navigation_Departments { get; set; } = new HashSet<Department>();
         //-----------------------------------------------------------------------------
-        public ICollection<StudentCourses> Navigation_StudentCourses { get; set; } = new HashSet<StudentCourses>();
+        public ICollection<StudentCourse> Navigation_StudentCourses { get; set; } = new HashSet<StudentCourse>();
 
         //-----------------------------------------------------------------------------
         public ICollection<Exam> Navigation_Exam { get; set; } = new HashSet<Exam>();
+
+        //-----------------------------------------------------------------------------
+        public ICollection<Question> Navigation_Question { get; set; } = new HashSet<Question>();
 
 
         #endregion

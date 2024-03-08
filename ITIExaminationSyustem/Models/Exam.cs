@@ -15,7 +15,7 @@ namespace ITIExaminationSyustem.Models
 
 
         [ForeignKey("Navigation_Course")]
-        public int Crs_Id { get; set; }
+        public int? Crs_Id { get; set; }
 
 
         [ForeignKey("Navigation_Student")]
@@ -29,6 +29,8 @@ namespace ITIExaminationSyustem.Models
         public Student Navigation_Student { get; set; }
         //-------------------------------------------------
         public  Course Navigation_Course { get; set; }
+        //-------------------------------------------------
+        public ICollection<ExamQs> Navigation_ExamQs { get; set; }=new HashSet<ExamQs>();   
 
         #endregion
     }
