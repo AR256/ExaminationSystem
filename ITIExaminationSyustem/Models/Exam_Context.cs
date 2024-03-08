@@ -14,7 +14,6 @@ namespace ITIExaminationSyustem.Models
         public DbSet<Course> Courses { set; get; }
         public DbSet<Exam> Exams { set; get; }
         public DbSet<ExamQs> ExamQs { set; get; }
-        public DbSet<HumanResource> HumanResources { set; get; }
         public DbSet<MainDepartment> MainDepartments { set; get; }
         public DbSet<Question> Questions { set; get; }
         public DbSet<QuestionType> QuestionTypes { set; get; }
@@ -22,6 +21,7 @@ namespace ITIExaminationSyustem.Models
         public DbSet<Student> Students { set; get; }
         public DbSet<StudentCourse> StudentCourses { set; get; }
         public DbSet<User> Users { set; get; }
+        public DbSet<Admin> Admins { set; get; }
 
 
 

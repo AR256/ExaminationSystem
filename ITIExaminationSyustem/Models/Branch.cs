@@ -17,7 +17,8 @@ namespace ITIExaminationSyustem.Models
 
         #region Navigation Property
         public ICollection<Department> Navigation_Departments { get; set; } = new HashSet<Department>();
-        public ICollection<HumanResource> Navigation_Human_Resources { get; set; } = new HashSet<HumanResource>();
+        public Admin? Navigation_Admin { get; set; }
+
         #endregion
     }
 }

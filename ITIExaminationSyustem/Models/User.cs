@@ -25,7 +25,7 @@ namespace ITIExaminationSyustem.Models
         public Role Navigation_Role { get; set; }
         public Instructor? Navigation_Instructor { get; set; }
         public Student? Navigation_Student { get; set; }
-        public HumanResource? Navigation_Human_Resource { get; set; }
+        public Admin? Navigation_Admin { get; set; }
         #endregion
     }
 }
