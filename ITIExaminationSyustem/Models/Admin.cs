@@ -3,24 +3,21 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ITIExaminationSyustem.Models
 {
-    public class HumanResource
+    public class Admin
     {
         [Key]
-        public int Human_Resource_Id { get; set; }
-        public string Human_Resource_Name { get; set; }
+        public int Admin_Id { get; set; }
+        public string Admin_Name { get; set; }
         [ForeignKey("Navigation_User")]
-        public string HR_User_Email { get; set; }
+        public string Admin_User_Email { get; set; }
         [ForeignKey("Navigation_Branch")]
-        public int  HR_Branch_Id{ get; set; }
-
-
-
+        public int Admin_Branch_Id { get; set; }
 
 
         #region Navigation property
         public User Navigation_User { get; set; }
         public Branch Navigation_Branch { get; set; }
         #endregion
+
     }
 }
-
