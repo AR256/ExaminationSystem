@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualBasic;
+﻿using ITIExaminationSyustem.Interfaces;
+using Microsoft.VisualBasic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -8,9 +9,11 @@ namespace ITIExaminationSyustem.Models
     {
         [Key]
         public int Exam_Id { get; set; }
-        public  int Grade { get; set; }
 
-        public DateTime Date { get; set; }
+        public  int? Grade { get; set; }
+
+
+        
 
 
         [ForeignKey("Navigation_Course")]

@@ -9,6 +9,9 @@ namespace ITIExaminationSyustem.Models
         [ForeignKey("Navigation_Instructor")]
         public int? Ins_Id { get; set; }
 
+
+
+
         #region Navigation property
         // Many To Many Has
         public Instructor Navigation_Instructor { get; set; }
