@@ -8,6 +8,7 @@ namespace ITIExaminationSyustem.Models
         public int Course_Id { get; set; }
         public string Course_Name { get; set; }
         public int Course_Duration { get; set; }
+        public int Crs_Exam_Duration { get; set; }
 
         public int Crs_Exam_Duration { get; set; }
         public DateTime Course_Exam_StartDate { get; set; }

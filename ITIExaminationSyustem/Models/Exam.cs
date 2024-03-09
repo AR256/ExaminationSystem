@@ -9,7 +9,9 @@ namespace ITIExaminationSyustem.Models
     {
         [Key]
         public int Exam_Id { get; set; }
+
         public  int? Grade { get; set; }
+
 
         
 
