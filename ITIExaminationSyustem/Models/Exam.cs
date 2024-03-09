@@ -8,7 +8,6 @@ namespace ITIExaminationSyustem.Models
     {
         [Key]
         public int Exam_Id { get; set; }
-        public int Exam_Duration { get; set; }
         public  int Grade { get; set; }
 
         public DateTime Date { get; set; }
