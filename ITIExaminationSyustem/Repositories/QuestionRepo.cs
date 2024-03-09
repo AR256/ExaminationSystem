@@ -31,7 +31,7 @@ namespace ITIExaminationSyustem.Repositories
         }
         public void Delete(int id)
         {
-            var questionToDelete = _context.Questions.SingleOrDefault(question => question.Question_Id == id);
+            var questionToDelete = GetById(id);
             _context.Questions.Remove(questionToDelete);
             _context.SaveChanges();
         }
