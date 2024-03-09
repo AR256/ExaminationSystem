@@ -13,16 +13,13 @@ namespace ITIExaminationSyustem.Models
         public string  User_Image { get; set; }
         public string User_Password { get; set; }
 
-        [ForeignKey("Navigation_Role")]
-        public int Role_Id { get; set; }
-
 
 
 
 
 
         #region Navigation property
-        public Role Navigation_Role { get; set; }
+        public ICollection<Role> Navigation_Roles { get; set; } = new HashSet<Role>();
         public Instructor? Navigation_Instructor { get; set; }
         public Student? Navigation_Student { get; set; }
         public Admin? Navigation_Admin { get; set; }
