@@ -8,7 +8,7 @@ namespace ITIExaminationSyustem.Interfaces
         List<Student> GetCourseStudents(int id);
         StudentCourse GetStudentCourseDetails(int studentId, int courseId);
         List<String> GetCourseFeedbacks(int courseId);
-        List<String> GetStudentFeedbacks(int studentId, int courseId); //--> for dept manager
+        List<String> GetStudentFeedbacks(int studentId); //--> for dept manager
         void UpdateStudentFeedback(int studentId, int courseId, string feedback);
 
     }
