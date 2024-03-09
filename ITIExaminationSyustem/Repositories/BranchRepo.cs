@@ -33,7 +33,7 @@ namespace ITIExaminationSyustem.Repositories
 
         public void Delete(int id)
         {
-            var branchToDelete = _context.Branches.SingleOrDefault(branch => branch.Branch_Id == id);
+            var branchToDelete = GetById(id);
             _context.Branches.Remove(branchToDelete);
             _context.SaveChanges();
         }
