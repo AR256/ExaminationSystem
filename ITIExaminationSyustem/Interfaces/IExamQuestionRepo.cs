@@ -6,5 +6,6 @@ namespace ITIExaminationSyustem.Interfaces
     {
         List<ExamQs> GetAnsweredQuestions(int id);
         List<ExamQs> GenerateExam(int crsId, int stdId);
+        void SubmitAnswers(string ans,int examId,int qsId);
     }
 }

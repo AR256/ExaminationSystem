@@ -32,6 +32,7 @@ namespace ITIExaminationSyustem.Repositories
 
         public void Delete(int id)
         {
+
             var choiceToDelete = GetById(id);
             _context.Choices.Remove(choiceToDelete);
             _context.SaveChanges();
