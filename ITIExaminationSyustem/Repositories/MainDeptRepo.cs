@@ -31,7 +31,7 @@ namespace ITIExaminationSyustem.Repositories
         }
         public void Delete(int id)
         {
-            var mainDeptToDelete = _context.MainDepartments.SingleOrDefault(mainDept => mainDept.MainDepartment_Id == id);
+            var mainDeptToDelete = GetById(id);
             _context.MainDepartments.Remove(mainDeptToDelete);
             _context.SaveChanges();
         }
