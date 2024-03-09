@@ -69,7 +69,7 @@ namespace ITIExaminationSyustem.Repositories
             return examlist;
         }
 
-        public void SubmitAnswers(string answer, int examId, int qsId)  //model view??????????
+        public void SubmitAnswers(string answer, int examId, int qsId)  //model view?????????? to edit
         {
             var question = _context.Questions.Include(a=>a.Navigation_QuestionType).SingleOrDefault(a => a.Question_Id == qsId);
             int res = 0;
