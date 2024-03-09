@@ -5,6 +5,8 @@ namespace ITIExaminationSyustem.Models
 {
     public class User
     {
+        //remember to switch this id to be primary key
+        public int User_Id { get; set; }
         
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
