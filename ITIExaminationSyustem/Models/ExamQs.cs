@@ -1,11 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using ITIExaminationSyustem.Interfaces;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ITIExaminationSyustem.Models
 {
     public class ExamQs
     {
         [ForeignKey("Navigation_Exam")]
-
         public int? Exam_Id { get; set; }
         [ForeignKey("Navigation_Question")]
         public int? Q_Id { get; set; }
