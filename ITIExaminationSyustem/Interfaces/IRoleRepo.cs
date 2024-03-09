@@ -7,6 +7,7 @@ namespace ITIExaminationSyustem.Interfaces
         void Add(Role role);
         void Update(Role role);
         void Delete(int id);
+        Role GetById(int id);
         List<User> GetUsers(int id);
     }
 }
