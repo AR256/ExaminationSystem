@@ -31,7 +31,7 @@ namespace ITIExaminationSyustem.Repositories
         }
         public void Delete(int id)
         {
-            var instructorToDelete = _context.Instructors.SingleOrDefault(ins => ins.Instructor_Id == id);
+            var instructorToDelete = GetById(id);
             _context.Instructors.Remove(instructorToDelete);
             _context.SaveChanges();
         }
