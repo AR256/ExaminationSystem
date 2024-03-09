@@ -9,8 +9,10 @@ namespace ITIExaminationSyustem.Models
         public int Question_Id { get; set; }
         public string Question_Text { get; set; }
         public string Question_Answer { get; set; }
+
         [ForeignKey("Navigation_QuestionType")]
         public int? Question_Type { get; set; }
+
         [ForeignKey("Navigation_Course")]
         public int? Crs_Id { get; set; }
 
