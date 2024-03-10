@@ -38,9 +38,18 @@ namespace ITIExaminationSyustem.Controllers
         public IActionResult Edit(int id)
         {
             var branchtoedited = branchRepo.GetById(id);
-            return View();
+            return View(branchtoedited);
         }
-
-
+        [HttpPost]
+        public IActionResult Update(Branch branch)
+        {
+            branchRepo.Update(branch);
+            return RedirectToAction("Index");
+        }
+        public IActionResult Details(int id)
+        {
+            var targetBranch = branchRepo.GetById(id);
+            return View(targetBranch);
+        }
     }
 }

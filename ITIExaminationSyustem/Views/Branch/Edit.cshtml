@@ -1,7 +1,21 @@
-﻿
+﻿@model Branch
 @{
     ViewData["Title"] = "Edit";
 }
 
 <h1>Edit</h1>
 
+<form asp-action="Update" asp-controller="Branch" method="post">
+    <input type="hidden" asp-for="@Model.Branch_Id" />
+    <div class="form-group">
+        <label asp-for="@Model.Branch_Name"></label>
+        <input asp-for="@Model.Branch_Name" type="text" class="form-control" placeholder="Enter Branch Name">
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Branch_Manager_Name"></label>
+        <input asp-for="@Model.Branch_Manager_Name" type="text" class="form-control" placeholder="Enter Manager Name">
+    </div>
+    <input type="submit" value="Update" class="btn btn-danger" />
+</form>
+
+<a asp-action="Index" asp-controller="Branch" class="btn btn-info">BackToList</a>
