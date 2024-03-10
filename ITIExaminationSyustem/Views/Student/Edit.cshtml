@@ -1,40 +1,46 @@
-﻿@model Student
+﻿@model StudentDepartmentsViewModel
 @{
     ViewBag.Title = "Edit Student";
+    SelectList mainDepartments = new SelectList(Model.MainDepartments, "MainDepartment_Id", "MainDepartment_Name");
+    SelectList CoursesNotInStudent = new SelectList(ViewBag.CoursesNotInStudent, "Course_Id", "Course_Name");
+    SelectList CoursesInStudent = new SelectList(Model.StudentCourses, "Course_Id", "Course_Name");
 }
 
 
 
-<form class="form-control">
+<form class="form-control" method="post" enctype="multipart/form-data">
     <div class="form-group">
-        <label for="exampleFormControlInput1">Student Name</label>
-        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Name" value="@Model">
+        <label for="exampleFormControlInput1">Name</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Name" value="@Model.Student_Name" name="Name">
     </div>
 
     <div class="form-group">
-        <label for="studemail">Student Name</label>
-        <input type="text" class="form-control" id="studemail" placeholder="Email" value="@Model.Navigation_User.User_Email">
+        <label for="studemail">Email</label>
+        <input type="text" class="form-control" id="studemail" placeholder="Email" value="@Model.Student_Email" name="Email">
     </div>
 
     <div class="form-group">
-        <label for="studDep">Example select</label>
-        <select class="form-control" id="studDep" >
+        <label for="studDep">Department</label>
+        <select class="form-control" id="studDep" asp-items="mainDepartments" name="departmentNumber">
             
         </select>
     </div>
 
     <div class="form-group">
-        <label for="exampleFormControlSelect2">Example multiple select</label>
-        <select multiple class="form-control" id="exampleFormControlSelect2">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
+        <label for="StdCrses"> Student Courses</label>
+        <select multiple class="form-control" id="StdCrses" asp-items="CoursesInStudent" name="toRemove">
+            
         </select>
+
+        <label for="NotStdCrses"> Other Courses</label>
+        <select multiple class="form-control" id="NotStdCrses" asp-items="CoursesNotInStudent" name="toAdd">
+        </select>
+
     </div>
     <div class="form-group">
-        <label for="exampleFormControlTextarea1">Example textarea</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        <input type="file" name="image" />
     </div>
+
+    <input type="submit" class="btn btn-outline-primary" value="Apply" />
+   
 </form>
