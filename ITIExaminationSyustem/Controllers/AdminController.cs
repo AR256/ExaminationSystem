@@ -1,13 +1,14 @@
-﻿using ITIExaminationSyustem.Repositories;
+﻿using ITIExaminationSyustem.Interfaces;
+using ITIExaminationSyustem.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ITIExaminationSyustem.Controllers
 {
     public class AdminController : Controller
     {
-        private BranchRepo branchRepo;
+        private IBranchRepo branchRepo;
 
-        public AdminController(BranchRepo branchRepo)
+        public AdminController(IBranchRepo branchRepo)
         {
             this.branchRepo = branchRepo;
         }
