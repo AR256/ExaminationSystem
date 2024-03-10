@@ -16,16 +16,11 @@
         {
         <tr>
             <td>@item.Branch_Name</td>
-                <td>
-                    @foreach (var item1 in ViewBag.Branch_Manager_Name)
-                    {
-                      @item1.BranchManager.Branch_Manager_Name
-                    }
-                </td>
+             <td>@item.Branch_Manager_Name</td>
             <td>
                 <a asp-action="Details" asp-controller="Branch" class="btn btn-info">Details</a>
-                <a asp-action="EditBranch" asp-controller="Branch" class="btn btn-info">Edit</a>
-                <a asp-action="DeleteBranch" asp-controller="Branch" class="btn btn-danger">Delete</a>
+                    <a asp-action="Edit" asp-controller="Branch" asp-route-Id="@item.Branch_Id" class="btn btn-info">Edit</a>
+                <a asp-action="Delete" asp-controller="Branch" asp-route-Id="@item.Branch_Id" class="btn btn-danger">Delete</a>
             </td>
         </tr>
         }

@@ -29,7 +29,7 @@ namespace ITIExaminationSyustem.Models
         public Instructor? Navigation_Instructor { get; set; }
         public Student? Navigation_Student { get; set; }
         public Admin? Navigation_Admin { get; set; }
-        public BranchManager? Navigation_BranchManager { get; set; }
+        public Branch? Navigation_Branch { get; set; }
         #endregion
     }
 }

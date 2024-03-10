@@ -9,7 +9,6 @@ namespace ITIExaminationSyustem.Models
         public DbSet<Instructor> Instructors { get; set; }
         public DbSet<DepartmentInstructors> DepartmentInstructors { set; get; }
         public DbSet<Branch> Branches { set; get; }
-        public DbSet<BranchManager> BranchManagers { set; get; }
         public DbSet<Choice> Choices { set; get; }
         public DbSet<Course> Courses { set; get; }
         public DbSet<Exam> Exams { set; get; }

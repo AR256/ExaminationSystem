@@ -8,17 +8,14 @@ namespace ITIExaminationSyustem.Controllers
     public class BranchController : Controller
     {
         private IBranchRepo branchRepo;
-        private IBranchManagerRepo branchManagerRepo;
 
-        public BranchController(IBranchRepo branchRepo, IBranchManagerRepo branchManagerRepo)
+        public BranchController(IBranchRepo branchRepo)
         {
             this.branchRepo = branchRepo;
-            this.branchManagerRepo = branchManagerRepo;
         }
         public IActionResult Index()
         {
             var branchList = branchRepo.GetAll();
-            ViewBag.Branch_Manager_Name = branchManagerRepo.GetAll();
             return View(branchList);
         }
         [HttpGet]
@@ -32,5 +29,18 @@ namespace ITIExaminationSyustem.Controllers
             branchRepo.Add(branch);
             return RedirectToAction("Index");
         }
+        public IActionResult Delete(int id)
+        {
+            branchRepo.Delete(id);
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var branchtoedited = branchRepo.GetById(id);
+            return View();
+        }
+
+
     }
 }
