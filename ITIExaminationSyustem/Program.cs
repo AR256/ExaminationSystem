@@ -18,7 +18,6 @@ namespace ITIExaminationSyustem
                 a.UseSqlServer(builder.Configuration.GetConnectionString("con1"));
             });
             builder.Services.AddScoped<IAdminRepo, AdminRepo>();
-            builder.Services.AddScoped<IBranchManagerRepo, BranchManagerRepo>();
             builder.Services.AddScoped<IBranchRepo, BranchRepo>();
             builder.Services.AddScoped<IChoiceRepo, ChoiceRepo>();
             builder.Services.AddScoped<ICourseRepo, CourseRepo>();
