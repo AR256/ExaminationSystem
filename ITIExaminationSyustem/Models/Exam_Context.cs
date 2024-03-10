@@ -41,6 +41,7 @@ namespace ITIExaminationSyustem.Models
             modelBuilder.Entity<DepartmentInstructors>().HasKey(c => new { c.Dept_Id, c.Ins_Id });
             modelBuilder.Entity<StudentCourse>().HasKey(c => new { c.Crs_Id, c.Std_Id });
             modelBuilder.Entity<ExamQs>().HasKey(c => new { c.Exam_Id, c.Q_Id });
+            modelBuilder.Entity<User>().HasIndex(e=>e.User_Email).IsUnique();
 
           
 
