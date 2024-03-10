@@ -1,0 +1,47 @@
+﻿@model List<Course>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_layout";
+}
+
+<html>
+<head>
+    <link href="/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <a asp-action="create" asp-controller="course" class="btn btn-dark">Create</a>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Course ID</th>
+                <th>Course Name</th>
+                <th>Course Duration</th>
+                <th>Course Exam Duration</th>
+                <th>Course Exam Start Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Course_Id</td>
+                    <td>@item.Course_Name</td>
+                    <td>@item.Course_Duration</td>
+                    <td>@item.Crs_Exam_Duration</td>
+                    <td>@item.Course_Exam_StartDate</td>
+                    <td>
+                        <a asp-action="Details" asp-controller="course" asp-route-id="@item.Course_Id" class="btn btn-info"> Details</a>
+                        <a asp-action="Edit" asp-controller="course" asp-route-id="@item.Course_Id" class="btn btn-info"> Update</a>
+                        <a asp-action="Delete" asp-controller="course" onclick="return confirm('are you sure')" asp-route-id="@item.Course_Id" class="btn btn-danger"> Delete</a>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+</body>
+</html>
