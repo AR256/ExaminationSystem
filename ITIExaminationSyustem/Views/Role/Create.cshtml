@@ -1,0 +1,25 @@
+﻿@model Role
+@{
+    Layout = "_layout";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link href="/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+<body>
+    <form method="post">
+        <label asp-for="Role_Type" class="form-control">Role Type</label>
+        <input asp-for="Role_Type" class="form-control" />
+        <span asp-validation-for="Role_Type" class="text-danger"></span><br />
+        <input type="submit" value="Add Role" class="btn btn-primary" />
+    </form>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+</body>
+</html>
