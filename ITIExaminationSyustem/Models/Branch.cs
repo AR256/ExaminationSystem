@@ -8,14 +8,14 @@ namespace ITIExaminationSyustem.Models
         [Key]
         public int Branch_Id { get; set; }
         public string  Branch_Name { get; set; }
-  
-
+        public string Branch_Manager_Name { get; set; }
 
 
 
 
 
         #region Navigation Property
+
         public ICollection<Department> Navigation_Departments { get; set; } = new HashSet<Department>();
         public Admin? Navigation_Admin { get; set; }
 

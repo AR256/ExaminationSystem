@@ -4,6 +4,7 @@ using ITIExaminationSyustem.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ITIExaminationSyustem.Migrations
 {
     [DbContext(typeof(Exam_Context))]
-    partial class Exam_ContextModelSnapshot : ModelSnapshot
+    [Migration("20240310164504_change-name-to-user")]
+    partial class changenametouser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -101,15 +104,32 @@ namespace ITIExaminationSyustem.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Branch_Id"));
 
-                    b.Property<string>("Branch_Manager_Name")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Branch_Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Branch_Id");
 
                     b.ToTable("Branches");
+                });
+
+            modelBuilder.Entity("ITIExaminationSyustem.Models.BranchManager", b =>
+                {
+                    b.Property<int>("Branch_Manager_Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Branch_Manager_Id"));
+
+                    b.Property<int?>("Branch_Manager_User_Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("Branch_Manager_Id");
+
+                    b.HasIndex("Branch_Manager_User_Id")
+                        .IsUnique()
+                        .HasFilter("[Branch_Manager_User_Id] IS NOT NULL");
+
+                    b.ToTable("BranchManagers");
                 });
 
             modelBuilder.Entity("ITIExaminationSyustem.Models.Choice", b =>
@@ -403,9 +423,6 @@ namespace ITIExaminationSyustem.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("User_Id"));
 
-                    b.Property<int?>("Navigation_BranchBranch_Id")
-                        .HasColumnType("int");
-
                     b.Property<string>("User_Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -421,8 +438,6 @@ namespace ITIExaminationSyustem.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("User_Id");
-
-                    b.HasIndex("Navigation_BranchBranch_Id");
 
                     b.HasIndex("User_Email")
                         .IsUnique();
@@ -503,6 +518,15 @@ namespace ITIExaminationSyustem.Migrations
                         .HasForeignKey("ITIExaminationSyustem.Models.Admin", "Admin_User_Id");
 
                     b.Navigation("Navigation_Branch");
+
+                    b.Navigation("Navigation_User");
+                });
+
+            modelBuilder.Entity("ITIExaminationSyustem.Models.BranchManager", b =>
+                {
+                    b.HasOne("ITIExaminationSyustem.Models.User", "Navigation_User")
+                        .WithOne("Navigation_BranchManager")
+                        .HasForeignKey("ITIExaminationSyustem.Models.BranchManager", "Branch_Manager_User_Id");
 
                     b.Navigation("Navigation_User");
                 });
@@ -639,15 +663,6 @@ namespace ITIExaminationSyustem.Migrations
                     b.Navigation("Navigation_Student");
                 });
 
-            modelBuilder.Entity("ITIExaminationSyustem.Models.User", b =>
-                {
-                    b.HasOne("ITIExaminationSyustem.Models.Branch", "Navigation_Branch")
-                        .WithMany()
-                        .HasForeignKey("Navigation_BranchBranch_Id");
-
-                    b.Navigation("Navigation_Branch");
-                });
-
             modelBuilder.Entity("RoleUser", b =>
                 {
                     b.HasOne("ITIExaminationSyustem.Models.Role", null)
@@ -723,6 +738,8 @@ namespace ITIExaminationSyustem.Migrations
             modelBuilder.Entity("ITIExaminationSyustem.Models.User", b =>
                 {
                     b.Navigation("Navigation_Admin");
+
+                    b.Navigation("Navigation_BranchManager");
 
                     b.Navigation("Navigation_Instructor");
 

@@ -1,0 +1,22 @@
+﻿@model Branch
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<table class=" table table-striped table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Branch name</th>
+            <th>Branch Manager</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+             <td>@Model.Branch_Name</td>
+             <td>@Model.Branch_Manager_Name</td>
+        </tr>
+    </tbody>
+    </table>
