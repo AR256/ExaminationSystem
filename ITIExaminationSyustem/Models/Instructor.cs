@@ -8,7 +8,6 @@ namespace ITIExaminationSyustem.Models
         [Key]
         
         public int Instructor_Id { get; set; }
-        public string Instructor_Name { get; set; }
 
         [ForeignKey("Navigation_User")]
         public int? Ins_User_Id { get; set; }
