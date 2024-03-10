@@ -10,7 +10,6 @@ namespace ITIExaminationSyustem.Models
 
         [ForeignKey("Navigation_User")]
         public int? Branch_Manager_User_Id { get; set; }
-        public string Branch_Manager_Name { get; set; }
 
 
 
