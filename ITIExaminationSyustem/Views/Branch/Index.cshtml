@@ -1,0 +1,25 @@
+﻿@model Branch
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Branch Details</h1>
+
+<table class=" table table-striped table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Branch name</th>
+            <th>Actions</th>
+        </tr>
+        <tr>
+            <td>@Model.Branch_Name</td>
+            <td>
+                <a asp-action="Details" asp-controller="Branch" class="btn btn-info">Details</a>
+                <a asp-action="EditBranch" asp-controller="Branch" class="btn btn-info">Edit</a>
+                <a asp-action="DeleteBranch" asp-controller="Branch" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+
+        <a asp-action="AddBranch" asp-controller="Branch" class="btn btn-info">Add</a>
