@@ -16,7 +16,8 @@ namespace ITIExaminationSyustem
             builder.Services.AddDbContext<Exam_Context>(a =>
             {
                 a.UseSqlServer(builder.Configuration.GetConnectionString("con1"));
-            });
+
+            },ServiceLifetime.Singleton);
             builder.Services.AddScoped<IAdminRepo, AdminRepo>();
             builder.Services.AddScoped<IBranchManagerRepo, BranchManagerRepo>();
             builder.Services.AddScoped<IBranchRepo, BranchRepo>();
