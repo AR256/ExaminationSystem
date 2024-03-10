@@ -1,0 +1,30 @@
+﻿@model ITIExaminationSyustem.Models.Question
+@{
+    SelectList cl = new SelectList(ViewBag.CrsList, "Course_Id", "Course_Name");
+    SelectList tl = new SelectList(ViewBag.TypeList, "QuestionType_Id", "Type");
+}
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="form-group">
+    <label asp-for="Question_Text" class="control-label"></label>
+    <input asp-for="Question_Text" class="form-control" />
+    <span asp-validation-for="Question_Text" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="Question_Answer" class="control-label"></label>
+    <input asp-for="Question_Answer" class="form-control" />
+    <span asp-validation-for="Question_Answer" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="Question_Type" class="control-label">Question Type</label>
+    <select asp-for="Question_Type" asp-items="tl" class="form-control">
+        <option>Select Type</option>
+    </select>
+    <span asp-validation-for="Question_Type"></span><br />
+</div>
+<div class="form-group">
+    <label asp-for="Crs_Id">Course Name</label>
+    <select asp-for="Crs_Id" asp-items="cl" class="form-control">
+        <option>Select Course</option>
+    </select>
+    <span asp-validation-for="Crs_Id"></span><br />
+</div>
