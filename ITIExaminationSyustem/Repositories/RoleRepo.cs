@@ -13,6 +13,11 @@ namespace ITIExaminationSyustem.Repositories
             _context = examContext;
         }
 
+        public List<Role> GetAll()
+        {
+            return _context.Roles.ToList();
+        }
+
         public void Add(Role role)
         {
             _context.Roles.Add(role);

@@ -4,6 +4,7 @@ namespace ITIExaminationSyustem.Interfaces
 {
     public interface IRoleRepo
     {
+        List<Role> GetAll();
         void Add(Role role);
         void Update(Role role);
         void Delete(int id);
