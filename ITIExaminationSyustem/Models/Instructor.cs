@@ -11,7 +11,7 @@ namespace ITIExaminationSyustem.Models
         public string Instructor_Name { get; set; }
 
         [ForeignKey("Navigation_User")]
-        public string Ins_User_Email { get; set; }
+        public int? Ins_User_Id { get; set; }
 
 
 
