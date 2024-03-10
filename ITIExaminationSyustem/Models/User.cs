@@ -15,7 +15,7 @@ namespace ITIExaminationSyustem.Models
         public string User_Email { get; set; }
         public string  User_Image { get; set; }
         [Required]
-        [RegularExpression(@"/^(?=.\d)(?=.[A-Z])(?=.[a-z])(?=.[^\w\d\s:])([^\s]){8,16}$/gm")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$")]
         public string User_Password { get; set; }
 
 
