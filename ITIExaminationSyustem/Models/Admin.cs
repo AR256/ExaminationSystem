@@ -9,7 +9,7 @@ namespace ITIExaminationSyustem.Models
         public int Admin_Id { get; set; }
         public string Admin_Name { get; set; }
         [ForeignKey("Navigation_User")]
-        public string Admin_User_Email { get; set; }
+        public int? Admin_User_Id { get; set; }
         [ForeignKey("Navigation_Branch")]
         public int Admin_Branch_Id { get; set; }
 
