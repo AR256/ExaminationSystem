@@ -1,16 +1,23 @@
 ﻿using ITIExaminationSyustem.Interfaces;
 using ITIExaminationSyustem.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace ITIExaminationSyustem.Controllers
 {
     public class UserController : Controller
     {
         IUserRepo _userRepo;
+        IAdminRepo _adminRepo;
+        IInstructorRepo _instructorRepo;
+        IStudentRepo _studentRepo;
 
-        public UserController(IUserRepo userRepo)
+        public UserController(IUserRepo userRepo, IAdminRepo adminRepo, IInstructorRepo instructorRepo, IStudentRepo studentRepo)
         {
             _userRepo = userRepo;
+            _adminRepo = adminRepo;
+            _instructorRepo = instructorRepo;
+            _studentRepo = studentRepo;
         }
 
         public IActionResult Index()
@@ -19,9 +26,9 @@ namespace ITIExaminationSyustem.Controllers
             return View(users);
         }
 
-        public IActionResult Details(int id)
+        public IActionResult Details(int? id)
         {
-            User fetchedUser = _userRepo.GetById(id);
+            User fetchedUser = _userRepo.GetById(id.Value);
             return View(fetchedUser);
         }
 
@@ -31,7 +38,7 @@ namespace ITIExaminationSyustem.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(User user)
+        public IActionResult Create(User user) //image is missing
         {
             if(ModelState.IsValid)
             {
@@ -44,14 +51,14 @@ namespace ITIExaminationSyustem.Controllers
             }
         }
 
-        public IActionResult Edit(int id)
+        public IActionResult Edit(int? id)
         {
-            User userToEdit = _userRepo.GetById(id);
+            User userToEdit = _userRepo.GetById(id.Value);
             return View(userToEdit);
         }
 
         [HttpPost]
-        public IActionResult Edit(User user)
+        public IActionResult Edit(User user) //image is missing
         {
             if (ModelState.IsValid)
             {
@@ -64,8 +71,19 @@ namespace ITIExaminationSyustem.Controllers
             }
         }
 
-        public IActionResult Delete(int id)
+        public IActionResult Delete(int id) //Completed
         {
+            User user = _userRepo.GetById(id);
+
+            if (user.Navigation_Instructor != null)
+                _instructorRepo.Delete(user.Navigation_Instructor.Instructor_Id);
+
+            else if (user.Navigation_Student != null)
+                _studentRepo.Delete(user.Navigation_Student.Student_Id);
+
+            else if (user.Navigation_Admin != null)
+                _adminRepo.Delete(user.Navigation_Admin.Admin_Id);
+
             _userRepo.Delete(id);
             return RedirectToAction("Index");
         }
