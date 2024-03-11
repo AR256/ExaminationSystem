@@ -34,7 +34,7 @@ namespace ITIExaminationSyustem.Migrations
 
                     b.HasIndex("Navigation_QuestionsQuestion_Id");
 
-                    b.ToTable("ChoiceQuestion");
+                    b.ToTable("ChoiceQuestion", (string)null);
                 });
 
             modelBuilder.Entity("CourseDepartment", b =>
@@ -49,7 +49,7 @@ namespace ITIExaminationSyustem.Migrations
 
                     b.HasIndex("Navigation_DepartmentsDepartment_Id");
 
-                    b.ToTable("CourseDepartment");
+                    b.ToTable("CourseDepartment", (string)null);
                 });
 
             modelBuilder.Entity("CourseInstructor", b =>
@@ -64,7 +64,7 @@ namespace ITIExaminationSyustem.Migrations
 
                     b.HasIndex("Navigation_InstructorsInstructor_Id");
 
-                    b.ToTable("CourseInstructor");
+                    b.ToTable("CourseInstructor", (string)null);
                 });
 
             modelBuilder.Entity("ITIExaminationSyustem.Models.Admin", b =>
@@ -90,7 +90,7 @@ namespace ITIExaminationSyustem.Migrations
                         .IsUnique()
                         .HasFilter("[Admin_User_Id] IS NOT NULL");
 
-                    b.ToTable("Admins");
+                    b.ToTable("Admins", (string)null);
                 });
 
             modelBuilder.Entity("ITIExaminationSyustem.Models.Branch", b =>
@@ -109,7 +109,7 @@ namespace ITIExaminationSyustem.Migrations
 
                     b.HasKey("Branch_Id");
 
-                    b.ToTable("Branches");
+                    b.ToTable("Branches", (string)null);
                 });
 
             modelBuilder.Entity("ITIExaminationSyustem.Models.Choice", b =>
@@ -125,7 +125,7 @@ namespace ITIExaminationSyustem.Migrations
 
                     b.HasKey("Choice_Id");
 
-                    b.ToTable("Choices");
+                    b.ToTable("Choices", (string)null);
                 });
 
             modelBuilder.Entity("ITIExaminationSyustem.Models.Course", b =>
@@ -150,7 +150,7 @@ namespace ITIExaminationSyustem.Migrations
 
                     b.HasKey("Course_Id");
 
-                    b.ToTable("Courses");
+                    b.ToTable("Courses", (string)null);
                 });
 
             modelBuilder.Entity("ITIExaminationSyustem.Models.Department", b =>
@@ -181,7 +181,7 @@ namespace ITIExaminationSyustem.Migrations
 
                     b.HasIndex("MainDept_Id");
 
-                    b.ToTable("Departments");
+                    b.ToTable("Departments", (string)null);
                 });
 
             modelBuilder.Entity("ITIExaminationSyustem.Models.DepartmentInstructors", b =>
@@ -196,7 +196,7 @@ namespace ITIExaminationSyustem.Migrations
 
                     b.HasIndex("Ins_Id");
 
-                    b.ToTable("DepartmentInstructors");
+                    b.ToTable("DepartmentInstructors", (string)null);
                 });
 
             modelBuilder.Entity("ITIExaminationSyustem.Models.Exam", b =>
@@ -222,7 +222,7 @@ namespace ITIExaminationSyustem.Migrations
 
                     b.HasIndex("StudId");
 
-                    b.ToTable("Exams");
+                    b.ToTable("Exams", (string)null);
                 });
 
             modelBuilder.Entity("ITIExaminationSyustem.Models.ExamQs", b =>
@@ -243,7 +243,7 @@ namespace ITIExaminationSyustem.Migrations
 
                     b.HasIndex("Q_Id");
 
-                    b.ToTable("ExamQs");
+                    b.ToTable("ExamQs", (string)null);
                 });
 
             modelBuilder.Entity("ITIExaminationSyustem.Models.Instructor", b =>
@@ -263,7 +263,7 @@ namespace ITIExaminationSyustem.Migrations
                         .IsUnique()
                         .HasFilter("[Ins_User_Id] IS NOT NULL");
 
-                    b.ToTable("Instructors");
+                    b.ToTable("Instructors", (string)null);
                 });
 
             modelBuilder.Entity("ITIExaminationSyustem.Models.MainDepartment", b =>
@@ -279,7 +279,7 @@ namespace ITIExaminationSyustem.Migrations
 
                     b.HasKey("MainDepartment_Id");
 
-                    b.ToTable("MainDepartments");
+                    b.ToTable("MainDepartments", (string)null);
                 });
 
             modelBuilder.Entity("ITIExaminationSyustem.Models.Question", b =>
@@ -308,7 +308,7 @@ namespace ITIExaminationSyustem.Migrations
 
                     b.HasIndex("Question_Type");
 
-                    b.ToTable("Questions");
+                    b.ToTable("Questions", (string)null);
                 });
 
             modelBuilder.Entity("ITIExaminationSyustem.Models.QuestionType", b =>
@@ -327,7 +327,7 @@ namespace ITIExaminationSyustem.Migrations
 
                     b.HasKey("QuestionType_Id");
 
-                    b.ToTable("QuestionTypes");
+                    b.ToTable("QuestionTypes", (string)null);
                 });
 
             modelBuilder.Entity("ITIExaminationSyustem.Models.Role", b =>
@@ -343,7 +343,7 @@ namespace ITIExaminationSyustem.Migrations
 
                     b.HasKey("Role_Id");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("ITIExaminationSyustem.Models.Student", b =>
@@ -368,7 +368,7 @@ namespace ITIExaminationSyustem.Migrations
                         .IsUnique()
                         .HasFilter("[Std_User_Id] IS NOT NULL");
 
-                    b.ToTable("Students");
+                    b.ToTable("Students", (string)null);
                 });
 
             modelBuilder.Entity("ITIExaminationSyustem.Models.StudentCourse", b =>
@@ -395,7 +395,7 @@ namespace ITIExaminationSyustem.Migrations
 
                     b.HasIndex("Std_Id");
 
-                    b.ToTable("StudentCourses");
+                    b.ToTable("StudentCourses", (string)null);
                 });
 
             modelBuilder.Entity("ITIExaminationSyustem.Models.User", b =>
@@ -425,7 +425,7 @@ namespace ITIExaminationSyustem.Migrations
                     b.HasIndex("User_Email")
                         .IsUnique();
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("RoleUser", b =>
@@ -440,7 +440,7 @@ namespace ITIExaminationSyustem.Migrations
 
                     b.HasIndex("Navigation_UsersUser_Id");
 
-                    b.ToTable("RoleUser");
+                    b.ToTable("RoleUser", (string)null);
                 });
 
             modelBuilder.Entity("ChoiceQuestion", b =>
