@@ -14,8 +14,10 @@ namespace ITIExaminationSyustem.Controllers
         private IMainDeptRepo _mainDeptRepo;
         private ICourseRepo _courseRepo;
         private IStudentCourseRepo _studentCourseRepo;
+        private IUserRepo _userRepo;
+        private IBranchRepo _branchRepo;
         private Exam_Context _context;
-        public StudentController(IStudentRepo studentRepo, IDepartmentRepo departmentRepo, IMainDeptRepo mainDeptRepo, ICourseRepo courseRepo, IStudentCourseRepo studentCourseRepo, Exam_Context context)
+        public StudentController(IBranchRepo branchRepo,IStudentRepo studentRepo, IDepartmentRepo departmentRepo, IMainDeptRepo mainDeptRepo, ICourseRepo courseRepo, IStudentCourseRepo studentCourseRepo, Exam_Context context, IUserRepo userRepo)
         {
             _studentRepo = studentRepo;
             _departmentRepo = departmentRepo;
@@ -23,6 +25,8 @@ namespace ITIExaminationSyustem.Controllers
             _courseRepo = courseRepo;
             _studentCourseRepo = studentCourseRepo;
             _context = context;
+            _userRepo= userRepo;
+            _branchRepo = branchRepo;
         }
         public IActionResult Index()
         {
@@ -39,9 +43,11 @@ namespace ITIExaminationSyustem.Controllers
         public IActionResult Edit(int id)
         {
             StudentDepartmentsViewModel studentdepartment= new StudentDepartmentsViewModel();
-
-            var allCourses=_courseRepo.GetAll();
             var student = _studentRepo.GetById(id);
+            
+           
+            var allCoursesInStudentDepartment = _departmentRepo.GetCourses(student.Dept_Id.Value);
+            
             //department
 
             var branchId = student.Navigation_Department.Brch_Id;
@@ -57,7 +63,7 @@ namespace ITIExaminationSyustem.Controllers
             studentdepartment.Student_DepartmentName = student.Navigation_Department.Navigation_MainDepartment.MainDepartment_Name;
             studentdepartment.StudentCourses = _studentCourseRepo.GetStudentCourses(id);
             studentdepartment.Student_Image = student.Navigation_User.User_Image;
-            ViewBag.CoursesNotInStudent = allCourses.Except(studentdepartment.StudentCourses);
+            ViewBag.CoursesNotInStudent = allCoursesInStudentDepartment.Except(studentdepartment.StudentCourses);
             return View(studentdepartment);
         }
 
@@ -123,10 +129,45 @@ namespace ITIExaminationSyustem.Controllers
 
         }
 
-        //[HttpGet]
-        //public IActionResult Add(int id) // user
-        //{
+        [HttpGet]
+        public IActionResult Add() // user
+        {
+            //var user = _userRepo.GetById(id);
+            //Student student;
+            var branches = _branchRepo.GetAll();
+            return View(branches);
 
-        //}
+        }
+        [HttpGet]
+        public IActionResult AddToBranch(int id) // branch id
+        {
+            var mainDepartments = _departmentRepo.GetDepartmentsByBranchId(id).Select(a=>a.Navigation_MainDepartment).ToList();
+            TempData["BranchId"] = id;
+            return View(mainDepartments);
+        }
+        [HttpPost]
+        public IActionResult AddToBranch(AddStudentViewModel addStudentViewModel)
+        {
+            int branchId;
+            
+                branchId = (int)TempData["BranchId"];
+            
+            var department = _departmentRepo.GetDepartmentsByBranchId(branchId).SingleOrDefault(a=>a.MainDept_Id== addStudentViewModel.Department_Id);
+            var Student = new Student { Dept_Id = department.Department_Id, Std_User_Id = addStudentViewModel.User_Id };
+            _studentRepo.Add(Student);
+            var studentCourses = _departmentRepo.GetByBranchAndMainDepartment(branchId, addStudentViewModel.Department_Id).Navigation_Courses.ToList();
+            addStudentViewModel.StudentCourses = studentCourses;
+            addStudentViewModel.Student_Id = Student.Student_Id;
+            return View("AddCourses", addStudentViewModel);
+        }
+
+        [HttpPost]
+        public IActionResult AddCourses(int id,List<int> StudentCoursesId) {
+            foreach(var item in StudentCoursesId)
+            {
+                _studentCourseRepo.Add(id,item);
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
