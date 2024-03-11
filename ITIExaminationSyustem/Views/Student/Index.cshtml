@@ -22,8 +22,7 @@
                 <td>@item.Navigation_Department.Navigation_MainDepartment.MainDepartment_Name</td>
                 <td>
                     <a class="btn btn-info" asp-action="Edit" asp-for="Student" asp-route-id="@item.Student_Id">Edit</a>|
-                    <a class="btn btn-info">update</a>|
-                    <a class="btn btn-info">Delete</a>|
+                    <a class="btn btn-info" class="btn btn-danger">Delete</a>|
                     <a class="btn btn-info" asp-action="Details" asp-for="Student" asp-route-id="@item.Student_Id">Details</a>|
                 </td>
             </tr>

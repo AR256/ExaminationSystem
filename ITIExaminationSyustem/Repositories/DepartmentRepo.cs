@@ -1,5 +1,6 @@
 ﻿using ITIExaminationSyustem.Interfaces;
 using ITIExaminationSyustem.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ITIExaminationSyustem.Repositories
 {
@@ -13,7 +14,11 @@ namespace ITIExaminationSyustem.Repositories
         }
         public List<Department> GetAll()
         {
-            return _context.Departments.ToList();
+            return _context.Departments.Include(a=>a.Navigation_MainDepartment).ToList();
+        }
+        public List<Department> GetDepartmentsByBranchId(int id)
+        {
+            return _context.Departments.Include(a=>a.Navigation_MainDepartment).Where(a=>a.Brch_Id==id).ToList();
         }
         public Department GetById(int id)
         {
