@@ -1,5 +1,6 @@
 ﻿using ITIExaminationSyustem.Interfaces;
 using ITIExaminationSyustem.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ITIExaminationSyustem.Repositories
 {
@@ -13,7 +14,7 @@ namespace ITIExaminationSyustem.Repositories
         }
         public List<Instructor> GetAll()
         {
-            return _context.Instructors.ToList();
+            return _context.Instructors.Include(a=>a.Navigation_User).ToList();
         }
         public Instructor GetById(int id)
         {

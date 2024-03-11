@@ -1,0 +1,13 @@
+﻿@model AddStudentViewModel
+@{
+    ViewBag.Title = "Add Courses";
+    SelectList CoursesList = new SelectList(Model.StudentCourses, "Course_Id", "Course_Name");
+}
+
+<form method="post" class="form-control">
+    <select asp-items="CoursesList" multiple name="StudentCoursesId">
+
+    </select>
+    <input type="submit" class="btn btn-danger" asp-action="AddCourses" asp-route-id="@Model.Student_Id" value="submit" />
+    <a >Submit Courses</a>
+</form>
