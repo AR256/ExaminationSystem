@@ -15,16 +15,16 @@ namespace ITIExaminationSyustem.Repositories
 
         public List<User> GetAll()
         {
-            return _context.Users.Include(user => user.Navigation_Instructor)
-                                 .Include(user => user.Navigation_Student)
-                                 .Include(user => user.Navigation_Admin)
-                                 .Include(user => user.Navigation_BranchManager)
-                                 .ToList();
+            return _context.Users.ToList();
         }
 
         public User GetById(int id)
         {
-            return _context.Users.Include(user => user.Navigation_Roles).SingleOrDefault(user => user.User_Id == id);
+            return _context.Users.Include(user => user.Navigation_Instructor)
+                                 .Include(user => user.Navigation_Student)
+                                 .Include(user => user.Navigation_Admin)
+                                 .Include(user => user.Navigation_Roles)
+                                 .SingleOrDefault(user => user.User_Id == id);
         }
 
         public void Add(User user)

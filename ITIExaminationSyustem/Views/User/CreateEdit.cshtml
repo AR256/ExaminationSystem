@@ -1,0 +1,16 @@
+﻿@model User
+@{
+    ViewData["Title"] = "CreateEdit";
+}
+
+<label>Name</label>
+<input asp-for="User_Name" />
+<br />
+<span asp-validation-for="User_Name"></span>
+<br />
+
+<label>Email</label>
+<input asp-for="User_Email" />
+<br />
+<span asp-validation-for="User_Email"></span>
+<br />
