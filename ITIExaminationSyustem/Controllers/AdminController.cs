@@ -6,11 +6,11 @@ namespace ITIExaminationSyustem.Controllers
 {
     public class AdminController : Controller
     {
-        private IBranchRepo branchRepo;
+        private IAdminRepo _adminRepo;
 
-        public AdminController(IBranchRepo branchRepo)
+        public AdminController(IAdminRepo adminRepo)
         {
-            this.branchRepo = branchRepo;
+           _adminRepo = adminRepo;
         }
 
         public IActionResult AddnewBranch()
@@ -20,8 +20,8 @@ namespace ITIExaminationSyustem.Controllers
 
         public IActionResult Index()
         {
-            var branchlist = branchRepo.GetAll();
-            return View(branchlist);
+           var adminlist = _adminRepo.GetAllAdminsbyUsersEmailBranches();
+            return View(adminlist);
         }
     }
 }

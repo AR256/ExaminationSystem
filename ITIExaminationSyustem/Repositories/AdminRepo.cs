@@ -1,5 +1,6 @@
 ﻿using ITIExaminationSyustem.Interfaces;
 using ITIExaminationSyustem.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ITIExaminationSyustem.Repositories
 {
@@ -26,6 +27,12 @@ namespace ITIExaminationSyustem.Repositories
         {
             return _context.Admins.ToList();
         }
+
+        public List<Admin> GetAllAdminsbyUsersEmailBranches()
+        {
+            return _context.Admins.Include(a=>a.Navigation_User).Include(c=>c.Navigation_Branch).ToList();
+        }
+        
 
         public Admin GetById(int id)
         {
