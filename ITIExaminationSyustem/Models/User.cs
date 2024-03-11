@@ -10,13 +10,14 @@ namespace ITIExaminationSyustem.Models
         //remember to switch this id to be primary key
         [Key]
         public int User_Id { get; set; }
+        public string User_Name { get; set; }
         [Required]
         [RegularExpression(@"^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$")]
         public string User_Email { get; set; }
         public string  User_Image { get; set; }
         [Required]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$")]
-        public string User_Password { get; set; }
+        //[RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$")]
+        public string User_Password { get; set; } = Guid.NewGuid().ToString().Substring(9, 14);
 
 
 
@@ -28,7 +29,7 @@ namespace ITIExaminationSyustem.Models
         public Instructor? Navigation_Instructor { get; set; }
         public Student? Navigation_Student { get; set; }
         public Admin? Navigation_Admin { get; set; }
-        public BranchManager? Navigation_BranchManager { get; set; }
+        public Branch? Navigation_Branch { get; set; }
         #endregion
     }
 }
