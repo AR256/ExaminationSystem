@@ -15,7 +15,11 @@ namespace ITIExaminationSyustem.Repositories
 
         public List<User> GetAll()
         {
-            return _context.Users.ToList();
+            return _context.Users.Include(user => user.Navigation_Instructor)
+                                 .Include(user => user.Navigation_Student)
+                                 .Include(user => user.Navigation_Admin)
+                                 .Include(user => user.Navigation_Roles)
+                                 .ToList();
         }
 
         public User GetById(int id)
@@ -45,12 +49,5 @@ namespace ITIExaminationSyustem.Repositories
             _context.Users.Remove(user);
             _context.SaveChanges();
         }
-
-        //switching lists
-        //public List<Role> GetRoles(int id)
-        //{
-        //    User user = _context.Users.Include(u=>u.Navigation_Roles).SingleOrDefault(u=>u.User_Id == id);
-        //    return user.Navigation_Roles.ToList();
-        //}
     }
 }
