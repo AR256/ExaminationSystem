@@ -1,5 +1,6 @@
 ﻿using ITIExaminationSyustem.Interfaces;
 using ITIExaminationSyustem.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ITIExaminationSyustem.Repositories
 {
@@ -17,7 +18,7 @@ namespace ITIExaminationSyustem.Repositories
         }
         public Question GetById(int id)
         {
-            return _context.Questions.SingleOrDefault(question => question.Question_Id == id);
+            return _context.Questions.Include(c => c.Navigation_Choices).Include(c => c.Navigation_Course).SingleOrDefault(question => question.Question_Id == id);
         }
         public void Add(Question question)
         {
