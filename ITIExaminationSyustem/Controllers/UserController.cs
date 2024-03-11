@@ -58,8 +58,9 @@ namespace ITIExaminationSyustem.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(User user) //image is missing
+        public IActionResult Edit(User user, int id) //image is missing
         {
+            user.User_Id = id;
             if (ModelState.IsValid)
             {
                 _userRepo.Update(user);
