@@ -34,6 +34,7 @@ namespace ITIExaminationSyustem.Controllers
         public IActionResult Details(int? id)
         {
             Department department = _departmentRepo.GetById(id.Value);
+
             return View(department);
         }
 
@@ -46,6 +47,10 @@ namespace ITIExaminationSyustem.Controllers
 
         public IActionResult Create()
         {
+            List<Branch> branches = _branchRepo.GetAll();
+            List<MainDepartment> mainDepartments = _mainDeptRepo.GetAll();
+            ViewBag.Branches = branches;
+            ViewBag.MainDepartments = mainDepartments;
             return View();
         }
 
@@ -66,12 +71,17 @@ namespace ITIExaminationSyustem.Controllers
         public IActionResult Edit(int? id)
         {
             Department department = _departmentRepo.GetById(id.Value);
+            List<Branch> branches = _branchRepo.GetAll();
+            List<MainDepartment> mainDepartments = _mainDeptRepo.GetAll();
+            ViewBag.Branches = branches;
+            ViewBag.MainDepartments = mainDepartments;
             return View(department);
         }
 
         [HttpPost]
-        public IActionResult Edit(Department department)
+        public IActionResult Edit(Department department, int id)
         {
+            department.Department_Id = id;
             if (ModelState.IsValid)
             {
                 _departmentRepo.Update(department);
