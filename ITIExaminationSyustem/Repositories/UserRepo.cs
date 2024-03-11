@@ -1,6 +1,7 @@
 ﻿using ITIExaminationSyustem.Interfaces;
 using ITIExaminationSyustem.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace ITIExaminationSyustem.Repositories
 {
@@ -45,7 +46,7 @@ namespace ITIExaminationSyustem.Repositories
 
         public void Delete(int id)
         {
-            User user = _context.Users.FirstOrDefault(s => s.User_Id == id);
+            User user = GetById(id);
             _context.Users.Remove(user);
             _context.SaveChanges();
         }

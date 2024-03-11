@@ -14,15 +14,29 @@ namespace ITIExaminationSyustem.Repositories
         }
         public List<Department> GetAll()
         {
-            return _context.Departments.Include(a=>a.Navigation_MainDepartment).ToList();
+            return _context.Departments.Include(dept=>dept.Navigation_MainDepartment)
+                                       .Include(dept => dept.Navigation_Branch)
+                                       .Include(dept => dept.Navigation_Department_Instructor)
+                                       .Include(dept => dept.Navigation_Students)
+                                       .Include(dept => dept.Navigation_Courses)
+                                       .ToList();
         }
         public List<Department> GetDepartmentsByBranchId(int id)
         {
-            return _context.Departments.Include(a=>a.Navigation_MainDepartment).Where(a=>a.Brch_Id==id).ToList();
+            return _context.Departments.Include(a=>a.Navigation_MainDepartment)
+                                       .Where(a=>a.Brch_Id==id)
+                                       .ToList();
         }
         public Department GetById(int id)
         {
-            return _context.Departments.SingleOrDefault(dept => dept.Department_Id == id);
+            return _context.Departments.Include(dept => dept.Navigation_MainDepartment)
+                                       .Include(dept => dept.Navigation_Branch)
+                                       .Include(dept => dept.Navigation_Department_Instructor)
+                                       .Include(dept => dept.Navigation_Students)
+                                       .Include(dept => dept.Navigation_Courses)
+                                       .Include(dept => dept.Navigation_Department_Manager_Instructor)
+                                       .ThenInclude(mgr => mgr.Navigation_User)
+                                       .SingleOrDefault(dept => dept.Department_Id == id);
         }
         public void Add(Department department)
         {
