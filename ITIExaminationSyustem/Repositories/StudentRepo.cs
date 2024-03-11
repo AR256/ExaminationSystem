@@ -30,7 +30,7 @@ namespace ITIExaminationSyustem.Repositories
 
         public Student GetById(int id)
         {
-            return _context.Students.Include(a => a.Navigation_StudentCourses).ThenInclude(a=>a.Navigation_Course).Include(a => a.Navigation_StudentExam).Include(a => a.Navigation_User).Include(a => a.Navigation_Department).ThenInclude(a => a.Navigation_MainDepartment).FirstOrDefault(s => s.Student_Id == id);
+            return _context.Students.Include(a => a.Navigation_User).Include(a => a.Navigation_StudentCourses).ThenInclude(a=>a.Navigation_Course).Include(a => a.Navigation_StudentExam).Include(a => a.Navigation_User).Include(a => a.Navigation_Department).ThenInclude(a => a.Navigation_MainDepartment).FirstOrDefault(s => s.Student_Id == id);
         }
 
         public void Update(Student student)
