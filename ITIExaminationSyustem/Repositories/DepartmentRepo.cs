@@ -22,7 +22,7 @@ namespace ITIExaminationSyustem.Repositories
         }
         public Department GetById(int id)
         {
-            return _context.Departments.SingleOrDefault(dept => dept.Department_Id == id);
+            return _context.Departments.Include(a => a.Navigation_Courses).SingleOrDefault(dept => dept.Department_Id == id);
         }
         public void Add(Department department)
         {
@@ -40,5 +40,17 @@ namespace ITIExaminationSyustem.Repositories
             _context.Departments.Remove(deptToDelete);
             _context.SaveChanges();
         }
+
+        public Department GetByBranchAndMainDepartment(int branchId, int mainDepId)
+        {
+            return _context.Departments.Include(a => a.Navigation_Courses).FirstOrDefault(a => a.Brch_Id == branchId && a.MainDept_Id == mainDepId);
+        }
+
+        public List<Course> GetCourses(int id)
+        {
+            var department = GetById(id);
+            return department.Navigation_Courses.ToList();
+        }
+
     }
 }

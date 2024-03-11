@@ -7,6 +7,8 @@ namespace ITIExaminationSyustem.Interfaces
         List<Department> GetAll();
         List<Department> GetDepartmentsByBranchId(int id);
         Department GetById(int id);
+        List<Course> GetCourses(int id);
+        Department GetByBranchAndMainDepartment(int branchId,int mainDepId);
         void Add(Department department);
         void Update(Department department);
         void Delete(int id);

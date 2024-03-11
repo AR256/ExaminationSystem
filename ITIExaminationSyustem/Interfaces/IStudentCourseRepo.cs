@@ -11,5 +11,8 @@ namespace ITIExaminationSyustem.Interfaces
         List<String> GetStudentFeedbacks(int studentId); //--> for dept manager
         void UpdateStudentFeedback(int studentId, int courseId, string feedback);
 
+        void Add(int studentId, int courseId);
+        
+
     }
 }
