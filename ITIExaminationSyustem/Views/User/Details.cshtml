@@ -1,0 +1,28 @@
+﻿@model User
+@{
+    ViewData["Title"] = "Details";
+
+    string role = "";
+
+    if (@Model.Navigation_Instructor != null)
+        role = "Instructor";
+
+    else if (@Model.Navigation_Student != null)
+        role = "Student";
+
+    else if (@Model.Navigation_Admin != null)
+        role = "Admin";
+}
+
+Name :: @Model.User_Name
+<br />
+Role :: @role
+<br />
+Email :: @Model.User_Email
+<br />
+Password :: @Model.User_Password
+<br />
+             
+<a asp-action="Details" asp-controller=@role asp-route-id="@Model.User_Id" class="btn btn-info">View user as @role</a>
+
+
