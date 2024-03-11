@@ -8,7 +8,7 @@ namespace ITIExaminationSyustem.Models
         [Key]
         public int Department_Id { get; set; }
 
-        //public string Department_Name { get; set; }
+        public string Department_Name { get; set; }
 
         [ForeignKey("Navigation_Department_Manager_Instructor")]
         public int? Department_MgrId { set; get; }

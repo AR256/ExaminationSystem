@@ -1,5 +1,6 @@
 ﻿using ITIExaminationSyustem.Interfaces;
 using ITIExaminationSyustem.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ITIExaminationSyustem.Repositories
 {
@@ -32,7 +33,6 @@ namespace ITIExaminationSyustem.Repositories
 
         public void Delete(int id)
         {
-
             var choiceToDelete = GetById(id);
             _context.Choices.Remove(choiceToDelete);
             _context.SaveChanges();

@@ -1,0 +1,31 @@
+﻿@model List<Student>
+@{
+    ViewBag.Title = "Students";
+}
+<h1>Students</h1>
+<table class="table table-hover table-bordered">
+
+    <thead>
+        <th>Student Id</th>
+        <th>Student Name</th>
+        <th>Student Email</th>
+        <th>Department Name</th>
+        <th>Operations</th>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>@item.Student_Id</td>
+                <td>@item.Navigation_User.User_Name</td>
+                <td>@item.Navigation_User.User_Email</td>
+                <td>@item.Navigation_Department.Navigation_MainDepartment.MainDepartment_Name</td>
+                <td>
+                    <a class="btn btn-info" asp-action="Edit" asp-for="Student" asp-route-id="@item.Student_Id">Edit</a>|
+                    <a class="btn btn-info" class="btn btn-danger">Delete</a>|
+                    <a class="btn btn-info" asp-action="Details" asp-for="Student" asp-route-id="@item.Student_Id">Details</a>|
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,46 @@
+﻿@model List<Question>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_layout";
+}
+
+<html>
+<head>
+    <link href="/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <a asp-action="create" asp-controller="question" class="btn btn-dark">Create</a>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Question ID</th>
+                <th>Question</th>
+                <th>Question Type</th>
+                <th>Question Answer</th>
+                <th>Operations</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Question_Id</td>
+                    <td>@item.Question_Text</td>
+                    <td>@item.Question_Type</td>
+                    <td>@item.Question_Answer</td>
+                    <td>
+                        <a asp-action="Details" asp-controller="question" asp-route-id="@item.Question_Id" class="btn btn-info"> Details</a>
+                        <a asp-action="Edit" asp-controller="question" asp-route-id="@item.Question_Id" class="btn btn-info"> Update</a>
+                        <a asp-action="Delete" asp-controller="question" onclick="return confirm('are you sure')" asp-route-id="@item.Question_Id" class="btn btn-danger"> Delete</a>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+</body>
+</html>
