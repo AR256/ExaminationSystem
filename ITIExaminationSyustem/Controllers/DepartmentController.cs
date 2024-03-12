@@ -34,28 +34,85 @@ namespace ITIExaminationSyustem.Controllers
 
         public IActionResult Details(int? id)
         {
-            Department department = _departmentRepo.GetById(id.Value);
-
-            return View(department);
+            if (id == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                Department fetchedDepartment = _departmentRepo.GetById(id.Value);
+                if (fetchedDepartment == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return View(fetchedDepartment);
+                }
+            }
         }
-
 
         public IActionResult DisplayStudents(int? id)
         {
-            List<Student> students = _studentRepo.GetAll().Where(std => std.Dept_Id == id.Value).ToList();
-            return View(students);
+            if (id == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                Department fetchedDepartment = _departmentRepo.GetById(id.Value);
+                if (fetchedDepartment == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    List<Student> students = _studentRepo.GetAll().Where(std => std.Dept_Id == id.Value).ToList();
+                    return View(students);
+                }
+            }
         }
 
         public IActionResult DisplayInstructors(int? id)
         {
-            List<DepartmentInstructors> deptInstructors = _departmentRepo.GetById(id.Value).Navigation_Department_Instructor.ToList();
-            return View(deptInstructors);
+            if (id == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                Department fetchedDepartment = _departmentRepo.GetById(id.Value);
+                if (fetchedDepartment == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    List<DepartmentInstructors> deptInstructors = _departmentRepo.GetById(id.Value).Navigation_Department_Instructor.ToList();
+                    return View(deptInstructors);
+                }
+            }
         }
 
         public IActionResult DisplayCourses(int? id)
         {
-            List<Course> courses = _departmentRepo.GetCourses(id.Value).ToList();
-            return View(courses);
+            if (id == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                Department fetchedDepartment = _departmentRepo.GetById(id.Value);
+                if (fetchedDepartment == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    List<Course> courses = _departmentRepo.GetCourses(id.Value).ToList();
+                    return View(courses);
+                }
+            }
         }
 
         public IActionResult Create()
@@ -66,7 +123,6 @@ namespace ITIExaminationSyustem.Controllers
             departmentViewModel.instructors = _instructorRepo.GetAll();
             return View(departmentViewModel);
         }
-
 
         [HttpPost]
         public IActionResult Create(Department department) 
@@ -90,8 +146,16 @@ namespace ITIExaminationSyustem.Controllers
             }
             else
             {
-                DepartmentViewModel departmentViewModel = PrepareViewModel(id.Value);
-                return View(departmentViewModel);
+                Department fetchedDepartment = _departmentRepo.GetById(id.Value);
+                if(fetchedDepartment == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    DepartmentViewModel departmentViewModel = PrepareViewModel(id.Value);
+                    return View(departmentViewModel);
+                }
             }
         }
 
@@ -110,15 +174,29 @@ namespace ITIExaminationSyustem.Controllers
             }
         }
 
-        public IActionResult Delete(int id)
+        public IActionResult Delete(int? id)
         {
-            bool result = _departmentRepo.Delete(id);
-            if(result)
-                return RedirectToAction("Index");
+            if (id == null)
+            {
+                return BadRequest();
+            }
             else
-                return RedirectToAction("Index");
+            {
+                Department fetchedDepartment = _departmentRepo.GetById(id.Value);
+                if (fetchedDepartment == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    bool result = _departmentRepo.Delete(id.Value);
+                    if (result)
+                        return RedirectToAction("Index");
+                    else
+                        return RedirectToAction("Index");
+                }
+            }
         }
-
 
         public DepartmentViewModel PrepareViewModel(int id)
         {
