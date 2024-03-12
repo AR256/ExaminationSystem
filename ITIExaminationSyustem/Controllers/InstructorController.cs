@@ -149,8 +149,7 @@ namespace ITIExaminationSyustem.Controllers
             _instructorRepo.Add(instructor);
             foreach(var item in departmentsList)
             {
-                var department = _departmentRepo.GetById(item);
-                _instructorRepo.
+                _deptInstructorRepo.Add(item,instructor.Instructor_Id);
             }
             return RedirectToAction("Index");
         }
