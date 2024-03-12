@@ -11,6 +11,6 @@ namespace ITIExaminationSyustem.Interfaces
         Department GetByBranchAndMainDepartment(int branchId,int mainDepId);
         void Add(Department department);
         void Update(Department department);
-        void Delete(int id);
+        bool Delete(int id);
     }
 }
