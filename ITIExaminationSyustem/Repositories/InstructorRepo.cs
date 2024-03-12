@@ -18,7 +18,8 @@ namespace ITIExaminationSyustem.Repositories
         }
         public Instructor GetById(int id)
         {
-            return _context.Instructors.SingleOrDefault(ins => ins.Instructor_Id == id);
+            return _context.Instructors.Include(a=>a.Navigation_User).Include(a=>a.Courses).Include(a=>a.Navigation_Department_Instructor)
+                .ThenInclude(a=>a.Navigation_Department).ThenInclude(a=>a.Navigation_MainDepartment).SingleOrDefault(ins => ins.Instructor_Id == id);
         }
         public void Add(Instructor instructor)
         {

@@ -105,7 +105,7 @@ namespace ITIExaminationSyustem.Controllers
                     {
                         await image.CopyToAsync(fs);
                     }
-                    student.Navigation_User.User_Image = imagePath;
+                    student.Navigation_User.User_Image = $"/Images/img-{student.Student_Id}.{fileExt}";
                     _context.SaveChanges();
                 }
                 return RedirectToAction("Index");
@@ -132,8 +132,6 @@ namespace ITIExaminationSyustem.Controllers
         [HttpGet]
         public IActionResult Add() // user
         {
-            //var user = _userRepo.GetById(id);
-            //Student student;
             var branches = _branchRepo.GetAll();
             return View(branches);
 

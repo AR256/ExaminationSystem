@@ -1,0 +1,13 @@
+﻿@model Department
+@{
+    ViewData["Title"] = "Edit";
+    SelectList branches = new SelectList(ViewBag.Branches, "Branch_Id", "Branch_Name");
+    SelectList mainDepartments = new SelectList(ViewBag.MainDepartments, "MainDepartment_Id", "MainDepartment_Name");
+}
+
+<form method="post">
+    <partial name="CreateEdit" />
+
+    <input type="submit" value="Update" class="btn btn-primary" />
+</form>
+
