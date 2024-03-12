@@ -28,8 +28,22 @@ namespace ITIExaminationSyustem.Controllers
 
         public IActionResult Details(int? id)
         {
-            User fetchedUser = _userRepo.GetById(id.Value);
-            return View(fetchedUser);
+            if (id == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                User fetchedUser = _userRepo.GetById(id.Value);
+                if (fetchedUser == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return View(fetchedUser);
+                }
+            }
         }
 
         public IActionResult Create()
@@ -53,8 +67,22 @@ namespace ITIExaminationSyustem.Controllers
 
         public IActionResult Edit(int? id)
         {
-            User userToEdit = _userRepo.GetById(id.Value);
-            return View(userToEdit);
+            if(id == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                User userToEdit = _userRepo.GetById(id.Value);
+                if(userToEdit == null) 
+                { 
+                    return NotFound();
+                }
+                else
+                {
+                    return View(userToEdit);
+                }
+            }
         }
 
         [HttpPost]
@@ -72,21 +100,34 @@ namespace ITIExaminationSyustem.Controllers
             }
         }
 
-        public IActionResult Delete(int id) //Completed
+        public IActionResult Delete(int? id) //Completed
         {
-            User user = _userRepo.GetById(id);
+            if(id == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                User user = _userRepo.GetById(id.Value);
+                if (user == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    if (user.Navigation_Instructor != null)
+                        _instructorRepo.Delete(user.Navigation_Instructor.Instructor_Id);
 
-            if (user.Navigation_Instructor != null)
-                _instructorRepo.Delete(user.Navigation_Instructor.Instructor_Id);
+                    else if (user.Navigation_Student != null)
+                        _studentRepo.Delete(user.Navigation_Student.Student_Id);
 
-            else if (user.Navigation_Student != null)
-                _studentRepo.Delete(user.Navigation_Student.Student_Id);
+                    else if (user.Navigation_Admin != null)
+                        _adminRepo.Delete(user.Navigation_Admin.Admin_Id);
 
-            else if (user.Navigation_Admin != null)
-                _adminRepo.Delete(user.Navigation_Admin.Admin_Id);
-
-            _userRepo.Delete(id);
-            return RedirectToAction("Index");
+                    _userRepo.Delete(id.Value);
+                    return RedirectToAction("Index");
+                }
+            }
         }
     }
 }

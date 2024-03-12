@@ -1,8 +1,9 @@
-﻿@model Department
+﻿@model DepartmentViewModel
 @{
     ViewData["Title"] = "Edit";
-    SelectList branches = new SelectList(ViewBag.Branches, "Branch_Id", "Branch_Name");
-    SelectList mainDepartments = new SelectList(ViewBag.MainDepartments, "MainDepartment_Id", "MainDepartment_Name");
+    SelectList branches = new SelectList(Model.branches, "Branch_Id", "Branch_Name");
+    SelectList mainDepartments = new SelectList(Model.mainDepartments, "MainDepartment_Id", "MainDepartment_Name");
+    SelectList instructors = new SelectList(Model.instructors, "Instructor_Id", "Navigation_User.User_Name");
 }
 
 <form method="post">

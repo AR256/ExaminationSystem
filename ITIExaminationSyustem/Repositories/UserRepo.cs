@@ -50,5 +50,7 @@ namespace ITIExaminationSyustem.Repositories
             _context.Users.Remove(user);
             _context.SaveChanges();
         }
+
+      
     }
 }
