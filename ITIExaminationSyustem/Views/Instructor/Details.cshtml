@@ -10,12 +10,11 @@
     <div class="card-body">
         <h2 class="card-title">@Model.Instructor_Name</h2>
         <h2 class="card-title">@Model.Instructor_Email</h2>
-        <h2 class="card-title">@Model.Instructor_BranchName</h2>
         <h3>Departments</h3>
         <ul>
         @foreach(var item in Model.Departments)
         {
-            <li>@item.Navigation_MainDepartment.MainDepartment_Name</li>
+            <li>@item.Department_Name</li>
         }
         </ul>
 
@@ -26,6 +25,18 @@
                 <li>@item.Course_Name</li>
         }
         </ul>
+
+        @if(Model.Managed_Departments != null)
+        {
+            <h3>Managed Departments</h3>
+            <ul>
+        @foreach (var item in Model.Managed_Departments)
+        {
+                    <li>@item.Department_Name</li>
+        }
+    </ul>
+        }
+ 
 
         <a  class="btn btn-primary" asp-action="Index">Go Back</a>
     </div>
