@@ -1,0 +1,15 @@
+﻿@model List<Department>
+@{
+    ViewBag.Title = "Add Instructor";
+    SelectList departments = new SelectList(Model, "Department_Id", "Department_Name");
+}
+
+
+<form class="form-control" method="post">
+
+<input type="number" name="userId" placeholder="ID"/>
+    <select asp-items="departments" name="departmentsList">
+
+</select>
+<input type="submit" value="submit"/>
+</form>

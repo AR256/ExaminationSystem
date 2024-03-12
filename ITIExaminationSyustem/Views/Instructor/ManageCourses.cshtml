@@ -1,0 +1,25 @@
+﻿@model List<Course>
+@{
+    ViewBag.Title = "Manage Courses";
+    SelectList instructorCourses = new SelectList(Model, "Course_Id", "Course_Name");
+    SelectList otherCourses = new SelectList(ViewBag.otherCourses, "Course_Id", "Course_Name");
+
+}
+
+
+<form class="form-control" method="post">
+    <h2>Instructor Courses</h2>
+    <select asp-items="instructorCourses" name="toRemove" multiple>
+
+    </select>
+
+
+    <h2>other Courses in department</h2>
+    <select asp-items="otherCourses" name="toAdd" multiple>
+
+    </select>
+
+
+    <input type="submit" value="submit"/>
+
+</form>
