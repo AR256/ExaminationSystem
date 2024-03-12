@@ -33,8 +33,7 @@ namespace ITIExaminationSyustem.Repositories
 
         public void Add(Exam exam)
         {
-           
-                _context.Exams.Add(exam);
+            _context.Exams.Add(exam);
             _context.SaveChanges();
         }
         public void Update(Exam exam)
