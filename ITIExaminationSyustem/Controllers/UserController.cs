@@ -1,6 +1,7 @@
 ﻿using ITIExaminationSyustem.Interfaces;
 using ITIExaminationSyustem.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Data;
 
 namespace ITIExaminationSyustem.Controllers
@@ -23,6 +24,7 @@ namespace ITIExaminationSyustem.Controllers
         public IActionResult Index()
         {
             List<User> users = _userRepo.GetAll();
+            _userRepo.GetNonAssignedUsers();
             return View(users);
         }
 
@@ -52,11 +54,12 @@ namespace ITIExaminationSyustem.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(User user) //image is missing
+        async public Task<IActionResult> Create(User user, IFormFile image)
         {
             if(ModelState.IsValid)
             {
                 _userRepo.Add(user);
+                await _userRepo.AddImage(user, image);
                 return RedirectToAction("Index");
             }
             else
@@ -86,12 +89,13 @@ namespace ITIExaminationSyustem.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(User user, int id) //image is missing
+        async public Task<IActionResult> Edit(User user, int id, IFormFile image)
         {
             user.User_Id = id;
             if (ModelState.IsValid)
             {
                 _userRepo.Update(user);
+                await _userRepo.AddImage(user, image);
                 return RedirectToAction("Index");
             }
             else
@@ -100,7 +104,7 @@ namespace ITIExaminationSyustem.Controllers
             }
         }
 
-        public IActionResult Delete(int? id) //Completed
+        public IActionResult Delete(int? id)
         {
             if(id == null)
             {

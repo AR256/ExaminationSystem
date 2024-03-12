@@ -4,12 +4,12 @@ namespace ITIExaminationSyustem.Interfaces
 {
     public interface IUserRepo
     {
-        List<User> GetAll(); // ---> Added //
-        public User GetById(int id); // ---> Added //
+        List<User> GetAll();
+        public User GetById(int id);
         void Add(User user);
         void Update(User user);
         void Delete(int id);
-
-        /*List<Role> GetRoles(int id);*/ // ---> Deleted //
+        Task AddImage(User user, IFormFile image);
+        List<User> GetNonAssignedUsers();
     }
 }
