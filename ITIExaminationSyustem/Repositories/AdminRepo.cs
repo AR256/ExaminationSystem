@@ -33,11 +33,16 @@ namespace ITIExaminationSyustem.Repositories
             return _context.Admins.Include(a=>a.Navigation_User).Include(c=>c.Navigation_Branch).ToList();
         }
         
-
         public Admin GetById(int id)
         {
-            return _context.Admins.FirstOrDefault(a => a.Admin_Id == id);
+            return _context.Admins.FirstOrDefault(a=>a.Admin_Id == id);
         }
+        public Admin GetByIdfordetails(int id)
+        {
+            return _context.Admins.Include(a => a.Navigation_User).Include(c => c.Navigation_Branch).FirstOrDefault(a => a.Admin_Id == id);
+        }
+
+       
 
         public void Update(Admin admin)
         {
