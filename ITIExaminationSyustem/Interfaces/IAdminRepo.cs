@@ -7,6 +7,7 @@ namespace ITIExaminationSyustem.Interfaces
         List<Admin> GetAll();
         List<Admin> GetAllAdminsbyUsersEmailBranches();
         Admin GetById(int id);
+        Admin GetByIdfordetails(int id);
         void Add(Admin admin);
         void Update(Admin admin);
         void Delete(int id);

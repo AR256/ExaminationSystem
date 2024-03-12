@@ -8,7 +8,8 @@
 <table class=" table table-striped table-bordered table-hover">
     <thead>
          <tr>
-            <th>Admin Email</th>
+
+            <th>Admin Name</th>
             <th>Admin Branch</th>
             <th>Actions</th>
          </tr>
@@ -18,7 +19,7 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>@item.Navigation_User.User_Email</td>
+                <td>@item.Navigation_User.User_Name</td>
                 <td>@item.Navigation_Branch.Branch_Name</td>
                 <td>
                     <a asp-action="Details" asp-controller="Admin" asp-route-Id="@item.Admin_Id" class="btn btn-info">Details</a>
@@ -31,6 +32,6 @@
     </tbody>
 </table>
 
-<a asp-action="AddAdmin" asp-controller="Admin" class="btn btn-info">Add</a>
+<a asp-action="Add" asp-controller="Admin" class="btn btn-info">Add</a>
 
 

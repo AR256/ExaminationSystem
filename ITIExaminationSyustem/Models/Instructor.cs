@@ -24,6 +24,8 @@ namespace ITIExaminationSyustem.Models
         public ICollection<Course> Courses { get; set; } = new HashSet<Course>();
         //-----------------------------------------------------------------------------
         public User Navigation_User { get; set; }
+        //-----------------------------------------------------------------------------
+       
         #endregion
     }
 }

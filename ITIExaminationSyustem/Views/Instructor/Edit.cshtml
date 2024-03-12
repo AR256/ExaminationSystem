@@ -1,0 +1,17 @@
+﻿@model InstructorViewModel
+@{
+    ViewBag.Title = "Edit Instructor";
+    SelectList Departments = new SelectList(Model.Departments, "Department_Id", "Department_Name");
+}
+
+<form class="form-control" enctype="multipart/form-data" method="post">
+    <input type="text" placeholder="Name" value="@Model.Instructor_Name" name="Instructor_Name" />
+    <input type="Email" placeholder="Email" value="@Model.Instructor_Email" name="Instructor_Email" />
+    <input type="file" name="Instructor_Image" />
+    <select asp-items="Departments" name="toRemove">
+
+    </select>
+
+   
+    <input type="submit"/>
+</form>

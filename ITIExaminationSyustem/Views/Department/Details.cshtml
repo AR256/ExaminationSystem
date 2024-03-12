@@ -1,0 +1,19 @@
+﻿@model Department
+@{
+    ViewData["Title"] = "Details";
+}
+
+Name :: @Model.Department_Name
+<br />
+Department :: @Model.Navigation_MainDepartment.MainDepartment_Name
+<br />
+Branch Name :: @Model.Navigation_Branch.Branch_Name
+<br />
+Manager Name :: @Model.Navigation_Department_Manager_Instructor.Navigation_User.User_Name
+<br />
+
+<a asp-action="DisplayStudents" asp-controller="Department" asp-route-id="@Model.Department_Id" class="btn btn-info">View Students</a>
+<a asp-action="DisplayInstructors" asp-controller="Department" asp-route-id="@Model.Department_Id" class="btn btn-info">View Instructors</a>
+<a asp-action="DisplayCourses" asp-controller="Department" asp-route-id="@Model.Department_Id" class="btn btn-info">View Courses</a>
+
+

@@ -1,0 +1,24 @@
+﻿@model Admin
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<table class=" table table-striped table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Admin name</th>
+            <th>Admin Email</th>
+            <th>Admin Branch</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>@Model.Navigation_User.User_Name</td>
+            <td>@Model.Navigation_User.User_Email</td>
+            <td>@Model.Navigation_Branch.Branch_Name</td>
+        </tr>
+    </tbody>
+</table>
