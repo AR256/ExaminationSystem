@@ -3,6 +3,7 @@
     ViewData["Title"] = "CreateEdit";
     SelectList branches = new SelectList(ViewBag.Branches, "Branch_Id", "Branch_Name");
     SelectList mainDepartments = new SelectList(ViewBag.MainDepartments, "MainDepartment_Id", "MainDepartment_Name");
+    SelectList instructors = new SelectList(ViewBag.Instructors, "MainDepartment_Id", "MainDepartment_Name");
 }
 
 <label>Branch</label>
@@ -10,5 +11,9 @@
 <br />
 
 <label>Department</label>
+<select asp-for="MainDept_Id" asp-items="mainDepartments"></select>
+<br />
+
+<label>Manager</label>
 <select asp-for="MainDept_Id" asp-items="mainDepartments"></select>
 <br />

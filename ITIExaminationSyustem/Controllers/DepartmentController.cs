@@ -2,6 +2,7 @@
 using ITIExaminationSyustem.Interfaces;
 using ITIExaminationSyustem.Models;
 using ITIExaminationSyustem.Repositories;
+using ITIExaminationSyustem.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ITIExaminationSyustem.Controllers
@@ -45,6 +46,18 @@ namespace ITIExaminationSyustem.Controllers
             return View(students);
         }
 
+        public IActionResult DisplayInstructors(int? id)
+        {
+            List<DepartmentInstructors> deptInstructors = _departmentRepo.GetById(id.Value).Navigation_Department_Instructor.ToList();
+            return View(deptInstructors);
+        }
+
+        public IActionResult DisplayCourses(int? id)
+        {
+            List<Course> courses = _departmentRepo.GetCourses(id.Value).ToList();
+            return View(courses);
+        }
+
         public IActionResult Create()
         {
             List<Branch> branches = _branchRepo.GetAll();
@@ -68,14 +81,34 @@ namespace ITIExaminationSyustem.Controllers
             }
         }
 
+        //public IActionResult Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return BadRequest();
+        //    }
+        //    else
+        //    {
+        //        Department department = _departmentRepo.GetById(id.Value);
+        //        List<Branch> branches = _branchRepo.GetAll();
+        //        List<MainDepartment> mainDepartments = _mainDeptRepo.GetAll();
+        //        ViewBag.Branches = branches;
+        //        ViewBag.MainDepartments = mainDepartments;
+        //        return View(department);
+
+        //    }
+        //}
         public IActionResult Edit(int? id)
         {
-            Department department = _departmentRepo.GetById(id.Value);
-            List<Branch> branches = _branchRepo.GetAll();
-            List<MainDepartment> mainDepartments = _mainDeptRepo.GetAll();
-            ViewBag.Branches = branches;
-            ViewBag.MainDepartments = mainDepartments;
-            return View(department);
+            if (id == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                DepartmentViewModel deptViewModel = PrepareViewModel(id.Value);
+
+            }
         }
 
         [HttpPost]
@@ -97,6 +130,12 @@ namespace ITIExaminationSyustem.Controllers
         {
             _departmentRepo.Delete(id);
             return RedirectToAction("Index");
+        }
+
+
+        public DepartmentViewModel PrepareViewModel(int id)
+        {
+            Department department = Get
         }
     }
 }

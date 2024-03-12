@@ -16,9 +16,11 @@ namespace ITIExaminationSyustem.Repositories
         {
             return _context.Departments.Include(dept=>dept.Navigation_MainDepartment)
                                        .Include(dept => dept.Navigation_Branch)
-                                       .Include(dept => dept.Navigation_Department_Instructor)
                                        .Include(dept => dept.Navigation_Students)
                                        .Include(dept => dept.Navigation_Courses)
+                                       .Include(dept => dept.Navigation_Department_Instructor)
+                                       .ThenInclude(deptIns => deptIns.Navigation_Instructor)
+                                       .ThenInclude(mgr => mgr.Navigation_User)
                                        .ToList();
         }
         public List<Department> GetDepartmentsByBranchId(int id)
@@ -31,9 +33,11 @@ namespace ITIExaminationSyustem.Repositories
         {
             return _context.Departments.Include(dept => dept.Navigation_MainDepartment)
                                        .Include(dept => dept.Navigation_Branch)
-                                       .Include(dept => dept.Navigation_Department_Instructor)
                                        .Include(dept => dept.Navigation_Students)
                                        .Include(dept => dept.Navigation_Courses)
+                                       .Include(dept => dept.Navigation_Department_Instructor)
+                                       .ThenInclude(deptIns => deptIns.Navigation_Instructor)
+                                       .ThenInclude(mgr => mgr.Navigation_User)
                                        .Include(dept => dept.Navigation_Department_Manager_Instructor)
                                        .ThenInclude(mgr => mgr.Navigation_User)
                                        .SingleOrDefault(dept => dept.Department_Id == id);
