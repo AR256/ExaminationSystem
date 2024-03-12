@@ -1,0 +1,46 @@
+﻿@model List<Branch>
+@{
+    ViewBag.Title = "Add Student";
+    
+}
+
+<table>
+    <thead>
+        <th>Branch</th>
+        <th>Operation</th>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>@item.Branch_Name</td>
+                <td><a class="btn btn-success" asp-action="AddToBranch" asp-for="Student" asp-route-id="@item.Branch_Id">Add Students to branch</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

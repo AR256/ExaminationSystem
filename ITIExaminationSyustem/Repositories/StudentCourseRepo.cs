@@ -47,5 +47,12 @@ namespace ITIExaminationSyustem.Repositories
             _context.StudentCourses.Update(stdCrs);
             _context.SaveChanges();
         }
+
+        public void Add(int studentId, int courseId)
+        {
+            _context.StudentCourses.Add(new StudentCourse { Crs_Id= courseId ,Std_Id=studentId,Bouns=0} );
+            _context.SaveChanges();
+        }
+
     }
 }
