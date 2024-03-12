@@ -52,11 +52,22 @@ namespace ITIExaminationSyustem.Repositories
             _context.Departments.Update(department);
             _context.SaveChanges();
         }
-        public void Delete(int id)
+        public bool Delete(int id)
         {
             var deptToDelete = GetById(id);
-            _context.Departments.Remove(deptToDelete);
-            _context.SaveChanges();
+
+            if (deptToDelete.Navigation_Students.Count == 0 
+             && deptToDelete.Navigation_Department_Instructor.Count == 0
+             && deptToDelete.Navigation_Courses.Count == 0)
+            {
+                _context.Departments.Remove(deptToDelete);
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public Department GetByBranchAndMainDepartment(int branchId, int mainDepId)

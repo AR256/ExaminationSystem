@@ -60,12 +60,13 @@ namespace ITIExaminationSyustem.Controllers
 
         public IActionResult Create()
         {
-            List<Branch> branches = _branchRepo.GetAll();
-            List<MainDepartment> mainDepartments = _mainDeptRepo.GetAll();
-            ViewBag.Branches = branches;
-            ViewBag.MainDepartments = mainDepartments;
-            return View();
+            DepartmentViewModel departmentViewModel = new();
+            departmentViewModel.branches = _branchRepo.GetAll();
+            departmentViewModel.mainDepartments = _mainDeptRepo.GetAll();
+            departmentViewModel.instructors = _instructorRepo.GetAll();
+            return View(departmentViewModel);
         }
+
 
         [HttpPost]
         public IActionResult Create(Department department) 
@@ -81,23 +82,6 @@ namespace ITIExaminationSyustem.Controllers
             }
         }
 
-        //public IActionResult Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return BadRequest();
-        //    }
-        //    else
-        //    {
-        //        Department department = _departmentRepo.GetById(id.Value);
-        //        List<Branch> branches = _branchRepo.GetAll();
-        //        List<MainDepartment> mainDepartments = _mainDeptRepo.GetAll();
-        //        ViewBag.Branches = branches;
-        //        ViewBag.MainDepartments = mainDepartments;
-        //        return View(department);
-
-        //    }
-        //}
         public IActionResult Edit(int? id)
         {
             if (id == null)
@@ -106,8 +90,8 @@ namespace ITIExaminationSyustem.Controllers
             }
             else
             {
-                DepartmentViewModel deptViewModel = PrepareViewModel(id.Value);
-
+                DepartmentViewModel departmentViewModel = PrepareViewModel(id.Value);
+                return View(departmentViewModel);
             }
         }
 
@@ -128,14 +112,29 @@ namespace ITIExaminationSyustem.Controllers
 
         public IActionResult Delete(int id)
         {
-            _departmentRepo.Delete(id);
-            return RedirectToAction("Index");
+            bool result = _departmentRepo.Delete(id);
+            if(result)
+                return RedirectToAction("Index");
+            else
+                return RedirectToAction("Index");
         }
 
 
         public DepartmentViewModel PrepareViewModel(int id)
         {
-            Department department = Get
+            Department department = _departmentRepo.GetById(id);
+            DepartmentViewModel departmentViewModel = new();
+
+            departmentViewModel.Department_Id = department.Department_Id;
+            departmentViewModel.Department_Name = department.Department_Name;
+            departmentViewModel.Department_MgrId = department.Department_MgrId;
+            departmentViewModel.Brch_Id = department.Brch_Id;
+            departmentViewModel.MainDept_Id = department.MainDept_Id;
+            departmentViewModel.branches = _branchRepo.GetAll();
+            departmentViewModel.mainDepartments = _mainDeptRepo.GetAll();
+            departmentViewModel.instructors = _instructorRepo.GetAll();
+
+            return departmentViewModel;
         }
     }
 }
