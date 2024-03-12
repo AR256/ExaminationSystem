@@ -20,5 +20,17 @@ namespace ITIExaminationSyustem.Repositories
         {
             return _context.Instructors.Where(ins => ins.Navigation_Department_Instructor.Any(dept => dept.Dept_Id == id)).ToList();  //.select  
         }
+
+        public void Add(int depId, int InsId)
+        {
+            _context.DepartmentInstructors.Add(new DepartmentInstructors { Dept_Id= depId, Ins_Id=InsId});
+            _context.SaveChanges();
+        }
+
+        public void Delete(int depId, int InsId)
+        {
+            _context.DepartmentInstructors.Remove(_context.DepartmentInstructors.SingleOrDefault(a=>a.Ins_Id==InsId && a.Dept_Id==depId));
+            _context.SaveChanges();
+        }
     }
 }

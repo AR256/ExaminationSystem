@@ -8,9 +8,11 @@ namespace ITIExaminationSyustem.ViewModels
         public string Instructor_Name { get; set; }
         public string Instructor_Email { get; set; }
         public string Instructor_Image { get; set; }
-        public string Instructor_BranchName { get; set; } // to be added
+        public List<Department> Managed_Departments { get; set; }
         public int Instructor_Id { get; set; }
         public List<Department> Departments { get; set; }
+        public List<Department> OtherDepartments { get; set; }
         public List<Course> Courses { get; set; }
+        public List<Course> OtherCourses { get; set; }
     }
 }
