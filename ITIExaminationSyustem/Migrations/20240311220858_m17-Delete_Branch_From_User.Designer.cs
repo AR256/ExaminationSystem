@@ -4,6 +4,7 @@ using ITIExaminationSyustem.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ITIExaminationSyustem.Migrations
 {
     [DbContext(typeof(Exam_Context))]
-    partial class Exam_ContextModelSnapshot : ModelSnapshot
+    [Migration("20240311220858_m17-Delete_Branch_From_User")]
+    partial class m17Delete_Branch_From_User
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,13 +57,13 @@ namespace ITIExaminationSyustem.Migrations
 
             modelBuilder.Entity("CourseInstructor", b =>
                 {
-                    b.Property<int>("Navigation_CoursesCourse_Id")
+                    b.Property<int>("CoursesCourse_Id")
                         .HasColumnType("int");
 
                     b.Property<int>("Navigation_InstructorsInstructor_Id")
                         .HasColumnType("int");
 
-                    b.HasKey("Navigation_CoursesCourse_Id", "Navigation_InstructorsInstructor_Id");
+                    b.HasKey("CoursesCourse_Id", "Navigation_InstructorsInstructor_Id");
 
                     b.HasIndex("Navigation_InstructorsInstructor_Id");
 
@@ -477,7 +480,7 @@ namespace ITIExaminationSyustem.Migrations
                 {
                     b.HasOne("ITIExaminationSyustem.Models.Course", null)
                         .WithMany()
-                        .HasForeignKey("Navigation_CoursesCourse_Id")
+                        .HasForeignKey("CoursesCourse_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -512,7 +515,7 @@ namespace ITIExaminationSyustem.Migrations
                         .HasForeignKey("Brch_Id");
 
                     b.HasOne("ITIExaminationSyustem.Models.Instructor", "Navigation_Department_Manager_Instructor")
-                        .WithMany("Navigation_Departments")
+                        .WithMany("Departments")
                         .HasForeignKey("Department_MgrId");
 
                     b.HasOne("ITIExaminationSyustem.Models.MainDepartment", "Navigation_MainDepartment")
@@ -682,9 +685,9 @@ namespace ITIExaminationSyustem.Migrations
 
             modelBuilder.Entity("ITIExaminationSyustem.Models.Instructor", b =>
                 {
-                    b.Navigation("Navigation_Department_Instructor");
+                    b.Navigation("Departments");
 
-                    b.Navigation("Navigation_Departments");
+                    b.Navigation("Navigation_Department_Instructor");
                 });
 
             modelBuilder.Entity("ITIExaminationSyustem.Models.MainDepartment", b =>
