@@ -18,12 +18,14 @@ namespace ITIExaminationSyustem.Repositories
         }
         public Instructor GetById(int id)
         {
-            return _context.Instructors.Include(a=>a.Navigation_User)
-                                       .Include(a=>a.Courses)
-                                       .Include(a=>a.Navigation_Department_Instructor)
-                                       .ThenInclude(a=>a.Navigation_Department)
-                                       .ThenInclude(a=>a.Navigation_MainDepartment)
-                                       .SingleOrDefault(ins => ins.Instructor_Id == id);
+
+            return _context.Instructors.Include(a=>a.Navigation_Departments)
+                .Include(a=>a.Navigation_User)
+                .Include(a=>a.Navigation_Courses)
+                .Include(a=>a.Navigation_Department_Instructor)
+                .ThenInclude(a=>a.Navigation_Department)
+                .SingleOrDefault(ins => ins.Instructor_Id == id);
+
         }
         public void Add(Instructor instructor)
         {
@@ -41,5 +43,37 @@ namespace ITIExaminationSyustem.Repositories
             _context.Instructors.Remove(instructorToDelete);
             _context.SaveChanges();
         }
+
+        public List<Course> GetCourses(int id)
+        {
+            return _context.Instructors.Include(a=>a.Navigation_Courses).SingleOrDefault(a=>a.Instructor_Id==id).Navigation_Courses.ToList();
+        }
+
+        public void AddCourse(int insId, Course course)
+        {
+            var instructor = GetById(insId);
+            instructor.Navigation_Courses.Add(course);
+            _context.SaveChanges();
+        }
+        public void RemoveCourse(int insId, Course course)
+        {
+            var instructor = GetById(insId);
+            instructor.Navigation_Courses.Remove(course);
+            _context.SaveChanges();
+        }
+
+        //public void RemoveDepartment(int insId, Department department)
+        //{
+        //    var instructor = GetById(insId);
+        //    instructor.Navigation_Departments.Remove(department);
+        //    _context.SaveChanges();
+        //}
+        //public void AddDepartment(int insId, Department department)
+        //{
+        //    var instructor = GetById(insId);
+        //    instructor.Navigation_Departments.Add(department);
+        //    _context.SaveChanges();
+
+        //}
     }
 }

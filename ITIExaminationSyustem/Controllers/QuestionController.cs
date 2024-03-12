@@ -39,13 +39,21 @@ namespace ITIExaminationSyustem.Controllers
             var m = _questionRepo.GetById(q.Question_Id);
             if (ModelState.IsValid && m == null)
             {
-                
-                foreach(var i in choices)
+                if (choices.Values.ToList()[0] == null)
                 {
-                    var c = new Choice { Choice_Text = i.Value };
-                    _choiceRepo.Add(c);
-                    q.Navigation_Choices.Add(c);
+                    q.Navigation_Choices.Add(_choiceRepo.GetById(1));
+                    q.Navigation_Choices.Add(_choiceRepo.GetById(2));
                 }
+                else
+                {
+                    foreach (var i in choices)
+                    {
+                        var c = new Choice { Choice_Text = i.Value };
+
+                        _choiceRepo.Add(c);
+                        q.Navigation_Choices.Add(c);
+                    }
+                } 
                 _questionRepo.Add(q);
                 return RedirectToAction("Index");
             }
