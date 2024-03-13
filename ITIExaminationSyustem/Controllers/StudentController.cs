@@ -129,29 +129,38 @@ namespace ITIExaminationSyustem.Controllers
 
         }
 
+        //public IActionResult getUsers()
+        //{
+        //    var departments = _departmentRepo.GetAll();
+        //    ViewBag.Users = _userRepo.GetNonAssignedUsers();
+        //    return View(departments);
+        //}
         [HttpGet]
         public IActionResult Add() // user
         {
+            ViewBag.Users = _userRepo.GetNonAssignedUsers();
             var branches = _branchRepo.GetAll();
             return View(branches);
 
         }
         [HttpGet]
-        public IActionResult AddToBranch(int id) // branch id
+        public IActionResult AddToBranch(int branchId,int userId) // branch id
         {
-            var mainDepartments = _departmentRepo.GetDepartmentsByBranchId(id).Select(a=>a.Navigation_MainDepartment).ToList();
-            TempData["BranchId"] = id;
+            var mainDepartments = _departmentRepo.GetDepartmentsByBranchId(branchId).Select(a=>a.Navigation_MainDepartment).ToList();
+            TempData["BranchId"] = branchId;
+            TempData["UserId"] = userId;
             return View(mainDepartments);
         }
         [HttpPost]
         public IActionResult AddToBranch(AddStudentViewModel addStudentViewModel)
         {
             int branchId;
+            int userId;
             
                 branchId = (int)TempData["BranchId"];
-            
+            userId = (int)TempData["UserId"];
             var department = _departmentRepo.GetDepartmentsByBranchId(branchId).SingleOrDefault(a=>a.MainDept_Id== addStudentViewModel.Department_Id);
-            var Student = new Student { Dept_Id = department.Department_Id, Std_User_Id = addStudentViewModel.User_Id };
+            var Student = new Student { Dept_Id = department.Department_Id, Std_User_Id = userId };
             _studentRepo.Add(Student);
             var studentCourses = _departmentRepo.GetByBranchAndMainDepartment(branchId, addStudentViewModel.Department_Id).Navigation_Courses.ToList();
             addStudentViewModel.StudentCourses = studentCourses;
