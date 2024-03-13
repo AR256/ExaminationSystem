@@ -14,7 +14,7 @@ namespace ITIExaminationSyustem.Repositories
         }
 
 
-        public List<ExamQs> GetAnsweredQuestions (int id) //exam
+        public List<ExamQs> GetAnsweredQuestions(int id) //exam
         {
             return _context.ExamQs.Where(a=>a.Exam_Id==id).ToList();
         }
