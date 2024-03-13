@@ -54,17 +54,43 @@ namespace ITIExaminationSyustem.Migrations
 
             modelBuilder.Entity("CourseInstructor", b =>
                 {
-                    b.Property<int>("CoursesCourse_Id")
+                    b.Property<int>("Navigation_CoursesCourse_Id")
                         .HasColumnType("int");
 
                     b.Property<int>("Navigation_InstructorsInstructor_Id")
                         .HasColumnType("int");
 
-                    b.HasKey("CoursesCourse_Id", "Navigation_InstructorsInstructor_Id");
+                    b.HasKey("Navigation_CoursesCourse_Id", "Navigation_InstructorsInstructor_Id");
 
                     b.HasIndex("Navigation_InstructorsInstructor_Id");
 
                     b.ToTable("CourseInstructor");
+                });
+
+            modelBuilder.Entity("ITIExaminationSyustem.Models.Admin", b =>
+                {
+                    b.Property<int>("Admin_Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Admin_Id"));
+
+                    b.Property<int>("Admin_Branch_Id")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Admin_User_Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("Admin_Id");
+
+                    b.HasIndex("Admin_Branch_Id")
+                        .IsUnique();
+
+                    b.HasIndex("Admin_User_Id")
+                        .IsUnique()
+                        .HasFilter("[Admin_User_Id] IS NOT NULL");
+
+                    b.ToTable("Admins");
                 });
 
             modelBuilder.Entity("ITIExaminationSyustem.Models.Branch", b =>
@@ -75,33 +101,15 @@ namespace ITIExaminationSyustem.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Branch_Id"));
 
+                    b.Property<string>("Branch_Manager_Name")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Branch_Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Branch_Id");
 
                     b.ToTable("Branches");
-                });
-
-            modelBuilder.Entity("ITIExaminationSyustem.Models.BranchManager", b =>
-                {
-                    b.Property<int>("Branch_Manager_Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Branch_Manager_Id"));
-
-                    b.Property<string>("Branch_Manager_Email")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Branch_Manager_Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Branch_Manager_Id");
-
-                    b.HasIndex("Branch_Manager_Email");
-
-                    b.ToTable("BranchManagers");
                 });
 
             modelBuilder.Entity("ITIExaminationSyustem.Models.Choice", b =>
@@ -131,8 +139,14 @@ namespace ITIExaminationSyustem.Migrations
                     b.Property<int>("Course_Duration")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("Course_Exam_StartDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Course_Name")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Crs_Exam_Duration")
+                        .HasColumnType("int");
 
                     b.HasKey("Course_Id");
 
@@ -152,6 +166,9 @@ namespace ITIExaminationSyustem.Migrations
 
                     b.Property<int?>("Department_MgrId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Department_Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("MainDept_Id")
                         .HasColumnType("int");
@@ -193,13 +210,7 @@ namespace ITIExaminationSyustem.Migrations
                     b.Property<int?>("Crs_Id")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Exam_Duration")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Grade")
+                    b.Property<int?>("Grade")
                         .HasColumnType("int");
 
                     b.Property<int?>("StudId")
@@ -235,34 +246,6 @@ namespace ITIExaminationSyustem.Migrations
                     b.ToTable("ExamQs");
                 });
 
-            modelBuilder.Entity("ITIExaminationSyustem.Models.HumanResource", b =>
-                {
-                    b.Property<int>("Human_Resource_Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Human_Resource_Id"));
-
-                    b.Property<int>("HR_Branch_Id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("HR_User_Email")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Human_Resource_Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Human_Resource_Id");
-
-                    b.HasIndex("HR_Branch_Id");
-
-                    b.HasIndex("HR_User_Email")
-                        .IsUnique()
-                        .HasFilter("[HR_User_Email] IS NOT NULL");
-
-                    b.ToTable("HumanResources");
-                });
-
             modelBuilder.Entity("ITIExaminationSyustem.Models.Instructor", b =>
                 {
                     b.Property<int>("Instructor_Id")
@@ -271,17 +254,14 @@ namespace ITIExaminationSyustem.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Instructor_Id"));
 
-                    b.Property<string>("Ins_User_Email")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Instructor_Name")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("Ins_User_Id")
+                        .HasColumnType("int");
 
                     b.HasKey("Instructor_Id");
 
-                    b.HasIndex("Ins_User_Email")
+                    b.HasIndex("Ins_User_Id")
                         .IsUnique()
-                        .HasFilter("[Ins_User_Email] IS NOT NULL");
+                        .HasFilter("[Ins_User_Id] IS NOT NULL");
 
                     b.ToTable("Instructors");
                 });
@@ -342,6 +322,9 @@ namespace ITIExaminationSyustem.Migrations
                     b.Property<int>("Degree")
                         .HasColumnType("int");
 
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("QuestionType_Id");
 
                     b.ToTable("QuestionTypes");
@@ -374,19 +357,16 @@ namespace ITIExaminationSyustem.Migrations
                     b.Property<int?>("Dept_Id")
                         .HasColumnType("int");
 
-                    b.Property<string>("Std_User_Email")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Student_Name")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("Std_User_Id")
+                        .HasColumnType("int");
 
                     b.HasKey("Student_Id");
 
                     b.HasIndex("Dept_Id");
 
-                    b.HasIndex("Std_User_Email")
+                    b.HasIndex("Std_User_Id")
                         .IsUnique()
-                        .HasFilter("[Std_User_Email] IS NOT NULL");
+                        .HasFilter("[Std_User_Id] IS NOT NULL");
 
                     b.ToTable("Students");
                 });
@@ -420,23 +400,47 @@ namespace ITIExaminationSyustem.Migrations
 
             modelBuilder.Entity("ITIExaminationSyustem.Models.User", b =>
                 {
-                    b.Property<string>("User_Email")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("Role_Id")
+                    b.Property<int>("User_Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("User_Id"));
+
+                    b.Property<string>("User_Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("User_Image")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("User_Password")
+                    b.Property<string>("User_Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("User_Email");
+                    b.Property<string>("User_Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("Role_Id");
+                    b.HasKey("User_Id");
+
+                    b.HasIndex("User_Email")
+                        .IsUnique();
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("RoleUser", b =>
+                {
+                    b.Property<int>("Navigation_RolesRole_Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Navigation_UsersUser_Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("Navigation_RolesRole_Id", "Navigation_UsersUser_Id");
+
+                    b.HasIndex("Navigation_UsersUser_Id");
+
+                    b.ToTable("RoleUser");
                 });
 
             modelBuilder.Entity("ChoiceQuestion", b =>
@@ -473,7 +477,7 @@ namespace ITIExaminationSyustem.Migrations
                 {
                     b.HasOne("ITIExaminationSyustem.Models.Course", null)
                         .WithMany()
-                        .HasForeignKey("CoursesCourse_Id")
+                        .HasForeignKey("Navigation_CoursesCourse_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -484,11 +488,19 @@ namespace ITIExaminationSyustem.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ITIExaminationSyustem.Models.BranchManager", b =>
+            modelBuilder.Entity("ITIExaminationSyustem.Models.Admin", b =>
                 {
+                    b.HasOne("ITIExaminationSyustem.Models.Branch", "Navigation_Branch")
+                        .WithOne("Navigation_Admin")
+                        .HasForeignKey("ITIExaminationSyustem.Models.Admin", "Admin_Branch_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("ITIExaminationSyustem.Models.User", "Navigation_User")
-                        .WithMany()
-                        .HasForeignKey("Branch_Manager_Email");
+                        .WithOne("Navigation_Admin")
+                        .HasForeignKey("ITIExaminationSyustem.Models.Admin", "Admin_User_Id");
+
+                    b.Navigation("Navigation_Branch");
 
                     b.Navigation("Navigation_User");
                 });
@@ -500,7 +512,7 @@ namespace ITIExaminationSyustem.Migrations
                         .HasForeignKey("Brch_Id");
 
                     b.HasOne("ITIExaminationSyustem.Models.Instructor", "Navigation_Department_Manager_Instructor")
-                        .WithMany("Departments")
+                        .WithMany("Navigation_Departments")
                         .HasForeignKey("Department_MgrId");
 
                     b.HasOne("ITIExaminationSyustem.Models.MainDepartment", "Navigation_MainDepartment")
@@ -567,28 +579,11 @@ namespace ITIExaminationSyustem.Migrations
                     b.Navigation("Navigation_Question");
                 });
 
-            modelBuilder.Entity("ITIExaminationSyustem.Models.HumanResource", b =>
-                {
-                    b.HasOne("ITIExaminationSyustem.Models.Branch", "Navigation_Branch")
-                        .WithMany("Navigation_Human_Resources")
-                        .HasForeignKey("HR_Branch_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ITIExaminationSyustem.Models.User", "Navigation_User")
-                        .WithOne("Navigation_Human_Resource")
-                        .HasForeignKey("ITIExaminationSyustem.Models.HumanResource", "HR_User_Email");
-
-                    b.Navigation("Navigation_Branch");
-
-                    b.Navigation("Navigation_User");
-                });
-
             modelBuilder.Entity("ITIExaminationSyustem.Models.Instructor", b =>
                 {
                     b.HasOne("ITIExaminationSyustem.Models.User", "Navigation_User")
                         .WithOne("Navigation_Instructor")
-                        .HasForeignKey("ITIExaminationSyustem.Models.Instructor", "Ins_User_Email");
+                        .HasForeignKey("ITIExaminationSyustem.Models.Instructor", "Ins_User_Id");
 
                     b.Navigation("Navigation_User");
                 });
@@ -616,7 +611,7 @@ namespace ITIExaminationSyustem.Migrations
 
                     b.HasOne("ITIExaminationSyustem.Models.User", "Navigation_User")
                         .WithOne("Navigation_Student")
-                        .HasForeignKey("ITIExaminationSyustem.Models.Student", "Std_User_Email");
+                        .HasForeignKey("ITIExaminationSyustem.Models.Student", "Std_User_Id");
 
                     b.Navigation("Navigation_Department");
 
@@ -642,22 +637,26 @@ namespace ITIExaminationSyustem.Migrations
                     b.Navigation("Navigation_Student");
                 });
 
-            modelBuilder.Entity("ITIExaminationSyustem.Models.User", b =>
+            modelBuilder.Entity("RoleUser", b =>
                 {
-                    b.HasOne("ITIExaminationSyustem.Models.Role", "Navigation_Role")
-                        .WithMany("Navigation_Users")
-                        .HasForeignKey("Role_Id")
+                    b.HasOne("ITIExaminationSyustem.Models.Role", null)
+                        .WithMany()
+                        .HasForeignKey("Navigation_RolesRole_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Navigation_Role");
+                    b.HasOne("ITIExaminationSyustem.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("Navigation_UsersUser_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ITIExaminationSyustem.Models.Branch", b =>
                 {
-                    b.Navigation("Navigation_Departments");
+                    b.Navigation("Navigation_Admin");
 
-                    b.Navigation("Navigation_Human_Resources");
+                    b.Navigation("Navigation_Departments");
                 });
 
             modelBuilder.Entity("ITIExaminationSyustem.Models.Course", b =>
@@ -683,9 +682,9 @@ namespace ITIExaminationSyustem.Migrations
 
             modelBuilder.Entity("ITIExaminationSyustem.Models.Instructor", b =>
                 {
-                    b.Navigation("Departments");
-
                     b.Navigation("Navigation_Department_Instructor");
+
+                    b.Navigation("Navigation_Departments");
                 });
 
             modelBuilder.Entity("ITIExaminationSyustem.Models.MainDepartment", b =>
@@ -703,11 +702,6 @@ namespace ITIExaminationSyustem.Migrations
                     b.Navigation("Navigation_Question");
                 });
 
-            modelBuilder.Entity("ITIExaminationSyustem.Models.Role", b =>
-                {
-                    b.Navigation("Navigation_Users");
-                });
-
             modelBuilder.Entity("ITIExaminationSyustem.Models.Student", b =>
                 {
                     b.Navigation("Navigation_StudentCourses");
@@ -717,7 +711,7 @@ namespace ITIExaminationSyustem.Migrations
 
             modelBuilder.Entity("ITIExaminationSyustem.Models.User", b =>
                 {
-                    b.Navigation("Navigation_Human_Resource");
+                    b.Navigation("Navigation_Admin");
 
                     b.Navigation("Navigation_Instructor");
 

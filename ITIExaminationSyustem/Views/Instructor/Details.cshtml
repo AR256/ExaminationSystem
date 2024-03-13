@@ -1,0 +1,43 @@
+﻿@model InstructorViewModel
+@{
+    ViewBag.Title = "Instructor Details";
+}
+
+<h1>Instructor Details</h1>
+
+<div class="card"">
+    <img src="@Model.Instructor_Image" class="card-img-top img-fluid" alt="...">
+    <div class="card-body">
+        <h2 class="card-title">@Model.Instructor_Name</h2>
+        <h2 class="card-title">@Model.Instructor_Email</h2>
+        <h3>Departments</h3>
+        <ul>
+        @foreach(var item in Model.Departments)
+        {
+            <li>@item.Department_Name</li>
+        }
+        </ul>
+
+        <h3>Courses</h3>
+        <ul>
+        @foreach (var item in Model.Courses)
+        {
+                <li>@item.Course_Name</li>
+        }
+        </ul>
+
+        @if(Model.Managed_Departments != null)
+        {
+            <h3>Managed Departments</h3>
+            <ul>
+        @foreach (var item in Model.Managed_Departments)
+        {
+                    <li>@item.Department_Name</li>
+        }
+    </ul>
+        }
+        
+        
+    </div>
+</div>
+<a class="btn btn-primary" asp-action="index" asp-controller="Instructor">Go Back</a>

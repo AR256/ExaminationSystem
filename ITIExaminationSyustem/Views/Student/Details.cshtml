@@ -1,0 +1,57 @@
+﻿@model Student
+@{
+    ViewBag.Title = "Student Details";
+}
+<h1>Student Details</h1>
+
+
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Department</th>
+    </thead>
+    <tbody>
+        <tr> 
+            <td><img src="@Model.Navigation_User.User_Image" alt="Alternate Text" class="img-fluid" style="width:150px;height:150px" /></td>
+            <td>@Model.Navigation_User.User_Name</td>
+            <td>@Model.Navigation_User.User_Email</td>
+            <td>@Model.Navigation_Department.Navigation_MainDepartment.MainDepartment_Name</td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+<h2>Courses</h2>
+<table class ="table table-bordered table-hover">
+    <thead>
+        <th>Course name</th>
+        <th>Course duration</th>
+        <th>Course Exam Date</th>
+        <th>Course Grade</th>
+        <th>Course Bouns</th>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Navigation_StudentCourses)
+        {
+            <tr>
+                <td>@item.Navigation_Course.Course_Name</td>
+                <td>@item.Navigation_Course.Course_Duration</td>
+                <td>@item.Navigation_Course.Course_Exam_StartDate</td>
+                <td>@item.Grade</td>
+                <td>@item.Bouns</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Index" asp-for="Student" class="btn btn-primary">Go Back</a>
+
+
+
+
+
+

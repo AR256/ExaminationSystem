@@ -1,0 +1,78 @@
+﻿@model InstructorViewModel
+@{
+    ViewBag.Title = "Edit Instructor";
+}
+
+<form class="form-control" enctype="multipart/form-data" method="post">
+
+    <input type="text" placeholder="Name" value="@Model.Instructor_Name" name="Instructor_Name" />
+    <input type="Email" placeholder="Email" value="@Model.Instructor_Email" name="Instructor_Email" />
+    <input type="file" name="Instructor_Image" />
+    <input type="submit" asp-action="SubmitEdit" asp-route-id="@Model.Instructor_Id" />
+</form>
+
+
+    <h3>Instructor departments</h3>
+
+    <table class="table table-bordered table-hover">
+        <thead>
+        <th>Department</th>
+        <th>Operations</th>
+        </thead>
+        <tbody>
+            @foreach(var item in Model.Departments)
+            {
+                <tr>
+                    <td>@item.Department_Name</td>
+                    <td>
+                        <a class="btn btn-info" asp-action="ManageCourses" asp-route-DepId="@item.Department_Id" asp-route-InsId="@Model.Instructor_Id">Manage Courses</a>
+                        <a class="btn btn-danger" asp-action="DeleteDepartment" asp-route-DepId="@item.Department_Id" asp-route-InsId="@Model.Instructor_Id">Remove</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        
+    </table>
+
+    <h3>other departments</h3>
+
+    <table class="table table-bordered table-hover">
+        <thead>
+        <th>Department</th>
+        <th>Operations</th>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.OtherDepartments)
+            {
+                <tr>
+                    <td>@item.Department_Name</td>
+                    <td>
+                        <a class="btn btn-info" asp-action="AddDepartment" asp-route-DepId="@item.Department_Id" asp-route-InsId="@Model.Instructor_Id">Add</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+    
+    
+    
+    @if (Model.Managed_Departments.Count()>0)
+    {
+        <h2>Managed Departments</h2>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <th>Department Name</th>
+                <th>Action</th>
+            </thead>
+            <tbody>
+                @foreach(var item in Model.Managed_Departments)
+                {
+                    <tr>
+                        <td>@item.Department_Name</td>
+                        <td><a class="btn btn-danger" asp-action="RemoveDepartmentManager" asp-route-departmentId="@item.Department_Id" asp-route-instructorId="@Model.Instructor_Id">Remove</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }

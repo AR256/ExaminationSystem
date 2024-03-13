@@ -1,0 +1,19 @@
+﻿@model DepartmentViewModel
+@{
+    ViewData["Title"] = "CreateEdit";
+    SelectList branches = new SelectList(Model.branches, "Branch_Id", "Branch_Name");
+    SelectList mainDepartments = new SelectList(Model.mainDepartments, "MainDepartment_Id", "MainDepartment_Name");
+    SelectList instructors = new SelectList(Model.instructors, "Instructor_Id", "Navigation_User.User_Name");
+}
+
+<label>Branch</label>
+<select asp-for="Brch_Id" asp-items="branches"></select>
+<br />
+
+<label>Department</label>
+<select asp-for="MainDept_Id" asp-items="mainDepartments"></select>
+<br />
+
+<label>Manager</label>
+<select asp-for="Department_MgrId" asp-items="instructors"></select>
+<br />

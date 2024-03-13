@@ -1,0 +1,30 @@
+﻿@model List<InstructorViewModel>
+@{
+    ViewBag.Title = "Instructors";
+}
+<h1>Instructors</h1>
+<table class="table table-hover table-bordered">
+    <thead>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Operations</th>
+
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td><img src="@item.Instructor_Image" class="img-fluid" style="width:100px;height:100px;"/></td>
+                <td>@item.Instructor_Name</td>
+                <td>@item.Instructor_Email</td>
+                <td>
+                    <a class="btn btn-success" asp-route-id="@item.Instructor_Id" asp-action="Edit">Edit</a>|
+                    <a class="btn btn-success" asp-route-id="@item.Instructor_Id" asp-action="Details">Details</a>|
+                    <a class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a class="btn btn-outline-info" asp-action="Add">Add Instructor</a>

@@ -1,0 +1,14 @@
+﻿@model List<MainDepartment>
+@{
+    ViewBag.Title = "Add to Branch";
+    SelectList mainDepartments = new SelectList(Model, "MainDepartment_Id", "MainDepartment_Name");
+
+}
+<form class="form-control" method="post">
+    <select asp-items="mainDepartments" name="Department_Id">
+
+    </select>
+    @* <input type="number" name="User_Id" value="" placeholder="User Id" /> *@
+
+    <input type="submit"  value="submit" />
+</form>

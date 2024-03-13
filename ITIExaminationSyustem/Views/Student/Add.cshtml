@@ -1,0 +1,58 @@
+﻿@model List<Branch>
+@{
+    ViewBag.Title = "Add Student";
+    SelectList Branches = new SelectList(Model, "Branch_Id", "Branch_Name");
+    SelectList Users = new SelectList(ViewBag.Users, "User_Id", "User_Name");
+
+}
+
+<form >
+    <select asp-items="Branches"   name="branchId">
+    </select>
+    <select asp-items="Users"  name="userId">
+    </select>
+    <input type="submit" asp-action="AddToBranch" value="submit" />
+</form>
+
+
+
+@* <table>
+    <thead>
+        <th>Branch</th>
+        <th>Operation</th>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>@item.Branch_Name</td>
+                <td><a class="btn btn-success" >Add Students to branch</a></td>
+            </tr>
+        }
+    </tbody>
+</table> *@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

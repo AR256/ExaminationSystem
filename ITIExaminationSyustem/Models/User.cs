@@ -1,20 +1,23 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.RegularExpressions;
 
 namespace ITIExaminationSyustem.Models
 {
     public class User
     {
-        
+        //remember to switch this id to be primary key
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-
+        public int User_Id { get; set; }
+        public string User_Name { get; set; }
+        [Required]
+        [RegularExpression(@"^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$")]
         public string User_Email { get; set; }
         public string  User_Image { get; set; }
-        public string User_Password { get; set; }
-
-        [ForeignKey("Navigation_Role")]
-        public int Role_Id { get; set; }
+        [Required]
+        //[RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$")]
+        public string User_Password { get; set; } = Guid.NewGuid().ToString().Substring(9, 14);
 
 
 
@@ -22,10 +25,10 @@ namespace ITIExaminationSyustem.Models
 
 
         #region Navigation property
-        public Role Navigation_Role { get; set; }
+        public ICollection<Role> Navigation_Roles { get; set; } = new HashSet<Role>();
         public Instructor? Navigation_Instructor { get; set; }
         public Student? Navigation_Student { get; set; }
-        public HumanResource? Navigation_Human_Resource { get; set; }
+        public Admin? Navigation_Admin { get; set; }
         #endregion
     }
 }
