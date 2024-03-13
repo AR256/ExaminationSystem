@@ -14,7 +14,7 @@ namespace ITIExaminationSyustem.Repositories
         }
 
 
-        public List<ExamQs> GetAnsweredQuestions (int id) //exam
+        public List<ExamQs> GetExamQuestions (int id) //exam
         {
             return _context.ExamQs.Where(a=>a.Exam_Id==id).ToList();
         }
@@ -36,7 +36,7 @@ namespace ITIExaminationSyustem.Repositories
             var TFQuestions = course.Navigation_Question.Where(a => a.Navigation_QuestionType.Type == "T&F").ToList();
             List<int> QuestionsId = new List<int>();
             
-            for(int i =0;i<5;i++)
+            for(int i =0;i<2;i++)
             {
                 bool flag = true;
                 Question randQs1 = null;
