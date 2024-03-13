@@ -4,6 +4,7 @@ using ITIExaminationSyustem.Models;
 using ITIExaminationSyustem.Repositories;
 using ITIExaminationSyustem.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace ITIExaminationSyustem.Controllers
 {
@@ -196,6 +197,49 @@ namespace ITIExaminationSyustem.Controllers
                         return RedirectToAction("Index");
                 }
             }
+        }
+
+        public IActionResult ManageCourses(int? id)
+        {
+            if (id == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                Department fetchedDepartment = _departmentRepo.GetById(id.Value);
+                if (fetchedDepartment == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    List<Course> allCourses = _courseRepo.GetAll();
+                    List <Course> coursesInDept = fetchedDepartment.Navigation_Courses.ToList();
+                    List<Course> coursesNotInDept = allCourses.Except(coursesInDept).ToList();
+                    ViewBag.CoursesNotInDept = coursesNotInDept;
+                    return View(fetchedDepartment);
+                }
+            }
+        }
+
+        [HttpPost]
+        public IActionResult ManageCourses(List<int> coursesToRemove, List<int> coursesToAdd, int deptId)
+        {
+            Department fetchedDepartment = _departmentRepo.GetById(deptId);
+            foreach (int courseId in coursesToRemove)
+            {
+                Course courseToRemove = _courseRepo.GetById(courseId);
+                fetchedDepartment.Navigation_Courses.Remove(courseToRemove);
+            }
+            foreach (int courseId in coursesToAdd)
+            {
+                Course courseToAdd = _courseRepo.GetById(courseId);
+                fetchedDepartment.Navigation_Courses.Add(courseToAdd);
+            }
+
+            _departmentRepo.Update(fetchedDepartment);
+            return RedirectToAction("Index");
         }
 
         public DepartmentViewModel PrepareViewModel(int id)
