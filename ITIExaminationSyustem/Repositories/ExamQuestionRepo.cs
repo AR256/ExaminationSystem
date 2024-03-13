@@ -13,11 +13,12 @@ namespace ITIExaminationSyustem.Repositories
             _context = examContext;
         }
 
-
         public List<ExamQs> GetExamQuestions (int id) //exam
+
         {
             return _context.ExamQs.Where(a=>a.Exam_Id==id).ToList();
         }
+        
         public List<ExamQs> GenerateExam(int crsId, int stdId)
         {
             List<ExamQs> examlist = new List<ExamQs>();
