@@ -11,5 +11,7 @@ namespace ITIExaminationSyustem.Interfaces
         void Delete(int id);
         Task AddImage(User user, IFormFile image);
         List<User> GetNonAssignedUsers();
+
+        User Login(string email, string password);
     }
 }
