@@ -60,11 +60,11 @@ namespace ITIExaminationSyustem.Controllers
             studentdepartment.MainDepartmentsInStudentBranch = departmentsInBranch.Select(a=>a.Navigation_MainDepartment).ToList();
 
         //-----------------------------------------------------------------------------------------------------------------------------------
-            studentdepartment.Student_Name = student.Navigation_User.User_Name;
-            studentdepartment.Student_Email = student.Navigation_User.User_Email;
-            studentdepartment.Student_DepartmentName = student.Navigation_Department.Navigation_MainDepartment.MainDepartment_Name;
+            studentdepartment.Student_Name = student.Navigation_User?.User_Name;
+            studentdepartment.Student_Email = student.Navigation_User?.User_Email;
+            studentdepartment.Student_DepartmentName = student.Navigation_Department?.Navigation_MainDepartment?.MainDepartment_Name;
             studentdepartment.StudentCourses = _studentCourseRepo.GetStudentCourses(id);
-            studentdepartment.Student_Image = student.Navigation_User.User_Image;
+            studentdepartment.Student_Image = student.Navigation_User?.User_Image;
             ViewBag.CoursesNotInStudent = allCoursesInStudentDepartment.Except(studentdepartment.StudentCourses);
             return View(studentdepartment);
         }
