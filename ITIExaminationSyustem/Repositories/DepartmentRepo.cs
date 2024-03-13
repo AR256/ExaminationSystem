@@ -80,6 +80,5 @@ namespace ITIExaminationSyustem.Repositories
             var department = GetById(id);
             return department.Navigation_Courses.ToList();
         }
-
     }
 }

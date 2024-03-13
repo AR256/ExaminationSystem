@@ -1,10 +1,22 @@
 ﻿@model List<Branch>
 @{
     ViewBag.Title = "Add Student";
-    
+    SelectList Branches = new SelectList(Model, "Branch_Id", "Branch_Name");
+    SelectList Users = new SelectList(ViewBag.Users, "User_Id", "User_Name");
+
 }
 
-<table>
+<form >
+    <select asp-items="Branches"   name="branchId">
+    </select>
+    <select asp-items="Users"  name="userId">
+    </select>
+    <input type="submit" asp-action="AddToBranch" value="submit" />
+</form>
+
+
+
+@* <table>
     <thead>
         <th>Branch</th>
         <th>Operation</th>
@@ -14,11 +26,11 @@
         {
             <tr>
                 <td>@item.Branch_Name</td>
-                <td><a class="btn btn-success" asp-action="AddToBranch" asp-for="Student" asp-route-id="@item.Branch_Id">Add Students to branch</a></td>
+                <td><a class="btn btn-success" >Add Students to branch</a></td>
             </tr>
         }
     </tbody>
-</table>
+</table> *@
 
 
 

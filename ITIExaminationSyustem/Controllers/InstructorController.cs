@@ -13,14 +13,22 @@ namespace ITIExaminationSyustem.Controllers
         private IDepartmentRepo _departmentRepo;
         private IDeptInstructorRepo _deptInstructorRepo;
         private ICourseRepo _courseRepo;
+        private IUserRepo _userRepo;
         
-        public InstructorController(ICourseRepo courseRepo,IInstructorRepo instructorRepo, IBranchRepo branchRepo,IDepartmentRepo departmentRepo,IDeptInstructorRepo deptInstructorRepo )
+        public InstructorController(ICourseRepo courseRepo,
+            IInstructorRepo instructorRepo,
+            IBranchRepo branchRepo,
+            IDepartmentRepo departmentRepo
+            ,IDeptInstructorRepo deptInstructorRepo 
+            ,IUserRepo userRepo
+            )
         {
             _instructorRepo = instructorRepo;
             _branchRepo = branchRepo;
             _departmentRepo = departmentRepo;
             _deptInstructorRepo = deptInstructorRepo;
             _courseRepo = courseRepo;
+            _userRepo = userRepo;
         }
         public IActionResult Index()
         {
@@ -55,9 +63,9 @@ namespace ITIExaminationSyustem.Controllers
             return View(instructor);
         }
         [HttpPost]
-        async public Task<IActionResult> Edit(string Instructor_Name, string Instructor_Email, IFormFile Instructor_Image, int id)
+        async public Task<IActionResult> SubmitEdit(string Instructor_Name, string Instructor_Email, IFormFile Instructor_Image, int id)
         {
-            InstructorViewModel instructorViewModel;
+            
             var instructor = _instructorRepo.GetById(id);
             if (ModelState.IsValid)
             {
@@ -76,12 +84,11 @@ namespace ITIExaminationSyustem.Controllers
                 instructor.Navigation_User.User_Email = Instructor_Email;
                 instructor.Navigation_User.User_Name = Instructor_Name;
                 _instructorRepo.Update(instructor);
-                instructorViewModel = PrepareInstructor(id);
-                return RedirectToAction("Index", instructorViewModel);
+                return RedirectToAction("Index");
 
             }
            
-                instructorViewModel = PrepareInstructor(id);
+                var instructorViewModel = PrepareInstructor(id);
                 return View("ManageCourses",instructorViewModel);
             
             
@@ -140,18 +147,18 @@ namespace ITIExaminationSyustem.Controllers
         public IActionResult Add()
         {
             var departments = _departmentRepo.GetAll();
+            ViewBag.Users = _userRepo.GetNonAssignedUsers();
             return View(departments);
         }
-        [HttpPost]
-        public IActionResult Add(List<int> departmentsList,int userId)
+       
+        
+        public IActionResult AddInstructor(int id)
         {
-            var instructor = new Instructor {Ins_User_Id=userId };
+            var instructor = new Instructor {Ins_User_Id=id };
             _instructorRepo.Add(instructor);
-            foreach(var item in departmentsList)
-            {
-                _deptInstructorRepo.Add(item,instructor.Instructor_Id);
-            }
-            return RedirectToAction("Index");
+            int d = instructor.Instructor_Id;
+            
+            return RedirectToAction("Edit", new {id=d});
         }
 
 

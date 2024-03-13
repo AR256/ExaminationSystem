@@ -5,47 +5,53 @@
 <h1>Student Details</h1>
 
 
-<div class="card" >
-    <img src="..." class="card-img-top" alt="...">
-    <div class="card-body">
-        <h5 class="card-title">@Model.Navigation_User.User_Name </h5>
-        <p class="card-text">@Model.Navigation_User.User_Email</p>
-        <p class="card-text">@Model.Navigation_Department.Navigation_MainDepartment.MainDepartment_Name</p>
-        <h5>Courses</h5>
-        @foreach(var item in Model.Navigation_StudentCourses)
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Department</th>
+    </thead>
+    <tbody>
+        <tr> 
+            <td><img src="@Model.Navigation_User.User_Image" alt="Alternate Text" class="img-fluid" style="width:150px;height:150px" /></td>
+            <td>@Model.Navigation_User.User_Name</td>
+            <td>@Model.Navigation_User.User_Email</td>
+            <td>@Model.Navigation_Department.Navigation_MainDepartment.MainDepartment_Name</td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+<h2>Courses</h2>
+<table class ="table table-bordered table-hover">
+    <thead>
+        <th>Course name</th>
+        <th>Course duration</th>
+        <th>Course Exam Date</th>
+        <th>Course Grade</th>
+        <th>Course Bouns</th>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Navigation_StudentCourses)
         {
-            <h6 class="bg-danger">Course name</h6><br />
-            <p class="card-text">@item.Navigation_Course.Course_Name</p><br />
-            <h6 class="bg-danger">Course duration</h6>
-
-            <br />
-            <p class="card-text">@item.Navigation_Course.Course_Duration</p><br />
-            <h6 class="bg-danger">Course Exam Date</h6>
-
-            <br />
-            <p class="card-text">@item.Navigation_Course.Course_Exam_StartDate</p><br />
-            <h6 class="bg-danger">Course Grade</h6>
-
-            <br />
-            <p class="card-text">@item.Grade</p>
-            <h6 class="bg-danger">Course Bouns</h6>
-
-            <br />
-            <p class="card-text">@item.Bouns</p>
-            <br />
-            <h6 class="bg-danger">Instructor feedback</h6>
-
-            <br />
-            <p class="card-text">@item.Ins_Feedback</p>
-            <h6 class="bg-danger">Student feedback</h6>
-
-            <br />
-            <p class="card-text">@item.Std_Feedback</p>
-            <p>=======================</p>
-
+            <tr>
+                <td>@item.Navigation_Course.Course_Name</td>
+                <td>@item.Navigation_Course.Course_Duration</td>
+                <td>@item.Navigation_Course.Course_Exam_StartDate</td>
+                <td>@item.Grade</td>
+                <td>@item.Bouns</td>
+            </tr>
         }
-        
-       
-        <a asp-action="Index" asp-for="Student" class="btn btn-primary">Go Back</a>
-    </div>
-</div>
+    </tbody>
+</table>
+
+<a asp-action="Index" asp-for="Student" class="btn btn-primary">Go Back</a>
+
+
+
+
+
+
