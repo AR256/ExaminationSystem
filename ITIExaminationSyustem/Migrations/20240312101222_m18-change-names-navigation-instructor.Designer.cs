@@ -4,6 +4,7 @@ using ITIExaminationSyustem.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ITIExaminationSyustem.Migrations
 {
     [DbContext(typeof(Exam_Context))]
-    partial class Exam_ContextModelSnapshot : ModelSnapshot
+    [Migration("20240312101222_m18-change-names-navigation-instructor")]
+    partial class m18changenamesnavigationinstructor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -406,6 +409,9 @@ namespace ITIExaminationSyustem.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("User_Id"));
 
+                    b.Property<int?>("Navigation_BranchBranch_Id")
+                        .HasColumnType("int");
+
                     b.Property<string>("User_Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -421,6 +427,8 @@ namespace ITIExaminationSyustem.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("User_Id");
+
+                    b.HasIndex("Navigation_BranchBranch_Id");
 
                     b.HasIndex("User_Email")
                         .IsUnique();
@@ -635,6 +643,15 @@ namespace ITIExaminationSyustem.Migrations
                     b.Navigation("Navigation_Course");
 
                     b.Navigation("Navigation_Student");
+                });
+
+            modelBuilder.Entity("ITIExaminationSyustem.Models.User", b =>
+                {
+                    b.HasOne("ITIExaminationSyustem.Models.Branch", "Navigation_Branch")
+                        .WithMany()
+                        .HasForeignKey("Navigation_BranchBranch_Id");
+
+                    b.Navigation("Navigation_Branch");
                 });
 
             modelBuilder.Entity("RoleUser", b =>

@@ -51,6 +51,32 @@ namespace ITIExaminationSyustem.Repositories
             _context.SaveChanges();
         }
 
-      
+        async public Task AddImage(User user, IFormFile image)
+        {
+            string fileExt = image.FileName.Split('.').Last();
+            string imagePath = $"wwwroot/Images/img-{user.User_Id}.{fileExt}";
+            using (var fs = new FileStream(imagePath, FileMode.Create))
+            {
+                await image.CopyToAsync(fs);
+            }
+            user.User_Image = $"/Images/img-{user.User_Id}.{fileExt}";
+            _context.SaveChanges();
+        }
+
+        public List<User> GetNonAssignedUsers()
+        {
+            List<User> allUsers = GetAll();
+            List<User> requiredUsers = new();
+
+            foreach(var user in allUsers)
+            {
+                if(user.Navigation_Admin == null && user.Navigation_Instructor == null && user.Navigation_Student == null)
+                {
+                    requiredUsers.Add(user);
+                }
+            }
+
+            return requiredUsers;
+        }
     }
 }
