@@ -1,0 +1,21 @@
+﻿@model Department
+@{
+    ViewData["Title"] = "ManageCourses";
+    List<Course> coursesInDept = Model.Navigation_Courses.ToList();
+    SelectList coursesInDeptList = new SelectList(coursesInDept, "Course_Id", "Course_Name");
+    SelectList coursesNotInDeptList = new SelectList(ViewBag.CoursesNotInDept, "Course_Id", "Course_Name");
+}
+
+<form method="post">
+    <label>Select courses to remove from Department</label>
+    <select multiple asp-items="coursesInDeptList" name="coursesToRemove"></select>
+
+    <br />
+
+    <label>Select courses to add to Department</label>
+    <select multiple asp-items="coursesNotInDeptList" name="coursesToAdd"></select>
+
+    <br />
+
+    <input type="submit" value="Update" class="btn btn-primary"/>
+</form>
