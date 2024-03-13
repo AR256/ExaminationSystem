@@ -4,9 +4,11 @@ using ITIExaminationSyustem.ViewModels;
 using ITIExaminationSyustem.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ITIExaminationSyustem.Controllers
 {
+    [Authorize]
     public class StudentController : Controller
     {
         private IStudentRepo _studentRepo;

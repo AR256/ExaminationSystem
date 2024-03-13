@@ -1,11 +1,13 @@
 ﻿using ITIExaminationSyustem.Interfaces;
 using ITIExaminationSyustem.Models;
 using ITIExaminationSyustem.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace ITIExaminationSyustem.Controllers
 {
+    [Authorize]
     public class InstructorController : Controller
     {
         private IInstructorRepo _instructorRepo;
