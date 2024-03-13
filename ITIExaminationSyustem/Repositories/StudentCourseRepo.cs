@@ -11,6 +11,12 @@ namespace ITIExaminationSyustem.Repositories
         {
             _context = ExamContext;
         }
+
+        public StudentCourse GetByIds(int crsId, int stdId)
+        {
+            return _context.StudentCourses.SingleOrDefault(stdCrs => stdCrs.Std_Id == stdId && stdCrs.Crs_Id == crsId);
+        }
+
         public List<string> GetCourseFeedbacks(int courseId)
         {
             return _context.StudentCourses.Where(c => c.Crs_Id == courseId).Select(s=>s.Std_Feedback).ToList();

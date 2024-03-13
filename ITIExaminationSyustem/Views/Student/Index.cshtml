@@ -17,9 +17,9 @@
         {
             <tr>
                 <td>@item.Student_Id</td>
-                <td>@item.Navigation_User.User_Name</td>
-                <td>@item.Navigation_User.User_Email</td>
-                <td>@item.Navigation_Department.Navigation_MainDepartment.MainDepartment_Name</td>
+                <td>@item.Navigation_User?.User_Name</td>
+                <td>@item.Navigation_User?.User_Email</td>
+                <td>@item.Navigation_Department?.Navigation_MainDepartment?.MainDepartment_Name</td>
                 <td>
                     <a class="btn btn-info" asp-action="Edit" asp-for="Student" asp-route-id="@item.Student_Id">Edit</a>|
                     <a class="btn btn-info" class="btn btn-danger">Delete</a>|

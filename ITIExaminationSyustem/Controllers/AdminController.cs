@@ -53,20 +53,27 @@ namespace ITIExaminationSyustem.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var users = _userRepo.GetAll().Where(a => a.Navigation_Admin == null && a.Navigation_Instructor == null && a.Navigation_Student == null);
-            var emailList = users.Select(u => new { Admin_User_Id = u.User_Id, User_Email = u.User_Email }).ToList();
-            ViewBag.Emaillist = emailList;
-            var branches = _branchRepo.GetAll();
+            Admin admin = _adminRepo.GetById(id);
+            var email = _userRepo.GetAll().Select(u => new { Admin_User_Id = u.User_Id, User_Email = u.User_Email }).ToList();
+            ViewBag.Email = email;
+            var branches = _branchRepo.GetAll().Where(b=> b.Navigation_Admin == null);
             var branchList = branches.Select(u => new { Admin_Branch_Id = u.Branch_Id, Branch_Name = u.Branch_Name }).ToList();
             ViewBag.Branchlist = branchList;
             var adminedited = _adminRepo.GetById(id);
             return View(adminedited);
         }
         [HttpPost]
-        public IActionResult Update(Admin admin)
+        public IActionResult Edit(Admin admin, int id)
         {
-            _adminRepo.Update(admin);
-            return RedirectToAction("Index");
+            Admin ad = _adminRepo.GetById(id);
+            ad.Admin_Branch_Id = admin.Admin_Branch_Id;
+            if(ModelState.IsValid)
+            {
+                _adminRepo.Update(ad);
+                return RedirectToAction("Index");
+            }
+            return View(admin);
+            
         }
 
         public IActionResult Details(int id)
