@@ -19,7 +19,6 @@
                 <th>Question ID</th>
                 <th>Question</th>
                 <th>Question Type</th>
-                <th>Question Answer</th>
                 <th>Operations</th>
             </tr>
         </thead>
@@ -29,8 +28,7 @@
                 <tr>
                     <td>@item.Question_Id</td>
                     <td>@item.Question_Text</td>
-                    <td>@item.Question_Type</td>
-                    <td>@item.Question_Answer</td>
+                    <td>@item.Navigation_QuestionType.Type</td>
                     <td>
                         <a asp-action="Details" asp-controller="question" asp-route-id="@item.Question_Id" class="btn btn-info"> Details</a>
                         <a asp-action="Edit" asp-controller="question" asp-route-id="@item.Question_Id" class="btn btn-info"> Update</a>

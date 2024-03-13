@@ -14,6 +14,7 @@ namespace ITIExaminationSyustem.Repositories
         public void Add(Student student)
         {
             _context.Students.Add(student);
+            var st = GetById(student.Student_Id);
             _context.SaveChanges();
         }
 
@@ -33,6 +34,7 @@ namespace ITIExaminationSyustem.Repositories
         public Student GetById(int id)
         {
             return _context.Students.Include(a => a.Navigation_User)
+                .ThenInclude(a=>a.Navigation_Roles)
                 .Include(a => a.Navigation_StudentCourses)
                 .ThenInclude(a=>a.Navigation_Course)
                 .Include(a => a.Navigation_StudentExam)
@@ -45,6 +47,15 @@ namespace ITIExaminationSyustem.Repositories
         public void Update(Student student)
         {
             _context.Students.Update(student);
+            _context.SaveChanges();
+        }
+
+        public void AddRole(int id)
+        {
+            var student = GetById(id);
+            var role = _context.Roles
+                .SingleOrDefault(a => a.Role_Type == "Student");
+            student.Navigation_User?.Navigation_Roles?.Add(role);
             _context.SaveChanges();
         }
     }

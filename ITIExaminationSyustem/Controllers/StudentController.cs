@@ -202,6 +202,7 @@ namespace ITIExaminationSyustem.Controllers
             var studentCourses = _departmentRepo.GetByBranchAndMainDepartment(branchId, addStudentViewModel.Department_Id).Navigation_Courses.ToList();
             addStudentViewModel.StudentCourses = studentCourses;
             addStudentViewModel.Student_Id = Student.Student_Id;
+            _studentRepo.AddRole(Student.Student_Id);
             return View("AddCourses", addStudentViewModel);
         }
 
