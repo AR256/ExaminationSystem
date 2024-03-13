@@ -57,5 +57,26 @@ namespace ITIExaminationSyustem.Controllers
             }
             return RedirectToAction("Home");
         }
+
+        public IActionResult DisplayExamTemplate(int? examId, bool? isAnswered)
+        {
+            if (examId == null || isAnswered == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                Exam exam = _examRepo.GetById(examId.Value);
+                if (exam == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    List<ExamQs> examQuestions = _examQuestionRepo.GetExamQuestions(examId.Value);
+                    return View(examQuestions);
+                }
+            }
+        }
     }
 }
