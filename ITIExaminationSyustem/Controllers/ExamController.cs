@@ -73,6 +73,7 @@ namespace ITIExaminationSyustem.Controllers
                 }
                 else
                 {
+                    ViewBag.Answered = isAnswered;
                     List<ExamQs> examQuestions = _examQuestionRepo.GetExamQuestions(examId.Value);
                     return View(examQuestions);
                 }

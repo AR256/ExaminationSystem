@@ -3,11 +3,13 @@ using ITIExaminationSyustem.Interfaces;
 using ITIExaminationSyustem.Models;
 using ITIExaminationSyustem.Repositories;
 using ITIExaminationSyustem.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
 namespace ITIExaminationSyustem.Controllers
 {
+    [Authorize]
     public class DepartmentController : Controller
     {
         IDepartmentRepo _departmentRepo;

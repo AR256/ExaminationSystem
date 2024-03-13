@@ -1,11 +1,13 @@
 ﻿using ITIExaminationSyustem.Interfaces;
 using ITIExaminationSyustem.Models;
 using ITIExaminationSyustem.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace ITIExaminationSyustem.Controllers
 {
+    [Authorize]
     public class InstructorController : Controller
     {
         private IInstructorRepo _instructorRepo;
@@ -158,7 +160,7 @@ namespace ITIExaminationSyustem.Controllers
             var instructor = new Instructor {Ins_User_Id=id };
             _instructorRepo.Add(instructor);
             int d = instructor.Instructor_Id;
-            
+            _instructorRepo.AddRole(d);
             return RedirectToAction("Edit", new {id=d});
         }
 

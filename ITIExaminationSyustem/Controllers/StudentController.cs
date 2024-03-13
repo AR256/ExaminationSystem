@@ -4,9 +4,11 @@ using ITIExaminationSyustem.ViewModels;
 using ITIExaminationSyustem.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ITIExaminationSyustem.Controllers
 {
+    [Authorize]
     public class StudentController : Controller
     {
         private IStudentRepo _studentRepo;
@@ -165,6 +167,7 @@ namespace ITIExaminationSyustem.Controllers
             var studentCourses = _departmentRepo.GetByBranchAndMainDepartment(branchId, addStudentViewModel.Department_Id).Navigation_Courses.ToList();
             addStudentViewModel.StudentCourses = studentCourses;
             addStudentViewModel.Student_Id = Student.Student_Id;
+            _studentRepo.AddRole(Student.Student_Id);
             return View("AddCourses", addStudentViewModel);
         }
 

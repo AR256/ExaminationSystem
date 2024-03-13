@@ -1,10 +1,12 @@
 ﻿using ITIExaminationSyustem.Interfaces;
 using ITIExaminationSyustem.Models;
 using ITIExaminationSyustem.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ITIExaminationSyustem.Controllers
 {
+    [Authorize(Roles=("Admin"))]
     public class AdminController : Controller
     {
         private IAdminRepo _adminRepo;
@@ -47,17 +49,20 @@ namespace ITIExaminationSyustem.Controllers
         [HttpPost]
         public IActionResult Save(Admin admin)
         {
+
             if(admin != null)
             {
                 if (ModelState.IsValid)
                 {
                     _adminRepo.Add(admin);
+                    _adminRepo.AddRole(admin.Admin_Id);
                     return RedirectToAction("Index");
                 }
                 return View(admin);
             }
             return BadRequest();
             
+
         }
 
         [HttpGet]

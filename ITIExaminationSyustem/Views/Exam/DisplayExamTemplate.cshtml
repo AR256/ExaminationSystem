@@ -1,7 +1,44 @@
 ﻿@model List<ExamQs>
 @{
     ViewData["Title"] = "DisplayExamTemplate";
+    bool isAnswered = ViewBag.Answered;
 }
 
-<h1>DisplayExamTemplate</h1>
+<div class="container mt-3">
 
+    <h2>Exam</h2>
+    <p>The exam below contains ten questions, five MCQs and five true and false. Please answer all questions:</p>
+
+        @foreach (var question in Model)
+        {
+            <h5>@question.Navigation_Question.Question_Text</h5>
+            @foreach (var choice in question.Navigation_Question.Navigation_Choices)
+            {
+                <div class="form-check">
+                    @if(isAnswered == true)
+                    {
+                    <input type="radio" class="form-check-input" id="@choice.Choice_Id" name="questions.@question.Q_Id" value="@choice.Choice_Text" checked>
+
+                    }
+                    else
+                    {
+                    <input type="radio" class="form-check-input" id="@choice.Choice_Id" name="questions.@question.Q_Id" value="@choice.Choice_Text">
+                    }
+                <label class="form-check-label" for="@choice.Choice_Id">@choice.Choice_Text</label>
+                </div>
+            }
+        }
+ 
+</div>
+
+@* <script>
+    function fun1(stdAnswer, qAnswer, id) {
+        if (stdAnswer === qAnswer) {
+            document.getElementById(id).ariaChecked = true;
+        }
+    }
+</script> *@
+
+
+@* onload="fun1(@question.Student_Answer,@question.Navigation_Question.Question_Answer,'@question.Q_Id.@choice.Choice_Id')"
+ *@
