@@ -36,11 +36,46 @@ namespace ITIExaminationSyustem.Controllers
             
             return View(StudentList);
         }
-        public IActionResult Details(int id)
+        public IActionResult Details(int? id)
         {
-            var std = _studentRepo.GetById(id);
-            return View(std);
+            if (id == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                Student student = _studentRepo.GetById(id.Value);
+                if (student == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return View(student);
+                }
+            }
         }
+
+        public IActionResult StudentCourses(int? id)
+        {
+            if (id == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                Student student = _studentRepo.GetById(id.Value);
+                if (student == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return View(student);
+                }
+            }
+        }
+
         [HttpGet]
         public IActionResult Edit(int id)
         {

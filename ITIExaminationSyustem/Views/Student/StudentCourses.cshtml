@@ -1,0 +1,33 @@
+﻿@model Student
+@{
+    ViewData["Title"] = "StudentCourses";
+}
+
+<h1>StudentCourses</h1>
+
+<table class="table table-bordered table-hover">
+    <thead>
+    <th>Course name</th>
+    <th>Course duration</th>
+    <th>Course Exam Date</th>
+    <th>Course Grade</th>
+    <th>Course Bouns</th>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Navigation_StudentCourses)
+        {
+            <tr>
+                <td>@item.Navigation_Course.Course_Name</td>
+                <td>@item.Navigation_Course.Course_Duration</td>
+                <td>
+                    @item.Navigation_Course.Course_Exam_StartDate
+                    <a asp-action="TakeExam" asp-controller="Exam" asp-route-stdId="@Model.Student_Id" asp-route-crsId="@item.Crs_Id" class="btn btn-danger">Take Exam</a>
+                </td>
+                <td>@item.Grade</td>
+                <td>@item.Bouns</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Index" asp-for="Student" class="btn btn-primary">Go Back</a>
