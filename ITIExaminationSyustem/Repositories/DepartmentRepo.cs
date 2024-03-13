@@ -16,9 +16,11 @@ namespace ITIExaminationSyustem.Repositories
         {
             return _context.Departments.Include(dept=>dept.Navigation_MainDepartment)
                                        .Include(dept => dept.Navigation_Branch)
-                                       .Include(dept => dept.Navigation_Department_Instructor)
                                        .Include(dept => dept.Navigation_Students)
                                        .Include(dept => dept.Navigation_Courses)
+                                       .Include(dept => dept.Navigation_Department_Instructor)
+                                       .ThenInclude(deptIns => deptIns.Navigation_Instructor)
+                                       .ThenInclude(mgr => mgr.Navigation_User)
                                        .ToList();
         }
         public List<Department> GetDepartmentsByBranchId(int id)
@@ -31,9 +33,11 @@ namespace ITIExaminationSyustem.Repositories
         {
             return _context.Departments.Include(dept => dept.Navigation_MainDepartment)
                                        .Include(dept => dept.Navigation_Branch)
-                                       .Include(dept => dept.Navigation_Department_Instructor)
                                        .Include(dept => dept.Navigation_Students)
                                        .Include(dept => dept.Navigation_Courses)
+                                       .Include(dept => dept.Navigation_Department_Instructor)
+                                       .ThenInclude(deptIns => deptIns.Navigation_Instructor)
+                                       .ThenInclude(mgr => mgr.Navigation_User)
                                        .Include(dept => dept.Navigation_Department_Manager_Instructor)
                                        .ThenInclude(mgr => mgr.Navigation_User)
                                        .SingleOrDefault(dept => dept.Department_Id == id);
@@ -48,11 +52,22 @@ namespace ITIExaminationSyustem.Repositories
             _context.Departments.Update(department);
             _context.SaveChanges();
         }
-        public void Delete(int id)
+        public bool Delete(int id)
         {
             var deptToDelete = GetById(id);
-            _context.Departments.Remove(deptToDelete);
-            _context.SaveChanges();
+
+            if (deptToDelete.Navigation_Students.Count == 0 
+             && deptToDelete.Navigation_Department_Instructor.Count == 0
+             && deptToDelete.Navigation_Courses.Count == 0)
+            {
+                _context.Departments.Remove(deptToDelete);
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public Department GetByBranchAndMainDepartment(int branchId, int mainDepId)

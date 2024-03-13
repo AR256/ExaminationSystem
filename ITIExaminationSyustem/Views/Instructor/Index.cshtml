@@ -16,7 +16,7 @@
         {
             <tr>
                 <td><img src="@item.Instructor_Image" class="img-fluid" style="width:100px;height:100px;"/></td>
-                <td>@item.Instructor_Name @item.Instructor_Image</td>
+                <td>@item.Instructor_Name</td>
                 <td>@item.Instructor_Email</td>
                 <td>
                     <a class="btn btn-success" asp-route-id="@item.Instructor_Id" asp-action="Edit">Edit</a>|
@@ -27,4 +27,4 @@
         }
     </tbody>
 </table>
-<a class="btn btn-outline-info">Add Instructor</a>
+<a class="btn btn-outline-info" asp-action="Add">Add Instructor</a>
