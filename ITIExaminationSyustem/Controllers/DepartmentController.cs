@@ -31,6 +31,7 @@ namespace ITIExaminationSyustem.Controllers
         {
             List<Department> departments = _departmentRepo.GetAll();
             return View(departments);
+            
         }
 
         public IActionResult Details(int? id)
@@ -122,7 +123,9 @@ namespace ITIExaminationSyustem.Controllers
             departmentViewModel.branches = _branchRepo.GetAll();
             departmentViewModel.mainDepartments = _mainDeptRepo.GetAll();
             departmentViewModel.instructors = _instructorRepo.GetAll();
-            return View(departmentViewModel);
+            if(departmentViewModel.branches != null && departmentViewModel.mainDepartments != null && departmentViewModel.instructors != null)
+                return View(departmentViewModel);
+            return BadRequest();
         }
 
         [HttpPost]
@@ -161,9 +164,12 @@ namespace ITIExaminationSyustem.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Department department, int id)
+        public IActionResult Edit(Department department, int? id)
         {
-            department.Department_Id = id;
+            if (id != null)
+                department.Department_Id = id.Value;
+            else
+                return BadRequest();
             if (ModelState.IsValid)
             {
                 _departmentRepo.Update(department);
@@ -227,26 +233,30 @@ namespace ITIExaminationSyustem.Controllers
         public IActionResult ManageCourses(List<int> coursesToRemove, List<int> coursesToAdd, int deptId)
         {
             Department fetchedDepartment = _departmentRepo.GetById(deptId);
-            foreach (int courseId in coursesToRemove)
+            if(fetchedDepartment != null)
             {
-                Course courseToRemove = _courseRepo.GetById(courseId);
-                fetchedDepartment.Navigation_Courses.Remove(courseToRemove);
-            }
-            foreach (int courseId in coursesToAdd)
-            {
-                Course courseToAdd = _courseRepo.GetById(courseId);
-                fetchedDepartment.Navigation_Courses.Add(courseToAdd);
-            }
+                foreach (int courseId in coursesToRemove)
+                {
+                    Course courseToRemove = _courseRepo.GetById(courseId);
+                    fetchedDepartment.Navigation_Courses.Remove(courseToRemove);
+                }
+                foreach (int courseId in coursesToAdd)
+                {
+                    Course courseToAdd = _courseRepo.GetById(courseId);
+                    fetchedDepartment.Navigation_Courses.Add(courseToAdd);
+                }
 
-            _departmentRepo.Update(fetchedDepartment);
-            return RedirectToAction("Index");
+                _departmentRepo.Update(fetchedDepartment);
+                return RedirectToAction("Index");
+            }
+            return NotFound();
+            
         }
 
-        public DepartmentViewModel PrepareViewModel(int id)
+        private DepartmentViewModel PrepareViewModel(int id)
         {
             Department department = _departmentRepo.GetById(id);
             DepartmentViewModel departmentViewModel = new();
-
             departmentViewModel.Department_Id = department.Department_Id;
             departmentViewModel.Department_Name = department.Department_Name;
             departmentViewModel.Department_MgrId = department.Department_MgrId;
