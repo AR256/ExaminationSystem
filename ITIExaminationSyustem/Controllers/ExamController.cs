@@ -55,6 +55,7 @@ namespace ITIExaminationSyustem.Controllers
                 examQs.Student_Answer = question.Value;
                 _examQuestionRepo.CheckAnswer(examQs);
             }
+
             return RedirectToAction("Home");
         }
 
