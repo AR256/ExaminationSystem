@@ -159,7 +159,7 @@ namespace ITIExaminationSyustem.Controllers
             var instructor = new Instructor {Ins_User_Id=id };
             _instructorRepo.Add(instructor);
             int d = instructor.Instructor_Id;
-            
+            _instructorRepo.AddRole(d);
             return RedirectToAction("Edit", new {id=d});
         }
 

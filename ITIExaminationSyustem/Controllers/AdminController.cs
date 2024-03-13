@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ITIExaminationSyustem.Controllers
 {
-    [Authorize]
+    [Authorize(Roles=("Admin"))]
     public class AdminController : Controller
     {
         private IAdminRepo _adminRepo;
@@ -46,6 +46,7 @@ namespace ITIExaminationSyustem.Controllers
         public IActionResult Save(Admin admin)
         {
             _adminRepo.Add(admin);
+            _adminRepo.AddRole(admin.Admin_Id);
             return RedirectToAction("Index");
         }
 

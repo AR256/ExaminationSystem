@@ -21,6 +21,7 @@ namespace ITIExaminationSyustem.Repositories
 
             return _context.Instructors.Include(a=>a.Navigation_Departments)
                 .Include(a=>a.Navigation_User)
+                .ThenInclude(a=>a.Navigation_Roles)
                 .Include(a=>a.Navigation_Courses)
                 .Include(a=>a.Navigation_Department_Instructor)
                 .ThenInclude(a=>a.Navigation_Department)
@@ -29,7 +30,7 @@ namespace ITIExaminationSyustem.Repositories
         }
         public void Add(Instructor instructor)
         {
-            _context.Instructors.Add(instructor);
+            _context.Instructors.Add(instructor);           
             _context.SaveChanges();
         }
         public void Update(Instructor instructor)
@@ -75,5 +76,14 @@ namespace ITIExaminationSyustem.Repositories
         //    _context.SaveChanges();
 
         //}
+
+        public void AddRole(int id)
+        {
+            var instructor = GetById(id);
+            var role = _context.Roles
+                .SingleOrDefault(a => a.Role_Type == "Instructor");
+            instructor?.Navigation_User?.Navigation_Roles?.Add(role);
+            _context.SaveChanges();
+        }
     }
 }
