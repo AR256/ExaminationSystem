@@ -4,9 +4,11 @@ using ITIExaminationSyustem.ViewModels;
 using ITIExaminationSyustem.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ITIExaminationSyustem.Controllers
 {
+    [Authorize]
     public class StudentController : Controller
     {
         private IStudentRepo _studentRepo;
@@ -34,11 +36,46 @@ namespace ITIExaminationSyustem.Controllers
             
             return View(StudentList);
         }
-        public IActionResult Details(int id)
+        public IActionResult Details(int? id)
         {
-            var std = _studentRepo.GetById(id);
-            return View(std);
+            if (id == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                Student student = _studentRepo.GetById(id.Value);
+                if (student == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return View(student);
+                }
+            }
         }
+
+        public IActionResult StudentCourses(int? id)
+        {
+            if (id == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                Student student = _studentRepo.GetById(id.Value);
+                if (student == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return View(student);
+                }
+            }
+        }
+
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -58,11 +95,11 @@ namespace ITIExaminationSyustem.Controllers
             studentdepartment.MainDepartmentsInStudentBranch = departmentsInBranch.Select(a=>a.Navigation_MainDepartment).ToList();
 
         //-----------------------------------------------------------------------------------------------------------------------------------
-            studentdepartment.Student_Name = student.Navigation_User.User_Name;
-            studentdepartment.Student_Email = student.Navigation_User.User_Email;
-            studentdepartment.Student_DepartmentName = student.Navigation_Department.Navigation_MainDepartment.MainDepartment_Name;
+            studentdepartment.Student_Name = student.Navigation_User?.User_Name;
+            studentdepartment.Student_Email = student.Navigation_User?.User_Email;
+            studentdepartment.Student_DepartmentName = student.Navigation_Department?.Navigation_MainDepartment?.MainDepartment_Name;
             studentdepartment.StudentCourses = _studentCourseRepo.GetStudentCourses(id);
-            studentdepartment.Student_Image = student.Navigation_User.User_Image;
+            studentdepartment.Student_Image = student.Navigation_User?.User_Image;
             ViewBag.CoursesNotInStudent = allCoursesInStudentDepartment.Except(studentdepartment.StudentCourses);
             return View(studentdepartment);
         }
@@ -165,6 +202,7 @@ namespace ITIExaminationSyustem.Controllers
             var studentCourses = _departmentRepo.GetByBranchAndMainDepartment(branchId, addStudentViewModel.Department_Id).Navigation_Courses.ToList();
             addStudentViewModel.StudentCourses = studentCourses;
             addStudentViewModel.Student_Id = Student.Student_Id;
+            _studentRepo.AddRole(Student.Student_Id);
             return View("AddCourses", addStudentViewModel);
         }
 

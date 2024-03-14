@@ -11,5 +11,8 @@ namespace ITIExaminationSyustem.Interfaces
         void Add(Admin admin);
         void Update(Admin admin);
         void Delete(int id);
+
+        void AddRole(int id);
+
     }
 }

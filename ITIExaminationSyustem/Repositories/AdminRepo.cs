@@ -35,7 +35,10 @@ namespace ITIExaminationSyustem.Repositories
         
         public Admin GetById(int id)
         {
-            return _context.Admins.FirstOrDefault(a=>a.Admin_Id == id);
+            return _context.Admins
+                .Include(a=>a.Navigation_User)
+                .ThenInclude(a => a.Navigation_Roles)
+                .FirstOrDefault(a=>a.Admin_Id == id);
         }
         public Admin GetByIdfordetails(int id)
         {
@@ -47,6 +50,15 @@ namespace ITIExaminationSyustem.Repositories
         public void Update(Admin admin)
         {
             _context.Admins.Update(admin);
+            _context.SaveChanges();
+        }
+
+        public void AddRole(int id)
+        {
+            var admin=GetById(id); 
+            var role = _context.Roles
+                .SingleOrDefault(a => a.Role_Type == "Admin");
+            admin?.Navigation_User?.Navigation_Roles?.Add(role);
             _context.SaveChanges();
         }
     }

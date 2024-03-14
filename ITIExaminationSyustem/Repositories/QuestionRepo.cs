@@ -14,7 +14,7 @@ namespace ITIExaminationSyustem.Repositories
         }
         public List<Question> GetAll()
         {
-            return _context.Questions.ToList();
+            return _context.Questions.Include(q=>q.Navigation_QuestionType).ToList();
         }
         public Question GetById(int id)
         {

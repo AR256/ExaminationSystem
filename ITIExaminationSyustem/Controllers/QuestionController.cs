@@ -1,12 +1,13 @@
 ﻿using ITIExaminationSyustem.Interfaces;
 using ITIExaminationSyustem.Models;
 using ITIExaminationSyustem.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ITIExaminationSyustem.Controllers
 {
-    
 
+    [Authorize]
     public class QuestionController : Controller
     {
         IQuestionRepo _questionRepo;
