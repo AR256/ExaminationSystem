@@ -113,7 +113,7 @@ namespace ITIExaminationSyustem.Controllers
                 // handle courses
                 foreach (var item in toAdd)
                 {
-                    var studentCourse = new StudentCourse {Std_Id=id,Crs_Id=item,Bouns=0 };
+                    var studentCourse = new StudentCourse {Std_Id=id,Crs_Id=item,Bonus=0 };
                     student.Navigation_StudentCourses.Add(studentCourse);
                 }
                 _context.SaveChanges();
