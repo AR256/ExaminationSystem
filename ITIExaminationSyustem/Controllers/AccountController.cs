@@ -48,9 +48,29 @@ namespace ITIExaminationSyustem.Controllers
               //adding each role of the user
               foreach (var item in user.Navigation_Roles)
               {
-                  var roleClaim = new Claim(ClaimTypes.Role, item.Role_Type);
-                  claimIdentity.AddClaim(roleClaim);
-
+                var roleClaim = new Claim(ClaimTypes.Role, item.Role_Type);
+                claimIdentity.AddClaim(roleClaim);
+                switch (item.Role_Type)
+                {
+                    case "Admin":
+                        var adminClaim = new Claim("adminBranch", user.Navigation_Admin.Admin_Branch_Id.ToString());
+                        claimIdentity.AddClaim(adminClaim);
+                        break;
+                    case "Student":
+                        var studentClaim = new Claim("studentId", user.Navigation_Student.Student_Id.ToString());
+                        claimIdentity.AddClaim(studentClaim);
+                        break;
+                    case "Instructor":
+                        var InstructorClaim = new Claim("InstructorID", user.Navigation_Instructor.Instructor_Id.ToString());
+                        claimIdentity.AddClaim(InstructorClaim);
+                        break;
+                    case "DeptInstructor":
+                        var DeptInstructorClaim = new Claim("DeptInstructorID", user.Navigation_Instructor.ToString());
+                        claimIdentity.AddClaim(DeptInstructorClaim);
+                        break;
+                        default:
+                        break;
+                }
               }
 
               ClaimsPrincipal claimPrincipal = new ClaimsPrincipal();
@@ -75,10 +95,10 @@ namespace ITIExaminationSyustem.Controllers
             var rolesClaims = currentUser.FindAll(ClaimTypes.Role);
             var Roles = rolesClaims.Select(c=>c.Value).ToList();
 
-            int id =int.Parse(idClaim.Value);
-            var studentClaim = new Claim(ClaimTypes.Role, "Student");
-            var instructorClaim = new Claim(ClaimTypes.Role, "Instructor");
-            if (id != null)
+            int id;
+            bool validId = int.TryParse(idClaim.Value, out id);
+
+            if (validId)
             {
                var user = _userRepo.GetById(id);
                 if (Roles.Contains("Student"))
@@ -90,6 +110,10 @@ namespace ITIExaminationSyustem.Controllers
                     var instrucotrId = user?.Navigation_Instructor?.Instructor_Id;
                     return RedirectToAction("Details", "Instructor", new { id = instrucotrId });
 
+                }else if (Roles.Contains("Admin"))
+                {
+                    var adminId = user?.Navigation_Admin?.Admin_Id;
+                    return RedirectToAction("Details", "Admin",new {id=adminId});
                 }
             }
             return NotFound();

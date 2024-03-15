@@ -21,7 +21,7 @@
                 <td>
                     <a class="btn btn-success" asp-route-id="@item.Instructor_Id" asp-action="Edit">Edit</a>|
                     <a class="btn btn-success" asp-route-id="@item.Instructor_Id" asp-action="Details">Details</a>|
-                    <a class="btn btn-danger">Delete</a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-controller="User" asp-route-id="@item.Instructor_User_Id">Delete</a>
                 </td>
             </tr>
         }

@@ -1,7 +1,47 @@
-﻿@if (User.Identity.IsAuthenticated)
+﻿@using System.Security.Claims
+@using ITIExaminationSyustem.Repositories;
+@if (User.Identity.IsAuthenticated)
 {
+        Claim idClaim = User.FindFirst("id");
+
+        int userId;
+        bool validId = int.TryParse(idClaim.Value, out userId);
+
+    @if(User.IsInRole("Admin"))
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Department" asp-action="DepartmentList" asp-route-branchId="@int.Parse(User.FindFirst("adminBranch").Value)">Departments</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="LogOut">Log out @User.Identity.Name</a>
+        </li>
+    }
+    else if (User.IsInRole("Student"))
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="StudentCourses" asp-route-id="@int.Parse(User.FindFirst("studentId").Value)">My Courses</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="LogOut">Log out @User.Identity.Name</a>
+        </li>
+    }
+    else if (User.IsInRole("Instructor"))
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="StudentCourses" asp-route-id="@int.Parse(User.FindFirst("InstructorID").Value)">My Courses</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="LogOut">Log out @User.Identity.Name</a>
+        </li>
+    }
+    else if (User.IsInRole("DeptManager"))
+    {
+
+    }
+    else if (User.IsInRole("SuperAdmin"))
+    {
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
     </li>
     <li class="nav-item">
         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
@@ -36,4 +76,5 @@
     <li class="nav-item">
         <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="MyDetails">Details</a>
     </li>
+}
 }

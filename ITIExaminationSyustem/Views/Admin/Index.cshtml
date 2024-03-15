@@ -25,7 +25,7 @@
                 <td>
                     <a asp-action="Details" asp-controller="Admin" asp-route-Id="@item.Admin_Id" class="btn btn-info">Details</a>
                     <a asp-action="Edit" asp-controller="Admin" asp-route-Id="@item.Admin_Id" class="btn btn-info">Edit</a>
-                    <a asp-action="Delete" asp-controller="Admin" asp-route-Id="@item.Admin_Id" class="btn btn-danger">Delete</a>
+                    <a asp-action="Delete" asp-action="Delete" asp-controller="User" asp-route-id="@item.Navigation_User.User_Id" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
         }
