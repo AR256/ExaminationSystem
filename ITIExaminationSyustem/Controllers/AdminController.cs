@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ITIExaminationSyustem.Controllers
 {
-    [Authorize(Roles=("Admin"))]
+    [Authorize(Roles=("Super Admin"))]
     public class AdminController : Controller
     {
         private IAdminRepo _adminRepo;

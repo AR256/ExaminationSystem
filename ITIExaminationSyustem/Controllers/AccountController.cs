@@ -75,10 +75,10 @@ namespace ITIExaminationSyustem.Controllers
             var rolesClaims = currentUser.FindAll(ClaimTypes.Role);
             var Roles = rolesClaims.Select(c=>c.Value).ToList();
 
-            int id =int.Parse(idClaim.Value);
-            var studentClaim = new Claim(ClaimTypes.Role, "Student");
-            var instructorClaim = new Claim(ClaimTypes.Role, "Instructor");
-            if (id != null)
+            int id;
+            bool validId = int.TryParse(idClaim.Value, out id);
+
+            if (validId)
             {
                var user = _userRepo.GetById(id);
                 if (Roles.Contains("Student"))
@@ -90,6 +90,10 @@ namespace ITIExaminationSyustem.Controllers
                     var instrucotrId = user?.Navigation_Instructor?.Instructor_Id;
                     return RedirectToAction("Details", "Instructor", new { id = instrucotrId });
 
+                }else if (Roles.Contains("Admin"))
+                {
+                    var adminId = user?.Navigation_Admin?.Admin_Id;
+                    return RedirectToAction("Details", "Admin",new {id=adminId});
                 }
             }
             return NotFound();
