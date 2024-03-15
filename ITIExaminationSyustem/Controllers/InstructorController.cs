@@ -64,6 +64,20 @@ namespace ITIExaminationSyustem.Controllers
             return View(instructorViewModel);
         }
 
+        public IActionResult InstructorCourses(int? id)
+        {
+            if (id == null)
+                return BadRequest();
+            var instructor = _instructorRepo.GetById(id.Value);
+            if (instructor == null)
+                return NotFound();
+            else
+            {
+                List<Course> courses = instructor.Navigation_Courses.ToList();
+                return View(courses);
+            }
+        }
+
         //Edit Instructor
 
         [HttpGet]
