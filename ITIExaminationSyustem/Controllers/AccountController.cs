@@ -1,7 +1,9 @@
 ﻿using ITIExaminationSyustem.Interfaces;
+using ITIExaminationSyustem.Models;
 using ITIExaminationSyustem.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Packaging;
 using System.Security.Claims;
 
 namespace ITIExaminationSyustem.Controllers
@@ -9,6 +11,7 @@ namespace ITIExaminationSyustem.Controllers
     public class AccountController : Controller
     {
         IUserRepo _userRepo;
+      
         public AccountController(IUserRepo userRepo) { 
             _userRepo = userRepo;
         }
@@ -26,37 +29,37 @@ namespace ITIExaminationSyustem.Controllers
 
         [HttpPost]
         async public Task<IActionResult> Login(LoginViewModel loginViewModel)
-        {
-            var user = _userRepo.Login(loginViewModel.User_Email,loginViewModel.User_Password);
-            if(user == null) {
-                ModelState.AddModelError("","User name and password are invalid");
-                return View(loginViewModel);
-            }
-            else
-            {
-                //set the cookie
-                Claim nameClaim = new Claim(ClaimTypes.Name, user.User_Name);
-                Claim emailClaim = new Claim(ClaimTypes.Email, user.User_Email);
+          {
+              var user = _userRepo.Login(loginViewModel.User_Email,loginViewModel.User_Password);
+              if(user == null) {
+                  ModelState.AddModelError("","User name and password are invalid");
+                  return View(loginViewModel);
+              }
+              //set the cookie
+              var nameClaim = new Claim(ClaimTypes.Name , user.User_Name);
+              var emailClaim = new Claim(ClaimTypes.Email , user.User_Email);
+              var idClaim = new Claim("id",user.User_Id.ToString());
 
-                ClaimsIdentity claimIdentity = new ClaimsIdentity("Cookies");
-                claimIdentity.AddClaim(nameClaim);
-                claimIdentity.AddClaim(emailClaim);
 
-                //adding each role of the user
-                foreach (var item in user.Navigation_Roles)
-                {
-                    var roleClaim = new Claim(ClaimTypes.Role, item.Role_Type);
-                    claimIdentity.AddClaim(roleClaim);
-                }
+              ClaimsIdentity claimIdentity = new ClaimsIdentity("Cookies");
+              claimIdentity.AddClaim(nameClaim);
+              claimIdentity.AddClaim(emailClaim);
+              claimIdentity.AddClaim(idClaim);
+              //adding each role of the user
+              foreach (var item in user.Navigation_Roles)
+              {
+                  var roleClaim = new Claim(ClaimTypes.Role, item.Role_Type);
+                  claimIdentity.AddClaim(roleClaim);
 
-                ClaimsPrincipal claimPrincipal = new ClaimsPrincipal();
-                claimPrincipal.AddIdentity(claimIdentity);
+              }
 
-                await HttpContext.SignInAsync(claimPrincipal);
+              ClaimsPrincipal claimPrincipal = new ClaimsPrincipal();
+              claimPrincipal.AddIdentity(claimIdentity);
 
-                return RedirectToAction("Index", "Home");
-            }
-        }
+              await HttpContext.SignInAsync(claimPrincipal);
+
+              return RedirectToAction("Index","Home");
+          }
 
         async public Task<IActionResult> LogOut()
         {
@@ -64,5 +67,37 @@ namespace ITIExaminationSyustem.Controllers
             return RedirectToAction("Index", "Home");
 
         }
+
+        public IActionResult MyDetails()
+        {
+            ClaimsPrincipal currentUser = HttpContext.User;
+            Claim idClaim = currentUser.FindFirst("id");
+            var rolesClaims = currentUser.FindAll(ClaimTypes.Role);
+            var Roles = rolesClaims.Select(c=>c.Value).ToList();
+
+            int id;
+            bool validId = int.TryParse(idClaim.Value, out id);
+
+            if (validId)
+            {
+               var user = _userRepo.GetById(id);
+                if (Roles.Contains("Student"))
+                {
+                    var studentId = user?.Navigation_Student?.Student_Id;
+                    return RedirectToAction("Details", "Student", new { id = studentId });
+                }else if (Roles.Contains("Instructor"))
+                {
+                    var instrucotrId = user?.Navigation_Instructor?.Instructor_Id;
+                    return RedirectToAction("Details", "Instructor", new { id = instrucotrId });
+
+                }else if (Roles.Contains("Admin"))
+                {
+                    var adminId = user?.Navigation_Admin?.Admin_Id;
+                    return RedirectToAction("Details", "Admin",new {id=adminId});
+                }
+            }
+            return NotFound();
+        }
+
     }
 }
