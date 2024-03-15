@@ -10,6 +10,7 @@ namespace ITIExaminationSyustem.Models
         //remember to switch this id to be primary key
         [Key]
         public int User_Id { get; set; }
+        [Required]
         public string User_Name { get; set; }
         [Required]
         [RegularExpression(@"^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$")]

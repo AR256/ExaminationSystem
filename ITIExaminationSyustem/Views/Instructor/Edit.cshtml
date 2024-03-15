@@ -4,11 +4,12 @@
 }
 
 <form class="form-control" enctype="multipart/form-data" method="post">
+
     <input type="text" placeholder="Name" value="@Model.Instructor_Name" name="Instructor_Name" />
     <input type="Email" placeholder="Email" value="@Model.Instructor_Email" name="Instructor_Email" />
     <input type="file" name="Instructor_Image" />
-    <input type="submit" asp-route-id="@Model.Instructor_Id"/>
-
+    <input type="submit" asp-action="SubmitEdit" asp-route-id="@Model.Instructor_Id" />
+</form>
 
 
     <h3>Instructor departments</h3>
@@ -75,4 +76,3 @@
             </tbody>
         </table>
     }
-</form>

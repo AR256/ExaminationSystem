@@ -15,5 +15,8 @@ namespace ITIExaminationSyustem.Interfaces
         //void RemoveDepartment(int insId, Department department);
         //void AddDepartment(int insId, Department department);
 
+        void AddRole(int id);
+
+
     }
 }

@@ -1,11 +1,13 @@
 ﻿using ITIExaminationSyustem.Interfaces;
 using ITIExaminationSyustem.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 
 namespace ITIExaminationSyustem.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         IUserRepo _userRepo;

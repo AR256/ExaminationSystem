@@ -1,10 +1,12 @@
 ﻿using ITIExaminationSyustem.Interfaces;
 using ITIExaminationSyustem.Models;
 using ITIExaminationSyustem.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ITIExaminationSyustem.Controllers
 {
+    [Authorize]
     public class BranchController : Controller
     {
         private IBranchRepo branchRepo;
@@ -26,30 +28,52 @@ namespace ITIExaminationSyustem.Controllers
         [HttpPost]
         public IActionResult Save(Branch branch)
         {
-            branchRepo.Add(branch);
-            return RedirectToAction("Index");
+            if(branch != null)
+            {
+                branchRepo.Add(branch);
+                return RedirectToAction("Index");
+            }
+            return NotFound();
         }
-        public IActionResult Delete(int id)
+        public IActionResult Delete(int? id)
         {
-            branchRepo.Delete(id);
-            return RedirectToAction("Index");
+            if(id != null)
+            {
+                branchRepo.Delete(id.Value);
+                return RedirectToAction("Index");
+            }
+            return BadRequest();
         }
         [HttpGet]
-        public IActionResult Edit(int id)
+        public IActionResult Edit(int? id)
         {
-            var branchtoedited = branchRepo.GetById(id);
-            return View(branchtoedited);
+            if(id != null)
+            {
+                var branchtoedited = branchRepo.GetById(id.Value);
+                return View(branchtoedited);
+            }
+            return NotFound();
+            
         }
         [HttpPost]
         public IActionResult Update(Branch branch)
         {
-            branchRepo.Update(branch);
-            return RedirectToAction("Index");
+            if(branch != null)
+            {
+                branchRepo.Update(branch);
+                return RedirectToAction("Index");
+            }
+            return BadRequest();
+            
         }
-        public IActionResult Details(int id)
+        public IActionResult Details(int? id)
         {
-            var targetBranch = branchRepo.GetById(id);
-            return View(targetBranch);
+            if(id != null)
+            {
+                var targetBranch = branchRepo.GetById(id.Value);
+                return View(targetBranch);
+            }
+            return NotFound();
         }
     }
 }

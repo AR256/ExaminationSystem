@@ -4,9 +4,11 @@ using ITIExaminationSyustem.ViewModels;
 using ITIExaminationSyustem.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ITIExaminationSyustem.Controllers
 {
+    [Authorize]
     public class StudentController : Controller
     {
         private IStudentRepo _studentRepo;
@@ -34,16 +36,59 @@ namespace ITIExaminationSyustem.Controllers
             
             return View(StudentList);
         }
-        public IActionResult Details(int id)
+        public IActionResult Details(int? id)
         {
-            var std = _studentRepo.GetById(id);
-            return View(std);
+            if (id == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                Student student = _studentRepo.GetById(id.Value);
+                if (student == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return View(student);
+                }
+            }
         }
-        [HttpGet]
-        public IActionResult Edit(int id)
+
+        public IActionResult StudentCourses(int? id)
         {
+            if (id == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                Student student = _studentRepo.GetById(id.Value);
+                if (student == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return View(student);
+                }
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return BadRequest();
+            }
             StudentDepartmentsViewModel studentdepartment= new StudentDepartmentsViewModel();
-            var student = _studentRepo.GetById(id);
+            var student = _studentRepo.GetById(id.Value);
+            if (student == null)
+            {
+                return NotFound();
+            }
             
            
             var allCoursesInStudentDepartment = _departmentRepo.GetCourses(student.Dept_Id.Value);
@@ -58,11 +103,11 @@ namespace ITIExaminationSyustem.Controllers
             studentdepartment.MainDepartmentsInStudentBranch = departmentsInBranch.Select(a=>a.Navigation_MainDepartment).ToList();
 
         //-----------------------------------------------------------------------------------------------------------------------------------
-            studentdepartment.Student_Name = student.Navigation_User.User_Name;
-            studentdepartment.Student_Email = student.Navigation_User.User_Email;
-            studentdepartment.Student_DepartmentName = student.Navigation_Department.Navigation_MainDepartment.MainDepartment_Name;
-            studentdepartment.StudentCourses = _studentCourseRepo.GetStudentCourses(id);
-            studentdepartment.Student_Image = student.Navigation_User.User_Image;
+            studentdepartment.Student_Name = student.Navigation_User?.User_Name;
+            studentdepartment.Student_Email = student.Navigation_User?.User_Email;
+            studentdepartment.Student_DepartmentName = student.Navigation_Department?.Navigation_MainDepartment?.MainDepartment_Name;
+            studentdepartment.StudentCourses = _studentCourseRepo.GetStudentCourses(id.Value);
+            studentdepartment.Student_Image = student.Navigation_User?.User_Image;
             ViewBag.CoursesNotInStudent = allCoursesInStudentDepartment.Except(studentdepartment.StudentCourses);
             return View(studentdepartment);
         }
@@ -73,10 +118,14 @@ namespace ITIExaminationSyustem.Controllers
             if (ModelState.IsValid)
             {
                 var student = _studentRepo.GetById(id);
+                if(student == null)
+                {
+                    return NotFound();
+                }
                 // handle courses
                 foreach (var item in toAdd)
                 {
-                    var studentCourse = new StudentCourse {Std_Id=id,Crs_Id=item,Bouns=0 };
+                    var studentCourse = new StudentCourse {Std_Id=id,Crs_Id=item,Bonus=0 };
                     student.Navigation_StudentCourses.Add(studentCourse);
                 }
                 _context.SaveChanges();
@@ -132,31 +181,51 @@ namespace ITIExaminationSyustem.Controllers
         [HttpGet]
         public IActionResult Add() // user
         {
+            ViewBag.Users = _userRepo.GetNonAssignedUsers();
             var branches = _branchRepo.GetAll();
             return View(branches);
 
         }
         [HttpGet]
-        public IActionResult AddToBranch(int id) // branch id
+        public IActionResult AddToBranch(int? branchId,int? userId) // branch id
         {
-            var mainDepartments = _departmentRepo.GetDepartmentsByBranchId(id).Select(a=>a.Navigation_MainDepartment).ToList();
-            TempData["BranchId"] = id;
+            if(branchId == null || userId == null)
+            {
+                return BadRequest();
+            }
+            var mainDepartments = _departmentRepo.GetDepartmentsByBranchId(branchId.Value).Select(a=>a.Navigation_MainDepartment).ToList();
+           
+            TempData["BranchId"] = branchId;
+            TempData["UserId"] = userId.Value;
             return View(mainDepartments);
         }
         [HttpPost]
         public IActionResult AddToBranch(AddStudentViewModel addStudentViewModel)
         {
-            int branchId;
-            
+            if(ModelState.IsValid)
+            {
+                int? branchId;
+                int? userId;
+
                 branchId = (int)TempData["BranchId"];
-            
-            var department = _departmentRepo.GetDepartmentsByBranchId(branchId).SingleOrDefault(a=>a.MainDept_Id== addStudentViewModel.Department_Id);
-            var Student = new Student { Dept_Id = department.Department_Id, Std_User_Id = addStudentViewModel.User_Id };
-            _studentRepo.Add(Student);
-            var studentCourses = _departmentRepo.GetByBranchAndMainDepartment(branchId, addStudentViewModel.Department_Id).Navigation_Courses.ToList();
-            addStudentViewModel.StudentCourses = studentCourses;
-            addStudentViewModel.Student_Id = Student.Student_Id;
-            return View("AddCourses", addStudentViewModel);
+                userId = (int)TempData["UserId"];
+                if(branchId == null || userId == null)
+                {
+                    return BadRequest();
+                }
+                var department = _departmentRepo.GetDepartmentsByBranchId(branchId.Value).SingleOrDefault(a => a.MainDept_Id == addStudentViewModel.Department_Id);
+                var Student = new Student { Dept_Id = department.Department_Id, Std_User_Id = userId };
+                _studentRepo.Add(Student);
+                var studentCourses = _departmentRepo.GetByBranchAndMainDepartment(branchId.Value, addStudentViewModel.Department_Id).Navigation_Courses.ToList();
+                addStudentViewModel.StudentCourses = studentCourses;
+                addStudentViewModel.Student_Id = Student.Student_Id;
+                _studentRepo.AddRole(Student.Student_Id);
+                return View("AddCourses", addStudentViewModel);
+            }
+            else
+            {
+                return View(addStudentViewModel);
+            }
         }
 
         [HttpPost]

@@ -3,10 +3,13 @@ using ITIExaminationSyustem.Interfaces;
 using ITIExaminationSyustem.Models;
 using ITIExaminationSyustem.Repositories;
 using ITIExaminationSyustem.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace ITIExaminationSyustem.Controllers
 {
+    [Authorize]
     public class DepartmentController : Controller
     {
         IDepartmentRepo _departmentRepo;
@@ -32,7 +35,7 @@ namespace ITIExaminationSyustem.Controllers
             return View(departments);
         }
 
-        public IActionResult Details(int? id)
+        public IActionResult Details(int? id) //to be redirected on with admin role (Courses per dept)
         {
             if (id == null)
             {
@@ -121,7 +124,9 @@ namespace ITIExaminationSyustem.Controllers
             departmentViewModel.branches = _branchRepo.GetAll();
             departmentViewModel.mainDepartments = _mainDeptRepo.GetAll();
             departmentViewModel.instructors = _instructorRepo.GetAll();
-            return View(departmentViewModel);
+            if(departmentViewModel.branches != null && departmentViewModel.mainDepartments != null && departmentViewModel.instructors != null)
+                return View(departmentViewModel);
+            return BadRequest();
         }
 
         [HttpPost]
@@ -160,9 +165,12 @@ namespace ITIExaminationSyustem.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Department department, int id)
+        public IActionResult Edit(Department department, int? id)
         {
-            department.Department_Id = id;
+            if (id != null)
+                department.Department_Id = id.Value;
+            else
+                return BadRequest();
             if (ModelState.IsValid)
             {
                 _departmentRepo.Update(department);
@@ -198,11 +206,58 @@ namespace ITIExaminationSyustem.Controllers
             }
         }
 
-        public DepartmentViewModel PrepareViewModel(int id)
+        public IActionResult ManageCourses(int? id)
+        {
+            if (id == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                Department fetchedDepartment = _departmentRepo.GetById(id.Value);
+                if (fetchedDepartment == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    List<Course> allCourses = _courseRepo.GetAll();
+                    List <Course> coursesInDept = fetchedDepartment.Navigation_Courses.ToList();
+                    List<Course> coursesNotInDept = allCourses.Except(coursesInDept).ToList();
+                    ViewBag.CoursesNotInDept = coursesNotInDept;
+                    return View(fetchedDepartment);
+                }
+            }
+        }
+
+        [HttpPost]
+        public IActionResult ManageCourses(List<int> coursesToRemove, List<int> coursesToAdd, int deptId)
+        {
+            Department fetchedDepartment = _departmentRepo.GetById(deptId);
+            if(fetchedDepartment != null)
+            {
+                foreach (int courseId in coursesToRemove)
+                {
+                    Course courseToRemove = _courseRepo.GetById(courseId);
+                    fetchedDepartment.Navigation_Courses.Remove(courseToRemove);
+                }
+                foreach (int courseId in coursesToAdd)
+                {
+                    Course courseToAdd = _courseRepo.GetById(courseId);
+                    fetchedDepartment.Navigation_Courses.Add(courseToAdd);
+                }
+
+                _departmentRepo.Update(fetchedDepartment);
+                return RedirectToAction("Index");
+            }
+            return NotFound();
+            
+        }
+
+        private DepartmentViewModel PrepareViewModel(int id)
         {
             Department department = _departmentRepo.GetById(id);
             DepartmentViewModel departmentViewModel = new();
-
             departmentViewModel.Department_Id = department.Department_Id;
             departmentViewModel.Department_Name = department.Department_Name;
             departmentViewModel.Department_MgrId = department.Department_MgrId;
@@ -213,6 +268,24 @@ namespace ITIExaminationSyustem.Controllers
             departmentViewModel.instructors = _instructorRepo.GetAll();
 
             return departmentViewModel;
+        }
+
+        //Admin Role --> this method should have no params & receives branchId from cookie
+        public IActionResult DepartmentList(int? branchId) //return list of departments per branch
+        {
+            if(branchId == null)
+                return BadRequest();
+            else
+            {
+                Branch fetchedBranch = _branchRepo.GetById(branchId.Value);
+                if (fetchedBranch == null)
+                    return NotFound();
+                else
+                {
+                    List<Department> departments = _departmentRepo.GetAll().Where(dept => dept.Brch_Id == branchId.Value).ToList();
+                    return View("Index", departments);
+                }
+            }
         }
     }
 }
