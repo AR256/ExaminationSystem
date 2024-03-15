@@ -81,7 +81,8 @@ namespace ITIExaminationSyustem.Repositories
 
         public User Login(string email, string password)
         {
-            return _context.Users.Include(a=>a.Navigation_Roles).SingleOrDefault(a => a.User_Email == email && a.User_Password == password);
+            return _context.Users.Include(a=>a.Navigation_Roles)
+                                 .SingleOrDefault(a => a.User_Email == email && a.User_Password == password);
         }
     }
 }
