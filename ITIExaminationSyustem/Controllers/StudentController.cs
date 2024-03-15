@@ -166,12 +166,6 @@ namespace ITIExaminationSyustem.Controllers
 
         }
 
-        //public IActionResult getUsers()
-        //{
-        //    var departments = _departmentRepo.GetAll();
-        //    ViewBag.Users = _userRepo.GetNonAssignedUsers();
-        //    return View(departments);
-        //}
         [HttpGet]
         public IActionResult Add() // user
         {
