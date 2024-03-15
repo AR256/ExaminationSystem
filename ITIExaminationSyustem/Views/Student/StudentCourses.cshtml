@@ -1,0 +1,55 @@
+﻿@model Student
+@{
+    ViewData["Title"] = "StudentCourses";
+}
+
+<h1>StudentCourses</h1>
+
+<table class="table table-bordered table-hover">
+    <thead>
+    <th>Course name</th>
+    <th>Course duration</th>
+    <th>Course Exam Date</th>
+    <th>Course Grade</th>
+    <th>Course Bonus</th>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Navigation_StudentCourses)
+        {
+            <tr>
+                <td>@item.Navigation_Course.Course_Name</td>
+                <td>@item.Navigation_Course.Course_Duration</td>
+                <td>
+                    @item.Navigation_Course.Course_Exam_StartDate
+                    <button data-course-id="@item.Crs_Id" data-exam-date="@item.Navigation_Course.Course_Exam_StartDate" data-has-taken-exam="@item.HasTakenExam.ToString().ToLower()" asp-action="TakeExam" asp-controller="Exam" asp-route-stdId="@Model.Student_Id" asp-route-crsId="@item.Crs_Id" class="btn btn-danger" disabled>Take Exam</button>
+                </td>
+                <td>@item.Grade</td>
+                <td>@item.Bonus</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Index" asp-for="Student" class="btn btn-primary">Go Back</a>
+
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var buttons = document.querySelectorAll('button');
+            buttons.forEach(function (button) {
+                var courseId = button.dataset.courseId;
+                var hasTakenExam = button.dataset.hasTakenExam;
+                var dateOfToday = new Date();
+                var examStartingDate = new Date(button.dataset.examDate);
+                var oneHour = 1 * 60 * 60 * 1000;
+                var examDeadlineDate = new Date(examStartingDate.getTime() + oneHour);
+                var isExamDatePassed = (dateOfToday > examStartingDate) && (dateOfToday < examDeadlineDate) && (hasTakenExam == "false");
+
+                if (isExamDatePassed) {
+                    button.disabled = false;
+                }
+            });
+        });
+    </script>
+}

@@ -4,6 +4,7 @@
 }
 
 <a asp-action="TakeExam" asp-controller="Exam" asp-route-crsId="3" asp-route-stdId="3">Take Exam NOW!</a>
-
-@* int? crsId, int? stdId
- *@
+<br />
+<a asp-action="DisplayExamTemplate" asp-controller="Exam" asp-route-examId="8" asp-route-isAnswered="true">Display Exam Answered</a>
+<br />
+<a asp-action="DisplayExamTemplate" asp-controller="Exam" asp-route-examId="8" asp-route-isAnswered="false">Display Exam Unanswered</a>

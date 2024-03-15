@@ -3,11 +3,13 @@ using ITIExaminationSyustem.Interfaces;
 using ITIExaminationSyustem.Models;
 using ITIExaminationSyustem.Repositories;
 using ITIExaminationSyustem.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
 namespace ITIExaminationSyustem.Controllers
 {
+    [Authorize]
     public class DepartmentController : Controller
     {
         IDepartmentRepo _departmentRepo;
@@ -31,10 +33,9 @@ namespace ITIExaminationSyustem.Controllers
         {
             List<Department> departments = _departmentRepo.GetAll();
             return View(departments);
-            
         }
 
-        public IActionResult Details(int? id)
+        public IActionResult Details(int? id) //to be redirected on with admin role (Courses per dept)
         {
             if (id == null)
             {
@@ -267,6 +268,24 @@ namespace ITIExaminationSyustem.Controllers
             departmentViewModel.instructors = _instructorRepo.GetAll();
 
             return departmentViewModel;
+        }
+
+        //Admin Role --> this method should have no params & receives branchId from cookie
+        public IActionResult DepartmentList(int? branchId) //return list of departments per branch
+        {
+            if(branchId == null)
+                return BadRequest();
+            else
+            {
+                Branch fetchedBranch = _branchRepo.GetById(branchId.Value);
+                if (fetchedBranch == null)
+                    return NotFound();
+                else
+                {
+                    List<Department> departments = _departmentRepo.GetAll().Where(dept => dept.Brch_Id == branchId.Value).ToList();
+                    return View("Index", departments);
+                }
+            }
         }
     }
 }

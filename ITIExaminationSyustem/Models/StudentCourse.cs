@@ -9,9 +9,10 @@ namespace ITIExaminationSyustem.Models
         [ForeignKey("Navigation_Course")]
         public int? Crs_Id { get; set; }
         public int? Grade { get; set; }
-        public int Bouns { get; set; }
+        public int Bonus { get; set; }
         public string Ins_Feedback { get; set; }
         public string Std_Feedback { get; set; }
+        public bool HasTakenExam { get; set; } = false;
 
 
 

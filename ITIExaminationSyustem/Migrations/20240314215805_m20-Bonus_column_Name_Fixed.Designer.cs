@@ -4,6 +4,7 @@ using ITIExaminationSyustem.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ITIExaminationSyustem.Migrations
 {
     [DbContext(typeof(Exam_Context))]
-    partial class Exam_ContextModelSnapshot : ModelSnapshot
+    [Migration("20240314215805_m20-Bonus_column_Name_Fixed")]
+    partial class m20Bonus_column_Name_Fixed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

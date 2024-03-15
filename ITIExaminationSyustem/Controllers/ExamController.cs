@@ -55,6 +55,7 @@ namespace ITIExaminationSyustem.Controllers
                 examQs.Student_Answer = question.Value;
                 _examQuestionRepo.CheckAnswer(examQs);
             }
+
             return RedirectToAction("Home");
         }
 
@@ -73,6 +74,7 @@ namespace ITIExaminationSyustem.Controllers
                 }
                 else
                 {
+                    ViewBag.Answered = isAnswered;
                     List<ExamQs> examQuestions = _examQuestionRepo.GetExamQuestions(examId.Value);
                     return View(examQuestions);
                 }
