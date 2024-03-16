@@ -18,8 +18,10 @@ namespace ITIExaminationSyustem.Controllers
         ICourseRepo _courseRepo;
         IBranchRepo _branchRepo;
         IMainDeptRepo _mainDeptRepo;
+        IUserRepo _userRepo;
+        IAdminRepo _adminRepo;
 
-        public DepartmentController(IDepartmentRepo departmentRepo, IStudentRepo studentRepo, IInstructorRepo instructorRepo, ICourseRepo courseRepo, IBranchRepo branchRepo, IMainDeptRepo mainDeptRepo)
+        public DepartmentController(IDepartmentRepo departmentRepo, IStudentRepo studentRepo, IInstructorRepo instructorRepo, ICourseRepo courseRepo, IBranchRepo branchRepo, IMainDeptRepo mainDeptRepo, IUserRepo userRepo, IAdminRepo adminRepo)
         {
             _departmentRepo = departmentRepo;
             _studentRepo = studentRepo;
@@ -27,16 +29,17 @@ namespace ITIExaminationSyustem.Controllers
             _courseRepo = courseRepo;
             _branchRepo = branchRepo;
             _mainDeptRepo = mainDeptRepo;
+            _userRepo = userRepo;
+            _adminRepo = adminRepo;
         }
 
         public IActionResult Index()
         {
             List<Department> departments = _departmentRepo.GetAll();
             return View(departments);
-            
         }
 
-        public IActionResult Details(int? id)
+        public IActionResult Details(int? id) //to be redirected on with admin role (Courses per dept)
         {
             if (id == null)
             {
@@ -119,7 +122,7 @@ namespace ITIExaminationSyustem.Controllers
             }
         }
 
-        public IActionResult Create()
+        public IActionResult Create() //Handle the case of displaying branches list for admin/superadmin
         {
             DepartmentViewModel departmentViewModel = new();
             departmentViewModel.branches = _branchRepo.GetAll();
@@ -269,6 +272,24 @@ namespace ITIExaminationSyustem.Controllers
             departmentViewModel.instructors = _instructorRepo.GetAll();
 
             return departmentViewModel;
+        }
+
+        //Admin Role --> this method should have no params & receives branchId from cookie
+        public IActionResult DepartmentList(int? branchId) //return list of departments per branch
+        {
+            if(branchId == null)
+                return BadRequest();
+            else
+            {
+                Branch fetchedBranch = _branchRepo.GetById(branchId.Value);
+                if (fetchedBranch == null)
+                    return NotFound();
+                else
+                {
+                    List<Department> departments = _departmentRepo.GetAll().Where(dept => dept.Brch_Id == branchId).ToList();
+                    return View("Index", departments);
+                }
+            }
         }
     }
 }
