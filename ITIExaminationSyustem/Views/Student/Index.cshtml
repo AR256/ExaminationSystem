@@ -3,7 +3,7 @@
     ViewBag.Title = "Students";
 }
 <h1>Students</h1>
-<table class="table table-hover table-bordered">
+<table class="table table-hover table-striped ">
 
     <thead>
         <th>Student Id</th>
@@ -21,12 +21,12 @@
                 <td>@item.Navigation_User?.User_Email</td>
                 <td>@item.Navigation_Department?.Navigation_MainDepartment?.MainDepartment_Name</td>
                 <td>
-                    <a class="btn btn-info" asp-action="Edit" asp-for="Student" asp-route-id="@item.Student_Id">Edit</a>|
-                    <a class="btn btn-danger" class="btn btn-danger" asp-action="Delete" asp-controller="User" asp-route-id="@item.Navigation_User.User_Id">Delete</a>|
-                    <a class="btn btn-info" asp-action="Details" asp-for="Student" asp-route-id="@item.Student_Id">Details</a>|
+                    <a class="btn btn-dark" asp-action="Details" asp-for="Student" asp-route-id="@item.Student_Id">Details</a>|
+                    <a class="btn btn-dark" asp-action="Edit" asp-for="Student" asp-route-id="@item.Student_Id">Edit</a>|
+                    <a class="btn btn-danger" class="btn btn-danger" asp-action="Delete" asp-controller="User" asp-route-id="@item.Navigation_User.User_Id">Delete</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
-<a class="btn btn-info" asp-action="Add">Add Students</a>
+<a class="btn btn-dark" asp-action="Add">Add Students</a>
