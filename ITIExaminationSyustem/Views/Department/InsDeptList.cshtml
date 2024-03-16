@@ -1,0 +1,29 @@
+﻿@model List<DepartmentInstructors>
+@{
+    ViewData["Title"] = "InsDeptList";
+}
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Department</th>
+            <th>Branch</th>
+            <th>Operations</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Navigation_Department.Navigation_MainDepartment.MainDepartment_Name</td>
+                <td>@item.Navigation_Department.Navigation_Branch.Branch_Name</td>
+                <td>
+                    <a asp-action="DeptDetails" asp-controller="Department" asp-route-id="@item.Navigation_Department.Department_Id" class="btn btn-info">Details</a>
+                    <a asp-action="InstructorCourses" asp-controller="Instructor" asp-route-id="@item.Ins_Id" class="btn btn-info">View Courses</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+

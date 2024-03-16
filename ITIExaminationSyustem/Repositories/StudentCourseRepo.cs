@@ -60,5 +60,12 @@ namespace ITIExaminationSyustem.Repositories
             _context.SaveChanges();
         }
 
+        public List<StudentCourse> GetStudentCourseList(int courseId)
+        {
+            return _context.StudentCourses.Include(stdCrs => stdCrs.Navigation_Student)
+                                          .ThenInclude(std => std.Navigation_User)
+                                          .Include(stdCrs => stdCrs.Navigation_Course)
+                                          .Where(stdCrs => stdCrs.Crs_Id == courseId).ToList();
+        }
     }
 }

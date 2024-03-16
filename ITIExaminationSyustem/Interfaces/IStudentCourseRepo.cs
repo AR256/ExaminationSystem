@@ -12,7 +12,6 @@ namespace ITIExaminationSyustem.Interfaces
         void UpdateStudentFeedback(int studentId, int courseId, string feedback);
         StudentCourse GetByIds(int crsId, int stdId);
         void Add(int studentId, int courseId);
-        
-
+        List<StudentCourse> GetStudentCourseList(int courseId);
     }
 }
