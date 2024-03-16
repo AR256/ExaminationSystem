@@ -9,17 +9,17 @@
 
 <form class="form-control" method="post">
     <h2>Instructor Courses</h2>
-    <select asp-items="instructorCourses" name="toRemove" multiple>
+    <select class="form-select" asp-items="instructorCourses" name="toRemove" multiple>
 
     </select>
 
 
-    <h2>other Courses in department</h2>
-    <select asp-items="otherCourses" name="toAdd" multiple>
+    <h2 class="mt-2">other Courses in department</h2>
+    <select class="form-select" asp-items="otherCourses" name="toAdd" multiple>
 
     </select>
 
 
-    <input type="submit" value="submit"/>
+    <input type="submit" value="submit" class="btn btn-dark mt-3"/>
 
 </form>

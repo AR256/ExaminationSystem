@@ -2,19 +2,13 @@
 @{
     ViewData["Title"] = "CreateEdit";
 }
-
-<label>Name</label>
-<input asp-for="User_Name" />
-<br />
+<label for="User_Name" class="form-label mt-3">User Name</label>
+<input asp-for="User_Name" class="form-control" placeholder="Name"/>
 <span asp-validation-for="User_Name"></span>
-<br />
-
-<label>Email</label>
-<input asp-for="User_Email" />
-<br />
+<label for="User_Email" class="form-label mt-3">User Email</label>
+<input asp-for="User_Email" class="form-control" placeholder="Email" />
 <span asp-validation-for="User_Email"></span>
-<br />
-
-<div class="form-group">
-    <input type="file" name="image" />
+<div class="form-group mt-3">
+    <label for="image" class="form-label">User Image</label>
+    <input type="file" class="form-control" name="image"/>
 </div>

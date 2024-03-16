@@ -39,12 +39,14 @@ namespace ITIExaminationSyustem.Controllers
               var nameClaim = new Claim(ClaimTypes.Name , user.User_Name);
               var emailClaim = new Claim(ClaimTypes.Email , user.User_Email);
               var idClaim = new Claim("id",user.User_Id.ToString());
+            var imageClaim = new Claim("image",user?.User_Image??"");
 
 
               ClaimsIdentity claimIdentity = new ClaimsIdentity("Cookies");
               claimIdentity.AddClaim(nameClaim);
               claimIdentity.AddClaim(emailClaim);
               claimIdentity.AddClaim(idClaim);
+              claimIdentity.AddClaim(imageClaim);
               //adding each role of the user
               foreach (var item in user.Navigation_Roles)
               {
@@ -84,7 +86,7 @@ namespace ITIExaminationSyustem.Controllers
         async public Task<IActionResult> LogOut()
         {
             await HttpContext.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login");
 
         }
 

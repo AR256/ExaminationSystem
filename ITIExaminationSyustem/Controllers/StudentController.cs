@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace ITIExaminationSyustem.Controllers
 {
     [Authorize]
+    
     public class StudentController : Controller
     {
         private IStudentRepo _studentRepo;
