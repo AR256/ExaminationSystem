@@ -84,7 +84,7 @@ namespace ITIExaminationSyustem.Controllers
         async public Task<IActionResult> LogOut()
         {
             await HttpContext.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login");
 
         }
 

@@ -10,28 +10,46 @@
     @if(User.IsInRole("Admin"))
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Department" asp-action="DepartmentList" asp-route-branchId="@int.Parse(User.FindFirst("adminBranch").Value)">Departments</a>
+            <a class="nav-link text-white" asp-area="" asp-controller="Department" asp-action="DepartmentList" asp-route-branchId="@int.Parse(User.FindFirst("adminBranch").Value)">
+                <i class="fa-solid fa-house-laptop"></i>
+                <span class="d-none d-sm-inline">Departments</span>
+            </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="LogOut">Log out @User.Identity.Name</a>
+            <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="LogOut">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span class="d-none d-sm-inline">Log out</span>
+            </a>
         </li>
     }
     else if (User.IsInRole("Student"))
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="StudentCourses" asp-route-id="@int.Parse(User.FindFirst("studentId").Value)">My Courses</a>
+            <a class="nav-link text-white" asp-area="" asp-controller="Student" asp-action="StudentCourses" asp-route-id="@int.Parse(User.FindFirst("studentId").Value)">
+                <i class="fa-solid fa-book"></i>
+                <span class="d-none d-sm-inline">Courses</span>
+            </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="LogOut">Log out @User.Identity.Name</a>
+            <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="LogOut">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span class="d-none d-sm-inline">Log out</span>
+            </a>
         </li>
     }
     else if (User.IsInRole("Instructor"))
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="StudentCourses" asp-route-id="@int.Parse(User.FindFirst("InstructorID").Value)">My Courses</a>
+            <a class="nav-link text-white" asp-area="" asp-controller="Student" asp-action="StudentCourses" asp-route-id="@int.Parse(User.FindFirst("InstructorID").Value)">
+                <i class="fa-solid fa-book"></i>
+                <span class="d-none d-sm-inline">Courses</span>
+            </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="LogOut">Log out @User.Identity.Name</a>
+            <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="LogOut">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span class="d-none d-sm-inline">Log out</span>
+            </a>
         </li>
     }
     else if (User.IsInRole("DeptManager"))
@@ -41,40 +59,68 @@
     else if (User.IsInRole("SuperAdmin"))
     {
     <li class="nav-item">
-    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">
+                <i class="fa-solid fa-house"></i>
+                <span class="d-none d-sm-inline">Home</span>
+            </a>
+    </li>
+  
+    <li class="nav-item">
+            <a class="nav-link text-white" asp-area="" asp-controller="Student" asp-action="Index">
+                <i class="fa fa-users"></i>
+                <span class="d-none d-sm-inline">Students</span>
+            </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Index">Student</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Branch" asp-action="Index">Branches</a>
+            <a class="nav-link text-white" asp-area="" asp-controller="Branch" asp-action="Index">
+                <i class="fa-solid fa-building-columns"></i>
+                <span class="d-none d-sm-inline">Branches</span>
+            </a>
     </li>
     <li class="nav-item">
 
-        <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Admins</a>
+            <a class="nav-link text-white" asp-area="" asp-controller="Admin" asp-action="Index">
+                <i class="fa fa-users"></i>
+                <span class="d-none d-sm-inline">Admins</span>
+            </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="user" asp-action="Index">Users</a>
+            <a class="nav-link text-white" asp-area="" asp-controller="user" asp-action="Index">
+                <i class="fa fa-users"></i>
+                <span class="d-none d-sm-inline">Users</span>
+            </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Instructor" asp-action="Index">Instructor</a>
+            <a class="nav-link text-white" asp-area="" asp-controller="Instructor" asp-action="Index">
+                <i class="fa fa-users"></i>
+                <span class="d-none d-sm-inline">Instructors</span>
+            </a>
 
     </li>
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Course" asp-action="Index">Course</a>
+            <a class="nav-link text-white" asp-area="" asp-controller="Course" asp-action="Index">
+                <i class="fa fa-users"></i>
+                <span class="d-none d-sm-inline">Courses</span>
+            </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Role" asp-action="Index">Role</a>
+            <a class="nav-link text-white" asp-area="" asp-controller="Role" asp-action="Index">
+                <i class="fa fa-users"></i>
+                <span class="d-none d-sm-inline">Roles</span>
+            </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="LogOut">Log out @User.Identity.Name</a>
+            <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="LogOut">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span class="d-none d-sm-inline">Log out</span>
+            </a>
     </li>
 
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="MyDetails">Details</a>
+            <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="MyDetails">
+                <i class="fa fa-users"></i>
+                <span class="d-none d-sm-inline">Details</span>
+            </a>
     </li>
 }
 }

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/style.css"/>
+    
     <link rel="stylesheet" href="~/ITIExaminationSyustem.styles.css" asp-append-version="true" />
 </head>
 <body>
@@ -35,55 +35,10 @@
                     <div class="" id="navbarNav">
 
                         <ul class="navbar-nav d-flex flex-column   ps-2 justify-content-center">
-                            <li class="nav-item">
-                                <a class="nav-link  text-white" href="#">
-                                    <i class="fa-solid fa-book"></i>
-                                    <span class="d-none d-sm-inline">Courses</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="#">
-                                    <i class="fa-solid fa-person-chalkboard"></i>
-                                    <span class="d-none d-sm-inline">Instructors</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="#">
-                                    <i class="fa-solid fa-house-laptop"></i>
-                                    <span class="d-none d-sm-inline">Departments</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="#">
-                                    <i class="fa fa-users"></i>
-                                    <span class="d-none d-sm-inline">Students</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="#">
-                                    <i class="fa-solid fa-building-columns"></i>
-                                    <span class="d-none d-sm-inline">Branches</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="#">
-                                    <i class="fa fa-users"></i>
-                                    <span class="d-none d-sm-inline">Admins</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="#">
-                                    <i class="fa fa-users"></i>
-                                    <span class="d-none d-sm-inline">Users</span>
-                                </a>
-                            </li>
 
-                            <li class="nav-item ">
-                                <a class="nav-link text-white" href="#">
-                                    <i class="fa-solid fa-right-from-bracket"></i>
-                                    <span class="d-none d-sm-inline">Log out</span>
-                                </a>
-                            </li>
+                            <partial name="_LoginPartial" />
+
+                            
 
                         </ul>
 
@@ -95,7 +50,7 @@
 
 
 
-        <div class="main container col-9">
+        <div class="main">
             <div class="row">
                 <div class="col-sm-12 col-md-6">
                     <h1 class="">Welcome to Our Examination System</h1>
