@@ -10,10 +10,12 @@ namespace ITIExaminationSyustem.Controllers
     public class BranchController : Controller
     {
         private IBranchRepo branchRepo;
+        private IInstructorRepo instructorRepo;
 
-        public BranchController(IBranchRepo branchRepo)
+        public BranchController(IBranchRepo branchRepo, IInstructorRepo instructorRepo)
         {
             this.branchRepo = branchRepo;
+            this.instructorRepo = instructorRepo;
         }
         public IActionResult Index()
         {
@@ -47,12 +49,18 @@ namespace ITIExaminationSyustem.Controllers
         [HttpGet]
         public IActionResult Edit(int? id)
         {
-            if(id != null)
+            if (id == null)
+                return BadRequest();
+            else
             {
-                var branchtoedited = branchRepo.GetById(id.Value);
-                return View(branchtoedited);
+                var branchToEdit = branchRepo.GetById(id.Value);
+                if (branchToEdit == null)
+                    return NotFound();
+                else
+                {
+                    return View(branchToEdit);
+                }
             }
-            return NotFound();
             
         }
         [HttpPost]

@@ -74,6 +74,7 @@ namespace ITIExaminationSyustem.Controllers
                 }
                 else
                 {
+                    ViewBag.ExamsList = _examRepo.GetAll();
                     return View(student);
                 }
             }
