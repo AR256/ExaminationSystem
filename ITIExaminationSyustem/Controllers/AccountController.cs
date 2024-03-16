@@ -59,15 +59,15 @@ namespace ITIExaminationSyustem.Controllers
                         claimIdentity.AddClaim(adminClaim);
                         break;
                     case "Student":
-                        var studentClaim = new Claim("studentId", user.Navigation_Student.Student_Id.ToString());
+                        var studentClaim = new Claim("studentID", user.Navigation_Student.Student_Id.ToString());
                         claimIdentity.AddClaim(studentClaim);
                         break;
                     case "Instructor":
                         var InstructorClaim = new Claim("InstructorID", user.Navigation_Instructor.Instructor_Id.ToString());
                         claimIdentity.AddClaim(InstructorClaim);
                         break;
-                    case "DeptInstructor":
-                        var DeptInstructorClaim = new Claim("DeptInstructorID", user.Navigation_Instructor.ToString());
+                    case "DeptManager":
+                        var DeptInstructorClaim = new Claim("DeptManagerID", user.Navigation_Instructor.Instructor_Id.ToString());
                         claimIdentity.AddClaim(DeptInstructorClaim);
                         break;
                         default:
@@ -105,17 +105,36 @@ namespace ITIExaminationSyustem.Controllers
                var user = _userRepo.GetById(id);
                 if (Roles.Contains("Student"))
                 {
-                    var studentId = user?.Navigation_Student?.Student_Id;
-                    return RedirectToAction("Details", "Student", new { id = studentId });
-                }else if (Roles.Contains("Instructor"))
+                    var userId = user?.User_Id;
+                    return RedirectToAction("UserDetails", "User", new { id = userId });
+                    //var studentId = user?.Navigation_Student?.Student_Id;
+                    //return RedirectToAction("Details", "Student", new { id = studentId });
+                }
+                else if (Roles.Contains("Instructor"))
                 {
-                    var instrucotrId = user?.Navigation_Instructor?.Instructor_Id;
-                    return RedirectToAction("Details", "Instructor", new { id = instrucotrId });
-
-                }else if (Roles.Contains("Admin"))
+                    var userId = user?.User_Id;
+                    return RedirectToAction("UserDetails", "User", new { id = userId });
+                    //var instrucotrId = user?.Navigation_Instructor?.Instructor_Id;
+                    //return RedirectToAction("Details", "Instructor", new { id = instrucotrId });
+                }
+                else if (Roles.Contains("Admin"))
                 {
-                    var adminId = user?.Navigation_Admin?.Admin_Id;
-                    return RedirectToAction("Details", "Admin",new {id=adminId});
+                    var userId = user?.User_Id;
+                    return RedirectToAction("UserDetails", "User", new { id = userId });
+                    //var adminId = user?.Navigation_Admin?.Admin_Id;
+                    //return RedirectToAction("Details", "Admin", new { id = adminId });
+                }
+                else if (Roles.Contains("DeptManager"))
+                {
+                    var userId = user?.User_Id;
+                    return RedirectToAction("UserDetails", "User", new { id = userId });
+                    //var instrucotrId = user?.Navigation_Instructor?.Instructor_Id;
+                    //return RedirectToAction("Details", "Instructor", new { id = instrucotrId });
+                }
+                else if (Roles.Contains("SuperAdmin"))
+                {
+                    var userId = user?.User_Id;
+                    return RedirectToAction("UserDetails", "User", new { id = userId });
                 }
             }
             return NotFound();

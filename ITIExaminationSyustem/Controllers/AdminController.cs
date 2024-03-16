@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ITIExaminationSyustem.Controllers
 {
-    [Authorize(Roles=("Super Admin"))]
+    [Authorize(Roles=("SuperAdmin"))]
     public class AdminController : Controller
     {
         private IAdminRepo _adminRepo;
@@ -20,16 +20,17 @@ namespace ITIExaminationSyustem.Controllers
             _branchRepo = branchRepo;
         }
 
+        public IActionResult Index()
+        {
+            var adminList = _adminRepo.GetAllAdminsbyUsersEmailBranches();
+            return View(adminList);
+        }
+
         public IActionResult AddnewBranch()
         {
             return View();
         }
 
-        public IActionResult Index()
-        {
-           var adminlist = _adminRepo.GetAllAdminsbyUsersEmailBranches();
-            return View(adminlist);
-        }
         [HttpGet]
         public IActionResult Add() 
         {
