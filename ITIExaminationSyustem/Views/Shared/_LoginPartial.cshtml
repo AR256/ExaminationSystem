@@ -15,12 +15,6 @@
                 <span class="d-none d-sm-inline">Departments</span>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="LogOut">
-                <i class="fa-solid fa-right-from-bracket"></i>
-                <span class="d-none d-sm-inline">Log out</span>
-            </a>
-        </li>
     }
     else if (User.IsInRole("Student"))
     {
@@ -30,12 +24,7 @@
                 <span class="d-none d-sm-inline">Courses</span>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="LogOut">
-                <i class="fa-solid fa-right-from-bracket"></i>
-                <span class="d-none d-sm-inline">Log out</span>
-            </a>
-        </li>
+
     }
     else if (User.IsInRole("Instructor"))
     {
@@ -45,12 +34,7 @@
                 <span class="d-none d-sm-inline">Courses</span>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="LogOut">
-                <i class="fa-solid fa-right-from-bracket"></i>
-                <span class="d-none d-sm-inline">Log out</span>
-            </a>
-        </li>
+      
     }
     else if (User.IsInRole("DeptManager"))
     {
@@ -109,18 +93,8 @@
                 <span class="d-none d-sm-inline">Roles</span>
             </a>
     </li>
-    <li class="nav-item">
-            <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="LogOut">
-                <i class="fa-solid fa-right-from-bracket"></i>
-                <span class="d-none d-sm-inline">Log out</span>
-            </a>
-    </li>
+   
 
-    <li class="nav-item">
-            <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="MyDetails">
-                <i class="fa fa-users"></i>
-                <span class="d-none d-sm-inline">Details</span>
-            </a>
-    </li>
+   
 }
 }
