@@ -67,6 +67,16 @@ namespace ITIExaminationSyustem.Controllers
             return View(model);
         }
 
+        public IActionResult CourseDetails(int? id)
+        {
+            if (id == null)
+                return BadRequest();
+            var model = _courseRepo.GetById(id.Value);
+            if (model == null)
+                return NotFound();
+            return View(model);
+        }
+
         public IActionResult Edit(int? id)
         {
             if (id == null)
