@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ITIExaminationSyustem</title>
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/style.css"/>
+    <link rel="stylesheet" href="~/ITIExaminationSyustem.styles.css" asp-append-version="true" />
+</head>
+<body>
+
+   <header>
+        <nav class="navbar navbar-expand-lg bg-dark flex-column">
+
+            <div class="container-fluid d-flex flex-column">
+                <div class="mt-4">
+                    <div class="user-info d-flex justify-content-center align-items-center flex-column d-none d-sm-inline w-100 bg-danger">
+                        <div class="img-container">
+                            <img src="~/Images/img-15.jpg" alt="profile image" class="img-fluid">
+                        </div>
+                        <h2 class="text-white ">David Ayad</h2>
+                        <hr class="text-white mt-1 mb-2" />
+                    </div>
+
+
+                    <a class="navbar-brand text-white fs-6 d-none d-sm-inline" href="#">
+                        <i class="fa-solid fa-laptop-code "></i>
+                        Examination logo
+                    </a>
+
+
+                    <div class="" id="navbarNav">
+
+                        <ul class="navbar-nav d-flex flex-column   ps-2 justify-content-center">
+                            <li class="nav-item">
+                                <a class="nav-link  text-white" href="#">
+                                    <i class="fa-solid fa-book"></i>
+                                    <span class="d-none d-sm-inline">Courses</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="#">
+                                    <i class="fa-solid fa-person-chalkboard"></i>
+                                    <span class="d-none d-sm-inline">Instructors</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="#">
+                                    <i class="fa-solid fa-house-laptop"></i>
+                                    <span class="d-none d-sm-inline">Departments</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="#">
+                                    <i class="fa fa-users"></i>
+                                    <span class="d-none d-sm-inline">Students</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="#">
+                                    <i class="fa-solid fa-building-columns"></i>
+                                    <span class="d-none d-sm-inline">Branches</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="#">
+                                    <i class="fa fa-users"></i>
+                                    <span class="d-none d-sm-inline">Admins</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="#">
+                                    <i class="fa fa-users"></i>
+                                    <span class="d-none d-sm-inline">Users</span>
+                                </a>
+                            </li>
+
+                            <li class="nav-item ">
+                                <a class="nav-link text-white" href="#">
+                                    <i class="fa-solid fa-right-from-bracket"></i>
+                                    <span class="d-none d-sm-inline">Log out</span>
+                                </a>
+                            </li>
+
+                        </ul>
+
+                    </div>
+                </div>
+        </nav>
+   </header>
+
+
+
+
+        <div class="main container col-9">
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <h1 class="">Welcome to Our Examination System</h1>
+                    <main role="main" class="pb-3">
+                        @RenderBody()
+                    </main>
+                </div>
+            </div>
+
+            <footer class="border-top footer text-muted">
+                <div class="container">
+                    &copy; 2024 - ITIExaminationSyustem - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                </div>
+            </footer>
+
+        </div>
+
+
+
+
+
+        
+
+
+
+
+
+    
+
+ 
+
+
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+
+
+<!-- <li class="nav-item  my-1">
+  <a href="#sidemenu" data-bs-toggle="collapse" class="nav-link text-white" aria-current="page">
+    <i class="fa fa-house"></i>
+    <span class="d-none d-sm-inline">Collapse</span>
+  </a>
+
+  <ul class="nav collapse ms-1 flex-column" id="sidemenu" data-bs-parent="#menu">
+    <li class="nav-item">
+      <a class="nav-link text-white bg-danger" href="#">Item 1</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link text-white bg-danger" href="#">Item 2</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link text-white bg-danger" href="#">Item 3</a>
+    </li>
+  </ul>
+
+
+</li> -->
