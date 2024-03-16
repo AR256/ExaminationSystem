@@ -3,23 +3,10 @@
   
 }
 
-<!DOCTYPE html>
+<form method="post">
+    <label asp-for="Role_Type" class="form-label">Role Type</label>
+    <input asp-for="Role_Type" class="form-control" />
+    <span asp-validation-for="Role_Type" class="text-danger"></span><br />
+    <input type="submit" value="Update" class="btn btn-dark mt-3" />
+</form>
 
-<html>
-<head>
-    <link href="/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <meta name="viewport" content="width=device-width" />
-    <title>Edit</title>
-</head>
-<body>
-    <form method="post">
-        <label asp-for="Role_Type" class="form-control"></label>
-        <input asp-for="Role_Type" class="form-control" />
-        <span asp-validation-for="Role_Type" class="text-danger"></span><br />
-        <input type="submit" value="Update" class="btn btn-success" />
-    </form>
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
-</body>
-</html>

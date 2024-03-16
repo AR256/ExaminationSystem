@@ -22,26 +22,26 @@
 
     <div class="form-group">
         <label for="studDep">Department</label>
-        <select class="form-control" id="studDep" asp-items="mainDepartments" name="Student_DepartmentNumber">
+        <select class="form-select" id="studDep" asp-items="mainDepartments" name="Student_DepartmentNumber">
             
         </select>
     </div>
 
     <div class="form-group">
         <label for="StdCrses"> Student Courses</label>
-        <select multiple class="form-control" id="StdCrses" asp-items="CoursesInStudent" name="toRemove">
+        <select multiple class="form-select" id="StdCrses" asp-items="CoursesInStudent" name="toRemove">
             
         </select>
 
         <label for="NotStdCrses"> Other Courses</label>
-        <select multiple class="form-control" id="NotStdCrses" asp-items="CoursesNotInStudent" name="toAdd">
+        <select multiple class="form-select" id="NotStdCrses" asp-items="CoursesNotInStudent" name="toAdd">
         </select>
     </div>
 
     <div class="form-group">
-        <input type="file" name="image" />
+        <input type="file" class="form-control mt-3" name="image" />
     </div>
 
-    <input type="submit" class="btn btn-outline-primary" value="Apply" />
+    <input type="submit" class="btn btn-dark mt-3" value="Update Student" />
    
 </form>

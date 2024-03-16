@@ -4,43 +4,41 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>Course</h4>
+<h1>Add a Course</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Course_Name" class="control-label"></label>
+                <label asp-for="Course_Name" class="control-label">Course Name</label>
                 <input asp-for="Course_Name" class="form-control" />
                 <span asp-validation-for="Course_Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Course_Duration" class="control-label"></label>
+                <label asp-for="Course_Duration" class="control-label">Course Duration</label>
                 <input asp-for="Course_Duration" class="form-control" />
                 <span asp-validation-for="Course_Duration" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Crs_Exam_Duration" class="control-label"></label>
+                <label asp-for="Crs_Exam_Duration" class="control-label">Course Exam Duration</label>
                 <input asp-for="Crs_Exam_Duration" class="form-control" />
                 <span asp-validation-for="Crs_Exam_Duration" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Course_Exam_StartDate" class="control-label"></label>
+                <label asp-for="Course_Exam_StartDate" class="control-label">Course Exam Start Date</label>
                 <input asp-for="Course_Exam_StartDate" class="form-control" />
                 <span asp-validation-for="Course_Exam_StartDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-dark mt-3" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Course List</a>
+    <a asp-action="Index" class="btn btn-dark mt-3">Back To List</a>
 </div>
 
 @section Scripts {

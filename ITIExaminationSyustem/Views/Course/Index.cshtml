@@ -4,8 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-    <a asp-action="create" asp-controller="course" class="btn btn-dark">Create</a>
-    <table class="table table-bordered table-hover">
+    <table class="table table-striped table-hover">
         <thead>
             <tr>
                 <th>Course ID</th>
@@ -13,6 +12,7 @@
                 <th>Course Duration</th>
                 <th>Course Exam Duration</th>
                 <th>Course Exam Start Date</th>
+                <th>Operations</th>
             </tr>
         </thead>
         <tbody>
@@ -35,3 +35,4 @@
         </tbody>
 
     </table>
+<a asp-action="create" asp-controller="course" class="btn btn-dark mt-3">Add a Course</a>
