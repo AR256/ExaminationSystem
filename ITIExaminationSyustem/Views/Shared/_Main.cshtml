@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ITIExaminationSyustem</title>
+    <title>@ViewData["Title"] - ITIExaminationSystem</title>
     <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
@@ -50,19 +50,19 @@
 
 
 
-        <div class="main">
-            <div class="row">
-                <div class="col-sm-12 col-md-6">
-                    <h1 class="">Welcome to Our Examination System</h1>
-                    <main role="main" class="pb-3">
-                        @RenderBody()
-                    </main>
+    <div class="main">
+        <div class="row">
+            <h1 class="">Welcome to Our Examination System</h1>
+            <main role="main" class="pb-3 card bg-light mx-2">
+                <div class="card-body table-responsive">
+                    @RenderBody()
                 </div>
-            </div>
+            </main>
+        </div>
 
             <footer class="border-top footer text-muted">
                 <div class="container">
-                    &copy; 2024 - ITIExaminationSyustem - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    &copy; 2024 - ITIExaminationSystem - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                 </div>
             </footer>
 
