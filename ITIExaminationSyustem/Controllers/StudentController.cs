@@ -18,8 +18,9 @@ namespace ITIExaminationSyustem.Controllers
         private IStudentCourseRepo _studentCourseRepo;
         private IUserRepo _userRepo;
         private IBranchRepo _branchRepo;
+        private IExamRepo _examRepo;
         private Exam_Context _context;
-        public StudentController(IBranchRepo branchRepo,IStudentRepo studentRepo, IDepartmentRepo departmentRepo, IMainDeptRepo mainDeptRepo, ICourseRepo courseRepo, IStudentCourseRepo studentCourseRepo, Exam_Context context, IUserRepo userRepo)
+        public StudentController(IBranchRepo branchRepo,IStudentRepo studentRepo, IDepartmentRepo departmentRepo, IMainDeptRepo mainDeptRepo, ICourseRepo courseRepo, IStudentCourseRepo studentCourseRepo, Exam_Context context, IUserRepo userRepo, IExamRepo examRepo)
         {
             _studentRepo = studentRepo;
             _departmentRepo = departmentRepo;
@@ -27,8 +28,9 @@ namespace ITIExaminationSyustem.Controllers
             _courseRepo = courseRepo;
             _studentCourseRepo = studentCourseRepo;
             _context = context;
-            _userRepo= userRepo;
+            _userRepo = userRepo;
             _branchRepo = branchRepo;
+            _examRepo = examRepo;
         }
         public IActionResult Index()
         {
@@ -174,8 +176,6 @@ namespace ITIExaminationSyustem.Controllers
                 return View(studentDepartmentsViewModel);
 
             }
-
-
         }
 
         [HttpGet]
@@ -199,6 +199,7 @@ namespace ITIExaminationSyustem.Controllers
             TempData["UserId"] = userId.Value;
             return View(mainDepartments);
         }
+
         [HttpPost]
         public IActionResult AddToBranch(AddStudentViewModel addStudentViewModel)
         {
@@ -235,6 +236,28 @@ namespace ITIExaminationSyustem.Controllers
                 _studentCourseRepo.Add(id,item);
             }
             return RedirectToAction("Index");
+        }
+
+        public IActionResult DisplayStudents(int? id)
+        {
+            if (id == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                Course course = _courseRepo.GetById(id.Value);
+                if (course == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    ViewBag.ExamsList = _examRepo.GetAll();
+                    List<StudentCourse> studentCourses = _studentCourseRepo.GetStudentCourseList(id.Value);
+                    return View(studentCourses);
+                }
+            }
         }
     }
 }
