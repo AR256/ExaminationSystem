@@ -18,8 +18,10 @@ namespace ITIExaminationSyustem.Controllers
         ICourseRepo _courseRepo;
         IBranchRepo _branchRepo;
         IMainDeptRepo _mainDeptRepo;
+        IUserRepo _userRepo;
+        IAdminRepo _adminRepo;
 
-        public DepartmentController(IDepartmentRepo departmentRepo, IStudentRepo studentRepo, IInstructorRepo instructorRepo, ICourseRepo courseRepo, IBranchRepo branchRepo, IMainDeptRepo mainDeptRepo)
+        public DepartmentController(IDepartmentRepo departmentRepo, IStudentRepo studentRepo, IInstructorRepo instructorRepo, ICourseRepo courseRepo, IBranchRepo branchRepo, IMainDeptRepo mainDeptRepo, IUserRepo userRepo, IAdminRepo adminRepo)
         {
             _departmentRepo = departmentRepo;
             _studentRepo = studentRepo;
@@ -27,6 +29,8 @@ namespace ITIExaminationSyustem.Controllers
             _courseRepo = courseRepo;
             _branchRepo = branchRepo;
             _mainDeptRepo = mainDeptRepo;
+            _userRepo = userRepo;
+            _adminRepo = adminRepo;
         }
 
         public IActionResult Index()
@@ -54,6 +58,26 @@ namespace ITIExaminationSyustem.Controllers
                 }
             }
         }
+
+            public IActionResult DeptDetails(int? id) 
+            {
+                if (id == null)
+                {
+                    return BadRequest();
+                }
+                else
+                {
+                    Department fetchedDepartment = _departmentRepo.GetById(id.Value);
+                    if (fetchedDepartment == null)
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        return View(fetchedDepartment);
+                    }
+                }
+            }
 
         public IActionResult DisplayStudents(int? id)
         {
@@ -118,7 +142,7 @@ namespace ITIExaminationSyustem.Controllers
             }
         }
 
-        public IActionResult Create()
+        public IActionResult Create() //Handle the case of displaying branches list for admin/superadmin
         {
             DepartmentViewModel departmentViewModel = new();
             departmentViewModel.branches = _branchRepo.GetAll();
@@ -282,8 +306,28 @@ namespace ITIExaminationSyustem.Controllers
                     return NotFound();
                 else
                 {
-                    List<Department> departments = _departmentRepo.GetAll().Where(dept => dept.Brch_Id == branchId.Value).ToList();
+                    List<Department> departments = _departmentRepo.GetAll().Where(dept => dept.Brch_Id == branchId).ToList();
                     return View("Index", departments);
+                }
+            }
+        }
+
+
+        //Instructor Role --> 
+        public IActionResult InsDeptList(int? insId) //return list of departments per branch
+        {
+            if (insId == null)
+                return BadRequest();
+            else
+            {
+                Instructor fetchedInstructor = _instructorRepo.GetById(insId.Value);
+                if (fetchedInstructor == null)
+                    return NotFound();
+                else
+                {
+                    List<DepartmentInstructors> departmentInstructors = fetchedInstructor.Navigation_Department_Instructor.Where(deptIns => deptIns.Ins_Id == insId.Value).ToList();
+                    
+                    return View(departmentInstructors);
                 }
             }
         }

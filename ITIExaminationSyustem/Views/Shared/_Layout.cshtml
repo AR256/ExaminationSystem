@@ -4,45 +4,77 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ITIExaminationSyustem</title>
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ITIExaminationSyustem.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ITIExaminationSyustem</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
 
-                    <partial name="_LoginPartial"/>
+    <headr>
+
+    
+
+    <div class="body-container d-flex">
+        <div class="container side-bar"> 
+            <div class="row">
+                <div class="d-flex flex-column justify-content-between col-auto bg-dark min-vh-100">
+                    <div class="mt-4">
+                        <div class="img-container d-none d-sm-block">
+                            <img src="" alt="profile image" class="img-fluid">
+                        </div>
+                        <h2 class="text-white d-none d-sm-block">David Ayad</h2>
+                        <hr class="text-white" />
+                        <partial name="_LoginPartial" />
                         @if (!User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                                <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
                             </li>
                         }
-                    </ul>
+                       
+                    </div>
+
+                    <div class="btn-group">
+                        <button class="btn btn-secondary dropdown-toggle border-none outline-none d-none d-sm-inline my-2"
+                                type="button"
+                                id="triggerId"
+                                data-bs-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false">
+                            <span>Drop Down</span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-start"
+                             aria-labelledby="triggerId">
+                            <a class="dropdown-item" href="#">Profile</a>
+                            <a class="dropdown-item" href="#">Settings</a>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </nav>
-    </header>
+        </div>
+        <div class="main">
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <h1 class="">Welcome to Our Examination System</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </headr>
+
+
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - ITIExaminationSyustem - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+
+
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

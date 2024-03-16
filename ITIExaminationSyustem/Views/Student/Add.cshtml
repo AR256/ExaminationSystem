@@ -5,13 +5,15 @@
     SelectList Users = new SelectList(ViewBag.Users, "User_Id", "User_Name");
 
 }
-
+<h4>Add a Student</h4>
 <form >
-    <select asp-items="Branches"   name="branchId">
+    <label class="form-label mt-3 fw-bold" for="branchId">Branch</label>
+    <select asp-items="Branches" class="form-select" name="branchId">
     </select>
-    <select asp-items="Users"  name="userId">
+    <label class="form-label mt-3 fw-bold" for="userId">user</label>
+    <select asp-items="Users" class="form-select" name="userId">
     </select>
-    <input type="submit" asp-action="AddToBranch" value="submit" />
+    <input type="submit" class="btn btn-dark mt-3" asp-action="AddToBranch" value="submit" />
 </form>
 
 

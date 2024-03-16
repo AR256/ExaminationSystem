@@ -39,18 +39,40 @@ namespace ITIExaminationSyustem.Controllers
               var nameClaim = new Claim(ClaimTypes.Name , user.User_Name);
               var emailClaim = new Claim(ClaimTypes.Email , user.User_Email);
               var idClaim = new Claim("id",user.User_Id.ToString());
+            var imageClaim = new Claim("image",user?.User_Image??"");
 
 
               ClaimsIdentity claimIdentity = new ClaimsIdentity("Cookies");
               claimIdentity.AddClaim(nameClaim);
               claimIdentity.AddClaim(emailClaim);
               claimIdentity.AddClaim(idClaim);
+              claimIdentity.AddClaim(imageClaim);
               //adding each role of the user
               foreach (var item in user.Navigation_Roles)
               {
-                  var roleClaim = new Claim(ClaimTypes.Role, item.Role_Type);
-                  claimIdentity.AddClaim(roleClaim);
-
+                var roleClaim = new Claim(ClaimTypes.Role, item.Role_Type);
+                claimIdentity.AddClaim(roleClaim);
+                switch (item.Role_Type)
+                {
+                    case "Admin":
+                        var adminClaim = new Claim("adminBranch", user.Navigation_Admin.Admin_Branch_Id.ToString());
+                        claimIdentity.AddClaim(adminClaim);
+                        break;
+                    case "Student":
+                        var studentClaim = new Claim("studentId", user.Navigation_Student.Student_Id.ToString());
+                        claimIdentity.AddClaim(studentClaim);
+                        break;
+                    case "Instructor":
+                        var InstructorClaim = new Claim("InstructorID", user.Navigation_Instructor.Instructor_Id.ToString());
+                        claimIdentity.AddClaim(InstructorClaim);
+                        break;
+                    case "DeptInstructor":
+                        var DeptInstructorClaim = new Claim("DeptInstructorID", user.Navigation_Instructor.ToString());
+                        claimIdentity.AddClaim(DeptInstructorClaim);
+                        break;
+                        default:
+                        break;
+                }
               }
 
               ClaimsPrincipal claimPrincipal = new ClaimsPrincipal();
@@ -64,7 +86,7 @@ namespace ITIExaminationSyustem.Controllers
         async public Task<IActionResult> LogOut()
         {
             await HttpContext.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login");
 
         }
 
