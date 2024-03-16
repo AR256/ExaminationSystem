@@ -1,5 +1,6 @@
 ﻿using ITIExaminationSyustem.Interfaces;
 using ITIExaminationSyustem.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ITIExaminationSyustem.Repositories
 {
@@ -29,7 +30,9 @@ namespace ITIExaminationSyustem.Repositories
 
         public Course GetById(int id)
         {
-            return _context.Courses.FirstOrDefault(s => s.Course_Id == id);
+            return _context.Courses.Include(crs => crs.Navigation_StudentCourses)
+                                   .ThenInclude(stdCrs => stdCrs.Navigation_Student)
+                                   .FirstOrDefault(s => s.Course_Id == id);
         }
 
         public void Update(Course course)
