@@ -1,0 +1,49 @@
+﻿@model List<StudentCourse>
+@{
+    ViewData["Title"] = "DisplayStudents";
+    List<Exam> allExams = ViewBag.ExamsList;
+    Exam fetchedExam = null;
+}
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Student name</th>
+            <th>Email</th>
+            <th>Grade</th>
+            <th>Bonus</th>
+            <th>Feedback</th>
+            <th>Exam</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Navigation_Student.Navigation_User.User_Name</td>
+                <td>@item.Navigation_Student.Navigation_User.User_Email</td>
+                <td>@item.Grade</td>
+                <td>@item.Bonus</td>
+                <td>@item.Ins_Feedback</td>
+                <td>
+                    @{
+                    fetchedExam = @allExams.Where(exam => exam.Crs_Id == item.Crs_Id && exam.StudId == item.Std_Id).FirstOrDefault();
+                    }
+                    @if(fetchedExam == null)
+                    {
+                        <button class="btn btn-info" disabled >View Exam</button>
+                        <button class="btn btn-info" disabled>View Exam Template</button>
+                    }
+                    else
+                    {
+                        <a asp-action="DisplayExamTemplate" asp-controller="Exam" asp-route-examId="@fetchedExam.Exam_Id" asp-route-isAnswered="@true" class="btn btn-info">View Exam</a>
+                        <a asp-action="DisplayExamTemplate" asp-controller="Exam" asp-route-examId="@fetchedExam.Exam_Id" asp-route-isAnswered="@false" class="btn btn-info">View Exam Template</a>
+                        fetchedExam = null;
+                    }
+                    
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

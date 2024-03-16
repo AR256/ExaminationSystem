@@ -28,7 +28,7 @@
     else if (User.IsInRole("Instructor"))
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="StudentCourses" asp-route-id="@int.Parse(User.FindFirst("InstructorID").Value)">My Courses</a>
+            <a class="nav-link text-dark" asp-area="" asp-controller="Department" asp-action="InsDeptList" asp-route-insId="@int.Parse(User.FindFirst("InstructorID").Value)">My Departments</a>
         </li>
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="LogOut">Log out @User.Identity.Name</a>
