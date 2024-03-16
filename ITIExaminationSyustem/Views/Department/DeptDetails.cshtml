@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewData["Title"] = "DeptDetails";
+}
+
+Name :: @Model.Department_Name
+<br />
+Department :: @Model.Navigation_MainDepartment.MainDepartment_Name
+<br />
+Branch Name :: @Model.Navigation_Branch.Branch_Name
+<br />
+Manager Name :: @Model.Navigation_Department_Manager_Instructor.Navigation_User.User_Name
+<br />

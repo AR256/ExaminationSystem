@@ -4,11 +4,10 @@
 }
 
 <form class="form-control" enctype="multipart/form-data" method="post">
-
-    <input type="text" placeholder="Name" value="@Model.Instructor_Name" name="Instructor_Name" />
-    <input type="Email" placeholder="Email" value="@Model.Instructor_Email" name="Instructor_Email" />
-    <input type="file" name="Instructor_Image" />
-    <input type="submit" asp-action="SubmitEdit" asp-route-id="@Model.Instructor_Id" />
+    <input class="form-control mt-2" type="text" placeholder="Name" value="@Model.Instructor_Name" name="Instructor_Name" />
+    <input class="form-control mt-2" type="Email" placeholder="Email" value="@Model.Instructor_Email" name="Instructor_Email" />
+    <input class="form-control mt-2" type="file" name="Instructor_Image" />
+    <input type="submit" asp-action="SubmitEdit" asp-route-id="@Model.Instructor_Id" class="btn btn-dark mt-2"/>
 </form>
 
 
@@ -25,7 +24,7 @@
                 <tr>
                     <td>@item.Department_Name</td>
                     <td>
-                        <a class="btn btn-info" asp-action="ManageCourses" asp-route-DepId="@item.Department_Id" asp-route-InsId="@Model.Instructor_Id">Manage Courses</a>
+                        <a class="btn btn-dark" asp-action="ManageCourses" asp-route-DepId="@item.Department_Id" asp-route-InsId="@Model.Instructor_Id">Manage Courses</a>
                         <a class="btn btn-danger" asp-action="DeleteDepartment" asp-route-DepId="@item.Department_Id" asp-route-InsId="@Model.Instructor_Id">Remove</a>
                     </td>
                 </tr>
@@ -47,7 +46,7 @@
                 <tr>
                     <td>@item.Department_Name</td>
                     <td>
-                        <a class="btn btn-info" asp-action="AddDepartment" asp-route-DepId="@item.Department_Id" asp-route-InsId="@Model.Instructor_Id">Add</a>
+                        <a class="btn btn-dark" asp-action="AddDepartment" asp-route-DepId="@item.Department_Id" asp-route-InsId="@Model.Instructor_Id">Add</a>
                     </td>
                 </tr>
             }

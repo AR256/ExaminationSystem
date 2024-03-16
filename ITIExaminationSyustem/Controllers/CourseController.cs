@@ -20,6 +20,23 @@ namespace ITIExaminationSyustem.Controllers
             return View(model);
         }
 
+        public IActionResult DisplayStudents(int? id) //////to be edited
+        {
+            if (id == null)
+                return BadRequest();
+            else
+            {
+                Course course = _courseRepo.GetById(id.Value);
+                if(course == null)
+                    return NotFound();
+                else
+                {
+                    //List<St>
+                    return View(course);
+                }
+            }
+        }
+
         public IActionResult Create()
         {
             return View();
@@ -41,6 +58,16 @@ namespace ITIExaminationSyustem.Controllers
         }
 
         public IActionResult Details(int? id)
+        {
+            if (id == null)
+                return BadRequest();
+            var model = _courseRepo.GetById(id.Value);
+            if (model == null)
+                return NotFound();
+            return View(model);
+        }
+
+        public IActionResult CourseDetails(int? id)
         {
             if (id == null)
                 return BadRequest();

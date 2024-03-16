@@ -2,41 +2,34 @@
 
 @{
     ViewData["Title"] = "Index";
-    Layout = "_layout";
+    
 }
 
-<html>
-<head>
-    <link href="/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-    <a asp-action="create" asp-controller="role" class="btn btn-dark">Create</a>
-    <table class="table table-bordered table-hover">
-        <thead>
+  
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Role ID</th>
+            <th>Role Type</th>
+            <th>Operations</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
             <tr>
-                <th>Role ID</th>
-                <th>Role Type</th>
-                <th>Operations</th>
+                <td>@item.Role_Id</td>
+                <td>@item.Role_Type</td>
+                <td>
+                    <a asp-action="Details" asp-controller="role" asp-route-id="@item.Role_Id" class="btn btn-dark">Details</a>
+                    <a asp-action="Edit" asp-controller="role" asp-route-id="@item.Role_Id" class="btn btn-dark">Update</a>
+                    <a asp-action="Delete" asp-controller="role" onclick="return confirm('are you sure')" asp-route-id="@item.Role_Id" class="btn btn-danger">Delete</a>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>@item.Role_Id</td>
-                    <td>@item.Role_Type</td>
-                    <td>
-                        <a asp-action="Details" asp-controller="role" asp-route-id="@item.Role_Id" class="btn btn-info"> Details</a>
-                        <a asp-action="Edit" asp-controller="role" asp-route-id="@item.Role_Id" class="btn btn-info"> Update</a>
-                        <a asp-action="Delete" asp-controller="role" onclick="return confirm('are you sure')" asp-route-id="@item.Role_Id" class="btn btn-danger"> Delete</a>
-                    </td>
-                </tr>
-            }
+        }
 
-        </tbody>
+    </tbody>
 
-    </table>
-</body>
-</html>
+</table>
+<a asp-action="create" asp-controller="role" class="btn btn-dark mt-3">Add a Role</a>
+
