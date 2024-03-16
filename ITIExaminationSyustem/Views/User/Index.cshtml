@@ -3,7 +3,7 @@
     ViewData["Title"] = "Index";
 }
 
-<table class="table table-bordered table-hover">
+<table class="table table-striped table-hover">
         <thead>
             <tr>
                 <th>User Name</th>
@@ -18,8 +18,8 @@
                     <td>@item.User_Name</td>
                     <td>@item.User_Email</td>
                     <td>
-                    <a asp-action="Details" asp-controller="User" asp-route-id="@item.User_Id" class="btn btn-info">Details</a>
-                    <a asp-action="Edit" asp-controller="User" asp-route-id="@item.User_Id" class="btn btn-info">Edit</a>
+                    <a asp-action="Details" asp-controller="User" asp-route-id="@item.User_Id" class="btn btn-dark">Details</a>
+                    <a asp-action="Edit" asp-controller="User" asp-route-id="@item.User_Id" class="btn btn-dark">Edit</a>
                     <a asp-action="Delete" asp-controller="User" asp-route-id="@item.User_Id" class="btn btn-danger">Delete</a>
                     </td>
                 </tr>
@@ -27,4 +27,4 @@
         </tbody>
 </table>
 <br />
-<a asp-action="Create" asp-controller="User" class="btn btn-primary">Add</a>
+<a asp-action="Create" asp-controller="User" class="btn btn-dark mt-3">Add a User</a>

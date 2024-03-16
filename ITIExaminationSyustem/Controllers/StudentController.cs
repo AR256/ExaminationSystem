@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace ITIExaminationSyustem.Controllers
 {
     [Authorize]
+    
     public class StudentController : Controller
     {
         private IStudentRepo _studentRepo;
@@ -73,6 +74,7 @@ namespace ITIExaminationSyustem.Controllers
                 }
                 else
                 {
+                    ViewBag.ExamsList = _examRepo.GetAll();
                     return View(student);
                 }
             }

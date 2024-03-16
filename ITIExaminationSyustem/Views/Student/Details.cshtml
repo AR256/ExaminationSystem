@@ -2,22 +2,26 @@
 @{
     ViewBag.Title = "Student Details";
 }
-<h1>Student Details</h1>
+<h5 class="card-title">@ViewBag.Title</h5>
 
 
 
-<table class="table table-bordered table-hover">
-    <thead>
-        <th>Image</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Department</th>
-    </thead>
+<table class="table table-striped table-hover"> 
     <tbody>
-        <tr> 
+        <tr>
+            <td class="fw-bold">Image</td>
             <td><img src="@Model.Navigation_User.User_Image" alt="Alternate Text" class="img-fluid" style="width:150px;height:150px" /></td>
+        </tr>
+        <tr> 
+            <td class="fw-bold">Name</td>
             <td>@Model.Navigation_User.User_Name</td>
+        </tr>
+        <tr>
+            <td class="fw-bold">Email</td>
             <td>@Model.Navigation_User.User_Email</td>
+        </tr>
+        <tr>
+            <td class="fw-bold">Department</td>
             <td>@Model.Navigation_Department.Navigation_MainDepartment.MainDepartment_Name</td>
         </tr>
     </tbody>
@@ -26,7 +30,7 @@
 
 
 <h2>Courses</h2>
-<table class ="table table-bordered table-hover">
+<table class="table table-striped table-hover">
     <thead>
         <th>Course name</th>
         <th>Course duration</th>
@@ -48,7 +52,7 @@
     </tbody>
 </table>
 
-<a asp-action="Index" asp-for="Student" class="btn btn-primary">Go Back</a>
+<a asp-action="Index" asp-for="Student" class="btn btn-dark">Go Back</a>
 
 
 

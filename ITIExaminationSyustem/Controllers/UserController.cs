@@ -50,6 +50,26 @@ namespace ITIExaminationSyustem.Controllers
             }
         }
 
+        public IActionResult UserDetails(int? id)
+        {
+            if (id == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                User fetchedUser = _userRepo.GetById(id.Value);
+                if (fetchedUser == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return View(fetchedUser);
+                }
+            }
+        }
+
         public IActionResult Create()
         {
             return View();
