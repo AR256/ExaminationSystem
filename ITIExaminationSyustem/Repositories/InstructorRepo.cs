@@ -25,6 +25,10 @@ namespace ITIExaminationSyustem.Repositories
                 .Include(a=>a.Navigation_Courses)
                 .Include(a=>a.Navigation_Department_Instructor)
                 .ThenInclude(a=>a.Navigation_Department)
+                .ThenInclude(a => a.Navigation_Branch)
+                .Include(a => a.Navigation_Department_Instructor)
+                .ThenInclude(a => a.Navigation_Department)
+                .ThenInclude(a => a.Navigation_MainDepartment)
                 .SingleOrDefault(ins => ins.Instructor_Id == id);
 
         }

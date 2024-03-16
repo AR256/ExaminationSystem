@@ -1,27 +1,19 @@
-﻿@model List<Course>
+@model List<Course>
 
 @{
     ViewData["Title"] = "Index";
-    Layout = "_layout";
 }
 
-<html>
-<head>
-    <link href="/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-    <a asp-action="create" asp-controller="course" class="btn btn-dark">Create</a>
-    <table class="table table-bordered table-hover">
-        <thead>
-            <tr>
-                <th>Course ID</th>
-                <th>Course Name</th>
-                <th>Course Duration</th>
-                <th>Course Exam Duration</th>
-                <th>Course Exam Start Date</th>
-            </tr>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Course ID</th>
+            <th>Course Name</th>
+            <th>Course Duration</th>
+            <th>Course Exam Duration</th>
+            <th>Course Exam Start Date</th>
+            <th>Operations</th>
+        </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
@@ -37,10 +29,10 @@
                         <a asp-action="DisplayStudents" asp-controller="Course" asp-route-id="@item.Course_Id" class="btn btn-dark">View Students</a>
                     </td>
                 </tr>
-            }
+           }
+          </tbody>
+</table>
+           
 
-        </tbody>
 
-    </table>
-</body>
-</html>
+

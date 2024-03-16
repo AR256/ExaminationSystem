@@ -1,4 +1,4 @@
-﻿@using System.Security.Claims
+@using System.Security.Claims
 @using ITIExaminationSyustem.Repositories;
 @if (User.Identity.IsAuthenticated)
 {
@@ -29,10 +29,7 @@
     else if (User.IsInRole("Instructor"))
     {
         <li class="nav-item">
-            <a class="nav-link text-white" asp-area="" asp-controller="Student" asp-action="StudentCourses" asp-route-id="@int.Parse(User.FindFirst("InstructorID").Value)">
-                <i class="fa-solid fa-book"></i>
-                <span class="d-none d-sm-inline">Courses</span>
-            </a>
+            <a class="nav-link text-dark" asp-area="" asp-controller="Department" asp-action="InsDeptList" asp-route-insId="@int.Parse(User.FindFirst("InstructorID").Value)">My Departments</a>
         </li>
       
     }

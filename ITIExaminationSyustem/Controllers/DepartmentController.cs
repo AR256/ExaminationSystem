@@ -59,6 +59,26 @@ namespace ITIExaminationSyustem.Controllers
             }
         }
 
+            public IActionResult DeptDetails(int? id) 
+            {
+                if (id == null)
+                {
+                    return BadRequest();
+                }
+                else
+                {
+                    Department fetchedDepartment = _departmentRepo.GetById(id.Value);
+                    if (fetchedDepartment == null)
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        return View(fetchedDepartment);
+                    }
+                }
+            }
+
         public IActionResult DisplayStudents(int? id)
         {
             if (id == null)
@@ -288,6 +308,26 @@ namespace ITIExaminationSyustem.Controllers
                 {
                     List<Department> departments = _departmentRepo.GetAll().Where(dept => dept.Brch_Id == branchId).ToList();
                     return View("Index", departments);
+                }
+            }
+        }
+
+
+        //Instructor Role --> 
+        public IActionResult InsDeptList(int? insId) //return list of departments per branch
+        {
+            if (insId == null)
+                return BadRequest();
+            else
+            {
+                Instructor fetchedInstructor = _instructorRepo.GetById(insId.Value);
+                if (fetchedInstructor == null)
+                    return NotFound();
+                else
+                {
+                    List<DepartmentInstructors> departmentInstructors = fetchedInstructor.Navigation_Department_Instructor.Where(deptIns => deptIns.Ins_Id == insId.Value).ToList();
+                    
+                    return View(departmentInstructors);
                 }
             }
         }
