@@ -1,0 +1,32 @@
+﻿@model List<Course>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_layout";
+}
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Course name</th>
+            <th>Duration</th>
+            <th>Operations</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Course_Name</td>
+                <td>@item.Course_Duration</td>
+                <td>
+                    <a asp-action="CourseDetails" asp-controller="Course" asp-route-id="@item.Course_Id" class="btn btn-info">Details</a>
+                    <a asp-action="DisplayStudents" asp-controller="Student" asp-route-id="@item.Course_Id" class="btn btn-info">View Students</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+

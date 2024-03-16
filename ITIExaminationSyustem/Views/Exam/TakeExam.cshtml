@@ -15,29 +15,12 @@
             @foreach(var choice in question.Navigation_Question.Navigation_Choices)
             {
                 <div class="form-check">
-                    <input type="radio" class="form-check-input" id="@choice.Choice_Id" name="@question.Q_Id" value="@choice.Choice_Text">
+                    <input type="radio" class="form-check-input" id="@choice.Choice_Id" name="questions.@question.Q_Id" value="@choice.Choice_Text">
                     <label class="form-check-label" for="@choice.Choice_Id">@choice.Choice_Text</label>
                 </div>
             }
         }
 
-        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+        <input type="submit" value="Submit" asp-route-examId="@Model[0].Exam_Id" class="btn btn-primary mt-3" />
     </form>
 </div>
-
-
-@* 
-<div class="form-check">
-    <input type="radio" class="form-check-input" id="radio1" name="optradio" value="option1" checked>
-    <label class="form-check-label" for="radio1">Option 1</label>
-</div>
-<div class="form-check">
-    <input type="radio" class="form-check-input" id="radio2" name="optradio" value="option2">
-    <label class="form-check-label" for="radio2">Option 2</label>
-</div>
-<div class="form-check">
-    <input type="radio" class="form-check-input" disabled>
-    <label class="form-check-label">Option 3</label>
-</div>
-
- *@

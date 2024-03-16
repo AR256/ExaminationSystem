@@ -56,9 +56,16 @@ namespace ITIExaminationSyustem.Repositories
 
         public void Add(int studentId, int courseId)
         {
-            _context.StudentCourses.Add(new StudentCourse { Crs_Id= courseId ,Std_Id=studentId,Bouns=0} );
+            _context.StudentCourses.Add(new StudentCourse { Crs_Id= courseId ,Std_Id=studentId,Bonus=0} );
             _context.SaveChanges();
         }
 
+        public List<StudentCourse> GetStudentCourseList(int courseId)
+        {
+            return _context.StudentCourses.Include(stdCrs => stdCrs.Navigation_Student)
+                                          .ThenInclude(std => std.Navigation_User)
+                                          .Include(stdCrs => stdCrs.Navigation_Course)
+                                          .Where(stdCrs => stdCrs.Crs_Id == courseId).ToList();
+        }
     }
 }

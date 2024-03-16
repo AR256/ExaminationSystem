@@ -1,6 +1,7 @@
 using ITIExaminationSyustem.Interfaces;
 using ITIExaminationSyustem.Models;
 using ITIExaminationSyustem.Repositories;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 namespace ITIExaminationSyustem
@@ -17,6 +18,7 @@ namespace ITIExaminationSyustem
             {
                 a.UseSqlServer(builder.Configuration.GetConnectionString("con1"));
             });
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
             builder.Services.AddScoped<IAdminRepo, AdminRepo>();
             builder.Services.AddScoped<IBranchRepo, BranchRepo>();
             builder.Services.AddScoped<IChoiceRepo, ChoiceRepo>();
@@ -43,7 +45,7 @@ namespace ITIExaminationSyustem
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(

@@ -379,11 +379,14 @@ namespace ITIExaminationSyustem.Migrations
                     b.Property<int?>("Std_Id")
                         .HasColumnType("int");
 
-                    b.Property<int>("Bouns")
+                    b.Property<int>("Bonus")
                         .HasColumnType("int");
 
                     b.Property<int?>("Grade")
                         .HasColumnType("int");
+
+                    b.Property<bool>("HasTakenExam")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Ins_Feedback")
                         .HasColumnType("nvarchar(max)");
@@ -414,6 +417,7 @@ namespace ITIExaminationSyustem.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("User_Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("User_Password")

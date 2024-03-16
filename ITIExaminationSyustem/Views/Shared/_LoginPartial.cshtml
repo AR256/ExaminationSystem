@@ -1,0 +1,80 @@
+﻿@using System.Security.Claims
+@using ITIExaminationSyustem.Repositories;
+@if (User.Identity.IsAuthenticated)
+{
+        Claim idClaim = User.FindFirst("id");
+
+        int userId;
+        bool validId = int.TryParse(idClaim.Value, out userId);
+
+    @if(User.IsInRole("Admin"))
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Department" asp-action="DepartmentList" asp-route-branchId="@int.Parse(User.FindFirst("adminBranch").Value)">Departments</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="LogOut">Log out @User.Identity.Name</a>
+        </li>
+    }
+    else if (User.IsInRole("Student"))
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="StudentCourses" asp-route-id="@int.Parse(User.FindFirst("studentId").Value)">My Courses</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="LogOut">Log out @User.Identity.Name</a>
+        </li>
+    }
+    else if (User.IsInRole("Instructor"))
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Department" asp-action="InsDeptList" asp-route-insId="@int.Parse(User.FindFirst("InstructorID").Value)">My Departments</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="LogOut">Log out @User.Identity.Name</a>
+        </li>
+    }
+    else if (User.IsInRole("DeptManager"))
+    {
+
+    }
+    else if (User.IsInRole("SuperAdmin"))
+    {
+    <li class="nav-item">
+    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Index">Student</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Branch" asp-action="Index">Branches</a>
+    </li>
+    <li class="nav-item">
+
+        <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Admins</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="user" asp-action="Index">Users</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Instructor" asp-action="Index">Instructor</a>
+
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Course" asp-action="Index">Course</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Role" asp-action="Index">Role</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="LogOut">Log out @User.Identity.Name</a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="MyDetails">Details</a>
+    </li>
+}
+}
