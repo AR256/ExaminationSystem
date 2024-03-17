@@ -25,13 +25,12 @@
                         </div>
                         <h3 class="text-white ">@User.Identity.Name</h3>
                         <div id="user-controls" class="d-flex">
-                            @if (!User.IsInRole("SuperAdmin"))
-                            {
+                            
                                 <a class="nav-link text-white me-1" asp-area="" asp-controller="Account" asp-action="MyDetails">
                                     <i class="fa-solid fa-circle-info"></i>
                                     <span class="d-none d-sm-inline">Details</span>
                                 </a>
-                            }
+                            
 
                             <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="LogOut">
                                 <i class="fa-solid fa-right-from-bracket"></i>

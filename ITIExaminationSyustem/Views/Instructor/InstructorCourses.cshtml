@@ -25,8 +25,8 @@
                     <td>@item.Crs_Exam_Duration</td>
                     <td>@item.Course_Exam_StartDate</td>
                     <td>
-                        <a asp-action="Details" asp-controller="Course" asp-route-id="@item.Course_Id" class="btn btn-dark">Details</a>
-                        <a asp-action="DisplayStudents" asp-controller="Course" asp-route-id="@item.Course_Id" class="btn btn-dark">View Students</a>
+                        <a asp-action="CourseDetails" asp-controller="Course" asp-route-id="@item.Course_Id" class="btn btn-dark">Details</a>
+                        <a asp-action="DisplayStudents" asp-controller="Student" asp-route-id="@item.Course_Id" class="btn btn-dark">View Students</a>
                     </td>
                 </tr>
            }
