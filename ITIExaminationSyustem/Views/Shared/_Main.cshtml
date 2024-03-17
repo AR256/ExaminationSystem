@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    
+    <link rel="icon" href="~/favicon.png" type="image/x-icon" />
+
     <link rel="stylesheet" href="~/ITIExaminationSyustem.styles.css" asp-append-version="true" />
 </head>
 
@@ -15,7 +16,7 @@
 <body class="bg-dark min-vh-100">
 
    <header>
-        <nav class="navbar navbar-expand-lg bg-dark flex-column">
+        <nav class="navbar navbar-expand-lg  flex-column">
 
             <div class="container-fluid d-flex flex-column">
                 <div class="mt-4">
@@ -23,19 +24,24 @@
                         <div class="img-container">
                             <img src="@User.FindFirst("image")?.Value" alt="profile image" class="img-fluid">
                         </div>
-                        <h3 class="text-white ">@User.Identity.Name</h3>
+                        <h5 class="text-white ">@User.Identity.Name</h5>
                         <div id="user-controls" class="d-flex">
-                            
-                                <a class="nav-link text-white me-1" asp-area="" asp-controller="Account" asp-action="MyDetails">
-                                    <i class="fa-solid fa-circle-info"></i>
-                                    <span class="d-none d-sm-inline">Details</span>
-                                </a>
-                            
 
-                            <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="LogOut">
-                                <i class="fa-solid fa-right-from-bracket"></i>
-                                <span class="d-none d-sm-inline">Log out</span>
-                            </a>
+                            <ul class="navbar-nav d-flex flex-column ps-2 justify-content-center ">
+                                <li class="nav-item">
+                                    <a class="nav-link text-white me-1" asp-area="" asp-controller="Account" asp-action="MyDetails">
+                                        <i class="fa-solid fa-circle-info"></i>
+                                        <span class="d-none d-sm-inline">Details</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="LogOut">
+                                        <i class="fa-solid fa-right-from-bracket"></i>
+                                        <span class="d-none d-sm-inline">Log out</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            
                         </div>
                             
                         
@@ -47,18 +53,26 @@
 
                     <div class="" id="navbarNav">
 
-                        <ul class="navbar-nav d-flex flex-column   ps-2 justify-content-center">
+                        <ul class="navbar-nav d-flex flex-column   ps-2 justify-content-center ">
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index")">
+                                    <i class="fa-solid fa-house"></i>
+                                    <span class="d-none d-sm-inline">Home</span>
+                                </a>
+                            </li>
 
                             <partial name="_LoginPartial" />
-
-                            
-
-                        </ul>
+                    </ul>
+                       
 
                     </div>
                 </div>
         </nav>
    </header>
+
+
+
+
 
 
 
@@ -80,7 +94,7 @@
         </div>
 
         
-        <footer class="bg-dark  text-white p-3 ">
+        <footer class="text-white px-3 pt-2">
             <div class="row">
 
                 <div class="col-md-6" id="footer-details">
@@ -100,23 +114,23 @@
 
                         <div class="line mb-1">
                             <div class="icon me-1"><i class="fa-solid fa-location-dot"></i></div>
-                            <div class="text"><p class="mb-0">A108 Adam Street, New York, NY 535022</p></div>
+                            <div class="text"><p class="mb-0">Smart Village building B148 - 28 Km by Cairo</p></div>
                         </div>
 
                         <div class="line mb-1">
                             <div class="icon me-1"><i class="fa-solid fa-envelope"></i></div>
-                            <div class="text"><a class="text-white text-decoration-none" href="mailto:contact@example.com">contact@example.com</a></div>
+                            <div class="text"><a class="text-white text-decoration-none" href="mailto:ITIinfo@Iti.Gov.Eg">ITIinfo@Iti.Gov.Eg</a></div>
                         </div>
 
                         <div class="line mb-1">
                             <div class="icon me-1"><i class="fa-solid fa-phone"></i></div>
-                            <div class="text"><a class="text-white text-decoration-none" href="tel:+5589 55488 55">+1 5589 55488 55</a></div>
+                            <div class="text"><a class="text-white text-decoration-none" href="tel:+17002">17002</a></div>
                         </div>
                     </div>
 
                     <div class="social">
-                        <h3>Social Media</h3>
-                        <ul>
+                        <h3 class="p-0 mb-0">Social Media</h3>
+                        <ul class="mb-0">
                             <li>
                                 <a href="https://twitter.com/itichannel2">
                                     <i class="fa-brands fa-twitter"></i>
@@ -128,8 +142,8 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="https://www.youtube.com/user/itichannel"
-                    <i class="fa-brands fa-youtube"></i></a>
+                                <a href="https://www.youtube.com/user/itichannel">
+                                     <i class="fa-brands fa-youtube"></i></a>
                             </li>
                             <li>
                                 <a href="https://www.linkedin.com/school/information-technology-institute-iti-/mycompany/verification/">
