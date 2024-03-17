@@ -3,7 +3,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Branch Details</h1>
+<h1>Branches Details</h1>
 
 <table class="table table-hover table-striped">
     <thead>
@@ -16,17 +16,18 @@
     <tbody>
         @foreach(var item in Model)
         {
-        <tr>
-            <td>@item.Branch_Name</td>
-            <td>@item.Branch_Manager_Name</td>
-            <td>
-                <a asp-action="Details" asp-controller="Branch" asp-route-Id="@item.Branch_Id" class="btn btn-dark">Details</a>
-                <a asp-action="Edit" asp-controller="Branch" asp-route-Id="@item.Branch_Id" class="btn btn-dark">Edit</a>
-                <a asp-action="Delete" asp-controller="Branch" asp-route-Id="@item.Branch_Id" class="btn btn-danger">Delete</a>
-            </td>
-        </tr>
+            <tr>
+                <td>@item.Branch_Name</td>
+                <td>@item.Branch_Manager_Name</td>
+                <td>
+                    <a asp-action="Details" asp-controller="Branch" asp-route-Id="@item.Branch_Id" class="btn btn-dark">Details</a>
+                    <a asp-action="Edit" asp-controller="Branch" asp-route-Id="@item.Branch_Id" class="btn btn-dark">Edit</a>
+                    <a asp-action="DepartmentList" asp-controller="Department" asp-route-branchId="@item.Branch_Id" class="btn btn-dark">Show Departments</a>
+                    <a asp-action="Delete" asp-controller="Branch" asp-route-Id="@item.Branch_Id" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
         }
     
     </tbody>
 </table>
-        <a asp-action="AddBranch" asp-controller="Branch" class="btn btn-dark mt-3">Add a branch</a>
+<a asp-action="AddBranch" asp-controller="Branch" class="btn btn-dark mt-3">Add a branch</a>

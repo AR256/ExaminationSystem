@@ -8,17 +8,17 @@
 <form asp-action="Edit" asp-controller="Admin" method="post">
     @* <input type="hidden" asp-for="@Model.Admin_Id"/> *@
     <div class="form-group">
-        <label asp-for="@Model.Navigation_User.User_Email"></label>
+        <label asp-for="@Model.Navigation_User.User_Email">User Email</label>
         <select disabled asp-for="Admin_User_Id" class="form-control" asp-items="@(new SelectList(ViewBag.Email, "Admin_User_Id", "User_Email"))">
         </select>
     </div>
     <div class="form-group">
-        <label asp-for="@Model.Navigation_Branch.Branch_Name"></label>
+        <label asp-for="@Model.Navigation_Branch.Branch_Name">Brnach Email</label>
         <select asp-for="Admin_Branch_Id" class="form-control" asp-items="@(new SelectList( ViewBag.Branchlist, "Admin_Branch_Id", "Branch_Name"))">
         </select>
     </div>
 
-    <input type="submit" value="Save" class="btn btn-danger" />
+    <input type="submit" value="Save" class="btn btn-danger mt-3" />
 </form>
 
-<a asp-action="Index" asp-controller="admin" class="btn btn-info">BackToList</a>
+<a asp-action="Index" asp-controller="admin" class="btn btn-dark mt-3">Back To List</a>

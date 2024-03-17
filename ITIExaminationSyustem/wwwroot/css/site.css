@@ -38,11 +38,12 @@ nav {
     width: 165px;
     transition: all 0.5s;
     z-index: 1000;
+    background-color: #495057;
 }
 
 
 .navbar-nav li a:hover, #user-controls a:hover {
-    background-color: rgb(92, 92, 225);
+    background-color: #DC3545;
 }
 
 .img-container {
@@ -59,12 +60,14 @@ nav {
 }
 
 #navbarNav ul li a {
-    padding-bottom:2px;
+    padding-bottom: 2px;
+    border-radius: 10px;
 }
 
-#user-controls a{
-    padding:0;
-    font-size:14px;
+#user-controls a {
+    padding: 5px;
+    font-size: 14px;
+    border-radius: 10px;
 }
 
 
@@ -118,13 +121,16 @@ nav {
     height: 40px;
 }
 
-.cont .touch .line .icon i {
+.social ul li a i:hover {
+    color: #DC3545;
+}
+
+    .cont .touch .line .icon i {
         font-size: 22px;
         font-weight: 900;
-        cursor: pointer;
-        color: var(--color-primary);
+        cursor: pointer;        
     }
-
+    
 .cont .touch .line p {
     padding: 0;
     margin: 0;
@@ -165,8 +171,11 @@ nav {
                 color: #fff;
                 text-decoration: none;
             }
+    .social ul li a i {
+        transition: all 0.2s;
+    }
 
-.social h3 {
+    .social h3 {
         padding: 10px;
         position: relative;
         font-size: 18.7px;
@@ -189,4 +198,7 @@ nav {
 }
 main {
     overflow: auto;
+}
+footer {
+    background-color: #495057;
 }

@@ -23,8 +23,8 @@
                 <td>@item.Navigation_User.User_Name</td>
                 <td>@item.Navigation_Branch.Branch_Name</td>
                 <td>
-                    <a asp-action="Details" asp-controller="Admin" asp-route-Id="@item.Admin_Id" class="btn btn-info">Details</a>
-                    <a asp-action="Edit" asp-controller="Admin" asp-route-Id="@item.Admin_Id" class="btn btn-info">Edit</a>
+                    <a asp-action="Details" asp-controller="Admin" asp-route-Id="@item.Admin_Id" class="btn btn-dark">Details</a>
+                    <a asp-action="Edit" asp-controller="Admin" asp-route-Id="@item.Admin_Id" class="btn btn-dark">Edit</a>
                     <a asp-action="Delete" asp-action="Delete" asp-controller="User" asp-route-id="@item.Navigation_User.User_Id" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
@@ -33,6 +33,6 @@
     </tbody>
 </table>
 
-<a asp-action="Add" asp-controller="Admin" class="btn btn-info">Add</a>
+<a asp-action="Add" asp-controller="Admin" class="btn btn-dark">Add an Admin</a>
 
 
