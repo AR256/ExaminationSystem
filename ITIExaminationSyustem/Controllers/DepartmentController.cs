@@ -142,13 +142,10 @@ namespace ITIExaminationSyustem.Controllers
             }
         }
 
-        public IActionResult Create(int? branchId) //Handle the case of displaying branches list for admin/superadmin
+        public IActionResult Create() //Handle the case of displaying branches list for admin/superadmin
         {
                 DepartmentViewModel departmentViewModel = new();
-                if (branchId == null)
-                    departmentViewModel.branches = _branchRepo.GetAll();
-                else
-                    departmentViewModel.branches[0] = _branchRepo.GetById(branchId.Value);
+                departmentViewModel.branches = _branchRepo.GetAll();
                 departmentViewModel.mainDepartments = _mainDeptRepo.GetAll();
                 departmentViewModel.instructors = _instructorRepo.GetAll();
                 if (departmentViewModel.branches != null && departmentViewModel.mainDepartments != null && departmentViewModel.instructors != null)
