@@ -6,14 +6,7 @@
     SelectList instructors = new SelectList(Model.instructors, "Instructor_Id", "Navigation_User.User_Name");
 }
 <label>Branch</label>
-@if(@Model.branches.Count > 1)
-{
     <select asp-for="Brch_Id" asp-items="branches"></select>
-}
-else
-{
-    <input disabled asp-for="Brch_Id" value="@Model.branches[0].Branch_Name"/>
-}
 <br />
 <label>Department</label>
 <select asp-for="MainDept_Id" asp-items="mainDepartments"></select>
