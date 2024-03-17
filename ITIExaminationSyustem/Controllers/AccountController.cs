@@ -24,7 +24,15 @@ namespace ITIExaminationSyustem.Controllers
         [HttpGet]
         public IActionResult Login(LoginViewModel loginViewModel,int? dum)
         {
-            return View();
+            if(User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View();
+            }
+            
         }
 
         [HttpPost]
