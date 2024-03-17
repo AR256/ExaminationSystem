@@ -65,7 +65,6 @@ namespace ITIExaminationSyustem.Repositories
                     }
                     
                 }
-                
 
                 if(randQs1!=null && randQs2 != null)
                 {
