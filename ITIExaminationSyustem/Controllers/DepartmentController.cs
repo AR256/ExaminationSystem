@@ -144,13 +144,13 @@ namespace ITIExaminationSyustem.Controllers
 
         public IActionResult Create() //Handle the case of displaying branches list for admin/superadmin
         {
-            DepartmentViewModel departmentViewModel = new();
-            departmentViewModel.branches = _branchRepo.GetAll();
-            departmentViewModel.mainDepartments = _mainDeptRepo.GetAll();
-            departmentViewModel.instructors = _instructorRepo.GetAll();
-            if(departmentViewModel.branches != null && departmentViewModel.mainDepartments != null && departmentViewModel.instructors != null)
-                return View(departmentViewModel);
-            return BadRequest();
+                DepartmentViewModel departmentViewModel = new();
+                departmentViewModel.branches = _branchRepo.GetAll();
+                departmentViewModel.mainDepartments = _mainDeptRepo.GetAll();
+                departmentViewModel.instructors = _instructorRepo.GetAll();
+                if (departmentViewModel.branches != null && departmentViewModel.mainDepartments != null && departmentViewModel.instructors != null)
+                    return View(departmentViewModel);
+                return BadRequest();
         }
 
         [HttpPost]
@@ -294,8 +294,7 @@ namespace ITIExaminationSyustem.Controllers
             return departmentViewModel;
         }
 
-        //Admin Role --> this method should have no params & receives branchId from cookie
-        public IActionResult DepartmentList(int? branchId) //return list of departments per branch
+        public IActionResult DepartmentList(int? branchId) 
         {
             if(branchId == null)
                 return BadRequest();
@@ -328,6 +327,45 @@ namespace ITIExaminationSyustem.Controllers
                     List<DepartmentInstructors> departmentInstructors = fetchedInstructor.Navigation_Department_Instructor.Where(deptIns => deptIns.Ins_Id == insId.Value).ToList();
                     
                     return View(departmentInstructors);
+                }
+            }
+        }
+
+        public IActionResult MgrDeptList(int? insId) //return list of departments per branch
+        {
+            if (insId == null)
+                return BadRequest();
+            else
+            {
+                Instructor fetchedInstructor = _instructorRepo.GetById(insId.Value);
+                if (fetchedInstructor == null)
+                    return NotFound();
+                else
+                {
+                    List<Department> departments = _departmentRepo.GetAll().Where(dept => dept.Department_MgrId == insId).ToList();
+
+                    return View(departments);
+                }
+            }
+        }
+
+        public IActionResult DisplayDeptCourses(int? id)
+        {
+            if (id == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                Department fetchedDepartment = _departmentRepo.GetById(id.Value);
+                if (fetchedDepartment == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    List<Course> courses = _departmentRepo.GetCourses(id.Value).ToList();
+                    return View(courses);
                 }
             }
         }

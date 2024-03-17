@@ -16,22 +16,16 @@
     <link rel="stylesheet" href="~/ITIExaminationSyustem.styles.css" asp-append-version="true" />
 </head>
     <body class="p-0">
-    <a class="navbar-brand text-white fs-6 d-none d-sm-inline" href="#">
-    <div class="min-vh-100 d-flex justify-content-center align-items-center">
-
-        <div id="loginForm" class="row d-flex justify-content-center align-items-center text-center my-5 py-5 m-auto bg-black col-md-6 flex-column">
-            <p style="height:20px" class="fs-1 text-white">Sign In</p>
-            <form asp-action="Login" class="w-50 d-flex flex-column justify-content-center p-4">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input asp-for="User_Email" class="mt-3 form-control login-input rounded-pill" placeholder="Email" />
-                <span asp-validation-for="User_Email" class="text-danger"></span>
-                <input asp-for="User_Password" class="mt-3 form-control login-input rounded-pill" type="password" placeholder="Password" />
-                <span asp-validation-for="User_Password" class="text-danger"></span>
-                <input type="submit" value="Sign In" class="mt-3 btn btn-warning rounded-pill" />
-                <h5 class="text-secondary">- or -</h5>
-                <a asp-action="Register" asp-controller="Account" class="btn btn-warning rounded-pill">Register</a>
-            </form>
-        </div>
+    <div id="loginForm" class="row d-flex justify-content-center align-items-center text-center my-5 m-auto bg-dark col-md-6 flex-column p-5 rounded">
+        <p style="height:20px" class="fs-1 text-white">Sign In</p>
+        <form asp-action="Login" class="w-50 d-flex flex-column justify-content-center p-4">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="User_Email" class="mt-3 form-control login-input rounded-pill" placeholder="Email" />
+            <span asp-validation-for="User_Email" class="text-danger"></span>
+            <input asp-for="User_Password" class="mt-3 form-control login-input rounded-pill" type="password" placeholder="Password" />
+            <span asp-validation-for="User_Password" class="text-danger"></span>
+            <input type="submit" value="Sign In" class="mt-3 btn btn-outline-danger rounded-pill" />
+        </form>
     </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
