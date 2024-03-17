@@ -121,13 +121,16 @@ nav {
     height: 40px;
 }
 
-.cont .touch .line .icon i {
+.social ul li a i:hover {
+    color: #DC3545;
+}
+
+    .cont .touch .line .icon i {
         font-size: 22px;
         font-weight: 900;
-        cursor: pointer;
-        color: var(--color-primary);
+        cursor: pointer;        
     }
-
+    
 .cont .touch .line p {
     padding: 0;
     margin: 0;
@@ -168,8 +171,11 @@ nav {
                 color: #fff;
                 text-decoration: none;
             }
+    .social ul li a i {
+        transition: all 0.2s;
+    }
 
-.social h3 {
+    .social h3 {
         padding: 10px;
         position: relative;
         font-size: 18.7px;
