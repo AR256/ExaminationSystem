@@ -4,8 +4,10 @@ using ITIExaminationSyustem.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace ITIExaminationSyustem.Controllers
 {
+    [Authorize]
     [Authorize(Roles=("SuperAdmin"))]
     public class AdminController : Controller
     {
