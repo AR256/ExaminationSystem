@@ -1,10 +1,14 @@
-﻿using ITIExaminationSyustem.Interfaces;
+﻿
+using ITIExaminationSyustem.Interfaces;
 using ITIExaminationSyustem.Models;
 using ITIExaminationSyustem.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
 
 namespace ITIExaminationSyustem.Controllers
 {
+    [Authorize]
     public class ExamController : Controller
     {
         IExamRepo _examRepo;
@@ -56,7 +60,9 @@ namespace ITIExaminationSyustem.Controllers
                 _examQuestionRepo.CheckAnswer(examQs);
             }
 
-            return RedirectToAction("Home");
+
+            return RedirectToAction("Index","Home");
+
         }
 
         public IActionResult DisplayExamTemplate(int? examId, bool? isAnswered)

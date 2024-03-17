@@ -24,7 +24,15 @@ namespace ITIExaminationSyustem.Controllers
         [HttpGet]
         public IActionResult Login(LoginViewModel loginViewModel,int? dum)
         {
-            return View();
+            if(User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View();
+            }
+            
         }
 
         [HttpPost]
@@ -39,12 +47,14 @@ namespace ITIExaminationSyustem.Controllers
               var nameClaim = new Claim(ClaimTypes.Name , user.User_Name);
               var emailClaim = new Claim(ClaimTypes.Email , user.User_Email);
               var idClaim = new Claim("id",user.User_Id.ToString());
+            var imageClaim = new Claim("image",user?.User_Image??"");
 
 
               ClaimsIdentity claimIdentity = new ClaimsIdentity("Cookies");
               claimIdentity.AddClaim(nameClaim);
               claimIdentity.AddClaim(emailClaim);
               claimIdentity.AddClaim(idClaim);
+              claimIdentity.AddClaim(imageClaim);
               //adding each role of the user
               foreach (var item in user.Navigation_Roles)
               {
@@ -57,15 +67,15 @@ namespace ITIExaminationSyustem.Controllers
                         claimIdentity.AddClaim(adminClaim);
                         break;
                     case "Student":
-                        var studentClaim = new Claim("studentId", user.Navigation_Student.Student_Id.ToString());
+                        var studentClaim = new Claim("studentID", user.Navigation_Student.Student_Id.ToString());
                         claimIdentity.AddClaim(studentClaim);
                         break;
                     case "Instructor":
                         var InstructorClaim = new Claim("InstructorID", user.Navigation_Instructor.Instructor_Id.ToString());
                         claimIdentity.AddClaim(InstructorClaim);
                         break;
-                    case "DeptInstructor":
-                        var DeptInstructorClaim = new Claim("DeptInstructorID", user.Navigation_Instructor.ToString());
+                    case "DeptManager":
+                        var DeptInstructorClaim = new Claim("DeptManagerID", user.Navigation_Instructor.Instructor_Id.ToString());
                         claimIdentity.AddClaim(DeptInstructorClaim);
                         break;
                         default:
@@ -84,7 +94,7 @@ namespace ITIExaminationSyustem.Controllers
         async public Task<IActionResult> LogOut()
         {
             await HttpContext.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login");
 
         }
 
@@ -103,17 +113,36 @@ namespace ITIExaminationSyustem.Controllers
                var user = _userRepo.GetById(id);
                 if (Roles.Contains("Student"))
                 {
-                    var studentId = user?.Navigation_Student?.Student_Id;
-                    return RedirectToAction("Details", "Student", new { id = studentId });
-                }else if (Roles.Contains("Instructor"))
+                    var userId = user?.User_Id;
+                    return RedirectToAction("UserDetails", "User", new { id = userId });
+                    //var studentId = user?.Navigation_Student?.Student_Id;
+                    //return RedirectToAction("Details", "Student", new { id = studentId });
+                }
+                else if (Roles.Contains("Instructor"))
                 {
-                    var instrucotrId = user?.Navigation_Instructor?.Instructor_Id;
-                    return RedirectToAction("Details", "Instructor", new { id = instrucotrId });
-
-                }else if (Roles.Contains("Admin"))
+                    var userId = user?.User_Id;
+                    return RedirectToAction("UserDetails", "User", new { id = userId });
+                    //var instrucotrId = user?.Navigation_Instructor?.Instructor_Id;
+                    //return RedirectToAction("Details", "Instructor", new { id = instrucotrId });
+                }
+                else if (Roles.Contains("Admin"))
                 {
-                    var adminId = user?.Navigation_Admin?.Admin_Id;
-                    return RedirectToAction("Details", "Admin",new {id=adminId});
+                    var userId = user?.User_Id;
+                    return RedirectToAction("UserDetails", "User", new { id = userId });
+                    //var adminId = user?.Navigation_Admin?.Admin_Id;
+                    //return RedirectToAction("Details", "Admin", new { id = adminId });
+                }
+                else if (Roles.Contains("DeptManager"))
+                {
+                    var userId = user?.User_Id;
+                    return RedirectToAction("UserDetails", "User", new { id = userId });
+                    //var instrucotrId = user?.Navigation_Instructor?.Instructor_Id;
+                    //return RedirectToAction("Details", "Instructor", new { id = instrucotrId });
+                }
+                else if (Roles.Contains("SuperAdmin"))
+                {
+                    var userId = user?.User_Id;
+                    return RedirectToAction("UserDetails", "User", new { id = userId });
                 }
             }
             return NotFound();

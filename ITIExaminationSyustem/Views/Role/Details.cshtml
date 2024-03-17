@@ -1,22 +1,10 @@
 ﻿@model Role
 @{
-    Layout = "_layout";
+    
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Details</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-
-</head>
-<body>
-    <table class="table table-info table-hover">
-        <tr><td>Role ID</td> <td>@Model.Role_Id</td></tr>
-        <tr><td>Role Type</td> <td>@Model.Role_Type</td></tr>
-    </table>
-    <a asp-action="index" asp-controller="role" class="btn btn-info">role List</a>
-</body>
-</html>
+<table class="table table-striped table-hover">
+    <tr><td>Role ID</td> <td>@Model.Role_Id</td></tr>
+    <tr><td>Role Type</td> <td>@Model.Role_Type</td></tr>
+</table>
+<a asp-action="index" asp-controller="role" class="btn btn-dark">Back To List</a>

@@ -3,7 +3,7 @@
     ViewBag.Title = "Instructors";
 }
 <h1>Instructors</h1>
-<table class="table table-hover table-bordered">
+<table class="table table-hover table-striped">
     <thead>
         <th>Image</th>
         <th>Name</th>
@@ -19,12 +19,12 @@
                 <td>@item.Instructor_Name</td>
                 <td>@item.Instructor_Email</td>
                 <td>
-                    <a class="btn btn-success" asp-route-id="@item.Instructor_Id" asp-action="Edit">Edit</a>|
-                    <a class="btn btn-success" asp-route-id="@item.Instructor_Id" asp-action="Details">Details</a>|
+                    <a class="btn btn-dark" asp-route-id="@item.Instructor_Id" asp-action="Details">Details</a>|
+                    <a class="btn btn-dark" asp-route-id="@item.Instructor_Id" asp-action="Edit">Edit</a>|
                     <a class="btn btn-danger" asp-action="Delete" asp-controller="User" asp-route-id="@item.Instructor_User_Id">Delete</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
-<a class="btn btn-outline-info" asp-action="Add">Add Instructor</a>
+<a class="btn btn-dark" asp-action="Add">Add an Instructor</a>

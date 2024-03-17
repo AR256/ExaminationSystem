@@ -3,7 +3,7 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1>Edit Branch</h1>
 
 <form asp-action="Update" asp-controller="Branch" method="post">
     <input type="hidden" asp-for="@Model.Branch_Id" />
@@ -15,7 +15,7 @@
         <label asp-for="@Model.Branch_Manager_Name"></label>
         <input asp-for="@Model.Branch_Manager_Name" type="text" class="form-control" placeholder="Enter Manager Name">
     </div>
-    <input type="submit" value="Update" class="btn btn-danger" />
+    <input type="submit" value="Update" class="btn btn-danger mt-2" />
 </form>
 
-<a asp-action="Index" asp-controller="Branch" class="btn btn-info">BackToList</a>
+<a asp-action="Index" asp-controller="Branch" class="btn btn-dark mt-3">Back To List</a>

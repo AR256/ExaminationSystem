@@ -1,12 +1,10 @@
-﻿@model ITIExaminationSyustem.Models.Course
+@model ITIExaminationSyustem.Models.Course
 
 @{
     ViewData["Title"] = "Details";
 }
-
 <partial name="CourseDetails" />
 
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
-</div>
+@* <div>
+    <a asp-action="Index" asp-controller="Course" class="btn btn-dark mt-3">Back to List</a>
+</div> *@

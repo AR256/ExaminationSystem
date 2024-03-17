@@ -27,6 +27,8 @@ namespace ITIExaminationSyustem.Repositories
         public List<ExamQs> GenerateExam(int crsId, int stdId)
         {
             List<ExamQs> examlist = new List<ExamQs>();
+            StudentCourse studentCourse = _context.StudentCourses.SingleOrDefault(stdCrs => stdCrs.Std_Id == stdId && stdCrs.Crs_Id == crsId);
+            studentCourse.HasTakenExam = true;
             // generate exam 
             var exam = new Exam { Crs_Id = crsId, StudId = stdId, Grade = 0 };
             _context.Exams.Add(exam);
@@ -63,7 +65,6 @@ namespace ITIExaminationSyustem.Repositories
                     }
                     
                 }
-                
 
                 if(randQs1!=null && randQs2 != null)
                 {

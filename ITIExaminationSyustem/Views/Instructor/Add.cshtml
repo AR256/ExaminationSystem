@@ -13,14 +13,14 @@
         <th>User Email</th>
         <th>operation</th>
     </thead>
-    <<tbody>
+    <tbody>
         @foreach (var item in ViewBag.Users)
         {
             <tr>
                 <td>@item.User_Name</td>
                 <td>@item.User_Email</td>
                 <td>
-                    <a class="btn btn-info" asp-action="AddInstructor" asp-route-id="@item.User_Id">Add</a>
+                    <a class="btn btn-dark" asp-action="AddInstructor" asp-route-id="@item.User_Id">Add</a>
                 </td>
             </tr>
         }

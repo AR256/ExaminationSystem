@@ -5,11 +5,9 @@
     SelectList mainDepartments = new SelectList(Model.mainDepartments, "MainDepartment_Id", "MainDepartment_Name");
     SelectList instructors = new SelectList(Model.instructors, "Instructor_Id", "Navigation_User.User_Name");
 }
-
 <label>Branch</label>
-<select asp-for="Brch_Id" asp-items="branches"></select>
+    <select asp-for="Brch_Id" asp-items="branches"></select>
 <br />
-
 <label>Department</label>
 <select asp-for="MainDept_Id" asp-items="mainDepartments"></select>
 <br />
