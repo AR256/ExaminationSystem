@@ -27,7 +27,7 @@
                 <td>@item.Ins_Feedback</td>
                 <td>
                     @{
-                    fetchedExam = @allExams.Where(exam => exam.Crs_Id == item.Crs_Id && exam.StudId == item.Std_Id).FirstOrDefault();
+                    fetchedExam = @allExams.Where(exam => exam.Crs_Id == item.Crs_Id && exam.StudId == item.Std_Id).LastOrDefault();
                     }
                     @if(fetchedExam == null)
                     {
