@@ -29,9 +29,17 @@
     else if (User.IsInRole("Instructor"))
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Department" asp-action="InsDeptList" asp-route-insId="@int.Parse(User.FindFirst("InstructorID").Value)">My Departments</a>
+            <a class="nav-link text-white" asp-area="" asp-controller="Department" asp-action="InsDeptList" asp-route-id="@int.Parse(User.FindFirst("InstructorID").Value)">
+                <i class="fa-solid fa-building-columns"></i>
+                <span class="d-none d-sm-inline">My Departments</span>
+            </a>
         </li>
-      
+        <li class="nav-item">
+            <a class="nav-link text-white" asp-area="" asp-controller="Question" asp-action="Index">
+                <i class="fa-solid fa-book"></i>
+                <span class="d-none d-sm-inline">Question bank</span>
+            </a>
+        </li>
     }
     else if (User.IsInRole("DeptManager"))
     {
