@@ -60,7 +60,7 @@ namespace ITIExaminationSyustem.Controllers
                 _examQuestionRepo.CheckAnswer(examQs);
             }
 
-            return RedirectToAction("Home");
+            return RedirectToAction( "Index", "Home");
         }
 
         public IActionResult DisplayExamTemplate(int? examId, bool? isAnswered)
