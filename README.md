@@ -1,1 +1,1 @@
-# ITIExaminationSyustem
+# ITI Examination System
