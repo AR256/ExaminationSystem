@@ -3,9 +3,10 @@
     ViewData["Title"] = "StudentCourses";
     List<Exam> allExams = ViewBag.ExamsList;
     Exam fetchedExam = null;
+    DateTime? deadLineDate = null;
 }
 
-<h1>StudentCourses</h1>
+<h1>Student Courses</h1>
 
 <table class="table table-bordered table-hover">
     <thead>
@@ -23,18 +24,53 @@
                 <td>@item.Navigation_Course.Course_Duration</td>
                 <td>
                     @item.Navigation_Course.Course_Exam_StartDate
-                    <button data-course-id="@item.Crs_Id" data-exam-date="@item.Navigation_Course.Course_Exam_StartDate" data-has-taken-exam="@item.HasTakenExam.ToString().ToLower()" asp-action="TakeExam" asp-controller="Exam" asp-route-stdId="@Model.Student_Id" asp-route-crsId="@item.Crs_Id" class="btn btn-danger TakeExamBtn" disabled>Take Exam</button>
-                    @{
-                        fetchedExam = @allExams.Where(exam => exam.Crs_Id == item.Crs_Id && exam.StudId == item.Std_Id).LastOrDefault();
-                    }
-                    @if (fetchedExam == null)
+
+                    @{deadLineDate = @item.Navigation_Course.Course_Exam_StartDate.AddHours(1);}
+
+                    @if ((DateTime.Now > @item.Navigation_Course.Course_Exam_StartDate) && (DateTime.Now < @deadLineDate) && (@item.HasTakenExam == false))
                     {
-                        <button class="btn btn-info" disabled>View Exam</button>
+                        <a asp-action ="TakeExam" asp-controller="Exam" asp-route-stdId="@Model.Student_Id" asp-route-crsId="@item.Crs_Id" class="btn btn-danger TakeExamBtn">Take Exam</a>
+                        fetchedExam = @allExams.Where(exam => exam.Crs_Id == item.Crs_Id && exam.StudId == item.Std_Id).LastOrDefault();
+                        if(fetchedExam == null)
+                        {
+                            <button class="btn btn-info" disabled>View Exam</button>
+                        }
+                        else
+                        {
+                            if (@item.HasTakenExam == true)
+                            {
+                                <a asp-action="DisplayExamTemplate" asp-controller="Exam" asp-route-examId="@fetchedExam.Exam_Id" asp-route-isAnswered="@true" class="btn btn-info ViewExamBtn">View Exam</a>
+                            }
+                            else
+                            {
+                                <button class="btn btn-info" disabled>View Exam</button>
+                            }
+                            fetchedExam = null;
+                        }
                     }
                     else
                     {
-                        <button data-has-taken-exam="@item.HasTakenExam.ToString().ToLower()" asp-action="DisplayExamTemplate" asp-controller="Exam" asp-route-examId="@fetchedExam.Exam_Id" asp-route-isAnswered="@true" class="btn btn-info ViewExamBtn" disabled>View Exam</button>
-                        fetchedExam = null;
+                        <button class="btn btn-danger" disabled>Take Exam</button>
+                        fetchedExam = @allExams.Where(exam => exam.Crs_Id == item.Crs_Id && exam.StudId == item.Std_Id).LastOrDefault();
+                        if (fetchedExam == null)
+                        {
+                            <button class="btn btn-info" disabled>View Exam</button>
+                        }
+                        else
+                        {
+                            if (@item.HasTakenExam == true)
+                            {
+                                <a asp-action="DisplayExamTemplate" asp-controller="Exam" asp-route-examId="@fetchedExam.Exam_Id" asp-route-isAnswered="@true" class="btn btn-info ViewExamBtn">View Exam</a>
+                            }
+                            else
+                            {
+                                <button class="btn btn-info" disabled>View Exam</button>
+                            }
+                            fetchedExam = null;
+                        }
+                    }
+                    @{
+                        deadLineDate = null;
                     }
                 </td>
                 <td>@item.Grade</td>
@@ -45,7 +81,7 @@
 </table>
 
 
-@section Scripts {
+@* @section Scripts {
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             var takeExamButtons = document.querySelectorAll('.TakeExamBtn');
@@ -77,33 +113,4 @@
         });
     </script>
 }
-
-
-
-
-
-
-
-
-
-
-@* <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var buttons = document.querySelectorAll('.TakeExamBtn');
-
-        buttons.forEach(function (button) {
-            var courseId = button.dataset.courseId;
-            var hasTakenExam = button.dataset.hasTakenExam;
-            var dateOfToday = new Date();
-            var examStartingDate = new Date(button.dataset.examDate);
-            var oneHour = 1 * 60 * 60 * 1000;
-            var examDeadlineDate = new Date(examStartingDate.getTime() + oneHour);
-            var isExamDatePassed = (dateOfToday > examStartingDate) && (dateOfToday < examDeadlineDate) && (hasTakenExam == "false");
-
-            if (isExamDatePassed) {
-                button.disabled = false;
-            }
-        });
-    });
-</script>
-*@
+ *@

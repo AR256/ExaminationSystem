@@ -1,26 +1,44 @@
 ﻿@model List<ExamQs>
 @{
     ViewData["Title"] = "TakeExam";
+    Layout = null;
 }
 
-<div class="container mt-3">
 
-    <h2>Exam</h2>
-    <p>The exam below contains ten questions, five MCQs and five true and false. Please answer all questions:</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <title>Exam</title>
+</head> 
+<body>
 
-    <form method="post">
-        @foreach(var question in Model)
-        {
-            <h5>@question.Navigation_Question.Question_Text</h5>
-            @foreach(var choice in question.Navigation_Question.Navigation_Choices)
+    <div class="container mt-3">
+
+        <h2>Exam</h2>
+        <p>The exam below contains ten questions, five MCQs and five true and false. Please answer all questions:</p>
+
+        <form method="post">
+            @foreach (var question in Model)
             {
-                <div class="form-check">
-                    <input type="radio" class="form-check-input" id="@choice.Choice_Id" name="questions.@question.Q_Id" value="@choice.Choice_Text">
-                    <label class="form-check-label" for="@choice.Choice_Id">@choice.Choice_Text</label>
-                </div>
+                <h5>@question.Navigation_Question.Question_Text</h5>
+                @foreach (var choice in question.Navigation_Question.Navigation_Choices)
+                {
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" id="@choice.Choice_Id" name="questions.@question.Q_Id" value="@choice.Choice_Text">
+                        <label class="form-check-label" for="@choice.Choice_Id">@choice.Choice_Text</label>
+                    </div>
+                }
             }
-        }
 
-        <input type="submit" value="Submit" asp-route-examId="@Model[0].Exam_Id" class="btn btn-primary mt-3" />
-    </form>
-</div>
+            <input type="submit" value="Submit" asp-route-examId="@Model[0].Exam_Id" class="btn btn-dark mt-3" />
+        </form>
+    </div>
+
+
+
+
+</body>
+</html>

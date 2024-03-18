@@ -46,6 +46,10 @@ namespace ITIExaminationSyustem.Repositories
         {
             _context.Departments.Add(department);
             _context.SaveChanges();
+            Department fetchedDepartment = GetById(department.Department_Id);
+            fetchedDepartment.Department_Name = $"{fetchedDepartment.Navigation_MainDepartment.MainDepartment_Name}-{fetchedDepartment.Navigation_Branch.Branch_Name}";
+            _context.Departments.Update(fetchedDepartment);
+            _context.SaveChanges();
         }
         public void Update(Department department)
         {

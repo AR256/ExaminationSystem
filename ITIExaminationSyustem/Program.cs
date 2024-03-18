@@ -18,7 +18,12 @@ namespace ITIExaminationSyustem
             {
                 a.UseSqlServer(builder.Configuration.GetConnectionString("con1"));
             });
-            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
+                options =>
+                {
+                    options.LoginPath= "/Account/Login";
+                }
+                );
             builder.Services.AddScoped<IAdminRepo, AdminRepo>();
             builder.Services.AddScoped<IBranchRepo, BranchRepo>();
             builder.Services.AddScoped<IChoiceRepo, ChoiceRepo>();
@@ -50,7 +55,7 @@ namespace ITIExaminationSyustem
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Account}/{action=Login}/{id?}");
 
             app.Run();
         }
