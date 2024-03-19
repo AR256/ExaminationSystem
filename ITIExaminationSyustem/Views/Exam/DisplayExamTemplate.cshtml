@@ -15,16 +15,38 @@
             @foreach (var choice in question.Navigation_Question.Navigation_Choices)
             {
                 <div class="form-check">
-                    @if(isAnswered == true)
+                    @if(isAnswered == false)
                     {
-                    <input type="radio" class="form-check-input" id="@choice.Choice_Id" name="questions.@question.Q_Id" value="@choice.Choice_Text" checked>
-
+                        <input type="radio" class="form-check-input" id="@choice.Choice_Id" name="questions.@question.Q_Id" value="@choice.Choice_Text">
+                        <label class="form-check-label" for="@choice.Choice_Id">@choice.Choice_Text</label>
+                }
+                else
+                {
+                    if (choice.Choice_Text == question.Student_Answer)
+                    {
+                        <input type="radio" class="form-check-input" id="@choice.Choice_Id" name="questions.@question.Q_Id" value="@choice.Choice_Text" checked>
+                        if (choice.Choice_Text == question.Navigation_Question.Question_Answer)
+                        {
+                            <label class="form-check-label bg-success" for="@choice.Choice_Id">@choice.Choice_Text</label>
+                        }
+                        else
+                        {
+                            <label class="form-check-label bg-danger" for="@choice.Choice_Id">@choice.Choice_Text</label>
+                        }
                     }
                     else
                     {
-                    <input type="radio" class="form-check-input" id="@choice.Choice_Id" name="questions.@question.Q_Id" value="@choice.Choice_Text">
+                        <input type="radio" class="form-check-input" id="@choice.Choice_Id" name="questions.@question.Q_Id" value="@choice.Choice_Text">
+                        if (choice.Choice_Text == question.Navigation_Question.Question_Answer)
+                        {
+                            <label class="form-check-label bg-success" for="@choice.Choice_Id">@choice.Choice_Text</label>
+                        }
+                        else
+                        {
+                            <label class="form-check-label" for="@choice.Choice_Id">@choice.Choice_Text</label>
+                        }
                     }
-                <label class="form-check-label" for="@choice.Choice_Id">@choice.Choice_Text</label>
+                }
                 </div>
             }
         }
