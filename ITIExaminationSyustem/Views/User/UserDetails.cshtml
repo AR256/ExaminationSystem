@@ -29,7 +29,7 @@
         <tr>
             <td>@Model.User_Name</td>
             <td>@Model.User_Email</td>
-            <td>@role</td>
+            <td>@Model.Navigation_Roles.LastOrDefault().Role_Type</td>
             <td>@Model.User_Password</td>
         </tr>
     </tbody>
